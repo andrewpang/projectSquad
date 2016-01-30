@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60C1C5D718200FCFB40 /* libicucore.tbd */; };
+		A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60E1C5D718800FCFB40 /* libc++.tbd */; };
+		A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6101C5D718E00FCFB40 /* CFNetwork.framework */; };
+		A418A6131C5D719300FCFB40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6121C5D719300FCFB40 /* Security.framework */; };
+		A418A6151C5D719F00FCFB40 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6141C5D719F00FCFB40 /* SystemConfiguration.framework */; };
+		A418A6181C5D724900FCFB40 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6171C5D724900FCFB40 /* Firebase.framework */; };
 		A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */; };
 		A4AC5C731C5ABC4900FEF25E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AC5C721C5ABC4900FEF25E /* ViewController.swift */; };
 		A4AC5C761C5ABC4900FEF25E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4AC5C741C5ABC4900FEF25E /* Main.storyboard */; };
@@ -16,6 +22,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A418A60C1C5D718200FCFB40 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		A418A60E1C5D718800FCFB40 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		A418A6101C5D718E00FCFB40 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		A418A6121C5D719300FCFB40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A418A6141C5D719F00FCFB40 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A418A6171C5D724900FCFB40 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
 		A4AC5C6D1C5ABC4900FEF25E /* ProjectSquad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectSquad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4AC5C721C5ABC4900FEF25E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,15 +43,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A418A6151C5D719F00FCFB40 /* SystemConfiguration.framework in Frameworks */,
+				A418A6181C5D724900FCFB40 /* Firebase.framework in Frameworks */,
+				A418A6131C5D719300FCFB40 /* Security.framework in Frameworks */,
+				A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */,
+				A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */,
+				A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A418A6161C5D723900FCFB40 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A418A6171C5D724900FCFB40 /* Firebase.framework */,
+				A418A6141C5D719F00FCFB40 /* SystemConfiguration.framework */,
+				A418A6121C5D719300FCFB40 /* Security.framework */,
+				A418A6101C5D718E00FCFB40 /* CFNetwork.framework */,
+				A418A60E1C5D718800FCFB40 /* libc++.tbd */,
+				A418A60C1C5D718200FCFB40 /* libicucore.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A4AC5C641C5ABC4900FEF25E = {
 			isa = PBXGroup;
 			children = (
+				A418A6161C5D723900FCFB40 /* Frameworks */,
 				A4AC5C6F1C5ABC4900FEF25E /* ProjectSquad */,
 				A4AC5C6E1C5ABC4900FEF25E /* Products */,
 			);
@@ -252,6 +284,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ProjectSquad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
@@ -263,6 +299,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ProjectSquad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
@@ -289,6 +329,7 @@
 				A4AC5C841C5ABC4900FEF25E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
