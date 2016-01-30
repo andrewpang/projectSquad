@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		470F719E1C5D759B00112448 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719B1C5D759B00112448 /* FBSDKCoreKit.framework */; };
+		470F719F1C5D759B00112448 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */; };
+		470F71A01C5D759B00112448 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */; };
 		A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60C1C5D718200FCFB40 /* libicucore.tbd */; };
 		A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60E1C5D718800FCFB40 /* libc++.tbd */; };
 		A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6101C5D718E00FCFB40 /* CFNetwork.framework */; };
@@ -22,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		470F719B1C5D759B00112448 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
+		470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectSquad-Bridging-Header.h"; sourceTree = "<group>"; };
 		A418A60C1C5D718200FCFB40 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		A418A60E1C5D718800FCFB40 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A418A6101C5D718E00FCFB40 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -47,7 +54,10 @@
 				A418A6181C5D724900FCFB40 /* Firebase.framework in Frameworks */,
 				A418A6131C5D719300FCFB40 /* Security.framework in Frameworks */,
 				A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */,
+				470F71A01C5D759B00112448 /* FBSDKMessengerShareKit.framework in Frameworks */,
+				470F719E1C5D759B00112448 /* FBSDKCoreKit.framework in Frameworks */,
 				A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */,
+				470F719F1C5D759B00112448 /* FBSDKLoginKit.framework in Frameworks */,
 				A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,6 +68,9 @@
 		A418A6161C5D723900FCFB40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				470F719B1C5D759B00112448 /* FBSDKCoreKit.framework */,
+				470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */,
+				470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */,
 				A418A6171C5D724900FCFB40 /* Firebase.framework */,
 				A418A6141C5D719F00FCFB40 /* SystemConfiguration.framework */,
 				A418A6121C5D719300FCFB40 /* Security.framework */,
@@ -89,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */,
+				470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */,
 				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
 				A4AC5C741C5ABC4900FEF25E /* Main.storyboard */,
 				A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */,
@@ -292,6 +306,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ProjectSquad/ProjectSquad-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -307,6 +322,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ProjectSquad/ProjectSquad-Bridging-Header.h";
 			};
 			name = Release;
 		};
