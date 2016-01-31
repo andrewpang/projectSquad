@@ -16,6 +16,7 @@
 		A418A6131C5D719300FCFB40 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6121C5D719300FCFB40 /* Security.framework */; };
 		A418A6151C5D719F00FCFB40 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6141C5D719F00FCFB40 /* SystemConfiguration.framework */; };
 		A418A6181C5D724900FCFB40 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6171C5D724900FCFB40 /* Firebase.framework */; };
+		A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418A6191C5D836000FCFB40 /* NetManager.swift */; };
 		A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */; };
 		A4AC5C731C5ABC4900FEF25E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AC5C721C5ABC4900FEF25E /* ViewController.swift */; };
 		A4AC5C761C5ABC4900FEF25E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4AC5C741C5ABC4900FEF25E /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		A418A6121C5D719300FCFB40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A418A6141C5D719F00FCFB40 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A418A6171C5D724900FCFB40 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		A418A6191C5D836000FCFB40 /* NetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetManager.swift; sourceTree = "<group>"; };
 		A4AC5C6D1C5ABC4900FEF25E /* ProjectSquad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectSquad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4AC5C721C5ABC4900FEF25E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,13 +104,14 @@
 			isa = PBXGroup;
 			children = (
 				A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */,
-				470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */,
 				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
 				A4AC5C741C5ABC4900FEF25E /* Main.storyboard */,
 				A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */,
 				A4AC5C7C1C5ABC4900FEF25E /* LaunchScreen.storyboard */,
+				470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */,
 				A4AC5C7F1C5ABC4900FEF25E /* Info.plist */,
 				A4AC5C771C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld */,
+				A418A6191C5D836000FCFB40 /* NetManager.swift */,
 			);
 			path = ProjectSquad;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4AC5C731C5ABC4900FEF25E /* ViewController.swift in Sources */,
+				A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */,
 				A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */,
 				A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */,
 			);
