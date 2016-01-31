@@ -23,6 +23,7 @@ class NetManager {
             } else {
                 print("Login successful! \(authData!)")
                 
+                
                 /* TODO: 
                     1. Write authData data to Firebase
                     2. Create class to store user data locally
