@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
 
@@ -32,12 +33,18 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        
+    func loginButton(loginButton: FBSDKLoginButton?, didCompleteWithResult result: FBSDKLoginManagerLoginResult?, error: NSError?) {
+        if let error = error {
+            print("Error logging in \(error)")
+        } else if let result = result, token = result.token {
+            NetManager.sharedManager.loginWithToken(token)
+        } else {
+            print("Not logged in!")
+        }
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        
+        //print("logged out!")
     }
     
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
