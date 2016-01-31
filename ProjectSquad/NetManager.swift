@@ -29,15 +29,10 @@ class NetManager {
                 let email = authData.providerData["email"] as! String
                 let profPicURL = authData.providerData["profileImageURL"] as! String
                 
-                let data: [String: String] = [
-                    "provider": provider,
-                    "displayname": displayName,
-                    "email": email,
-                    "picURL": profPicURL
-                ]
+                let userData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)
                 
                 let userRef = ref.childByAppendingPath("users").childByAppendingPath(uid)
-                userRef.setValue(data, withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                userRef.setValue(userData.returnUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                     if let error = error {
                         print("Error sending profile info! \(error)")
                     }
