@@ -24,6 +24,8 @@
 		A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4AC5C771C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld */; };
 		A4AC5C7B1C5ABC4900FEF25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */; };
 		A4AC5C7E1C5ABC4900FEF25E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4AC5C7C1C5ABC4900FEF25E /* LaunchScreen.storyboard */; };
+		A4FB4B3B1C7A6441006696C4 /* Squad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB4B3A1C7A6441006696C4 /* Squad.swift */; };
+		A4FB4B3D1C7A6E12006696C4 /* SetUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB4B3C1C7A6E12006696C4 /* SetUsernameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4AC5C7D1C5ABC4900FEF25E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4AC5C7F1C5ABC4900FEF25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4FB4B3A1C7A6441006696C4 /* Squad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Squad.swift; sourceTree = "<group>"; };
+		A4FB4B3C1C7A6E12006696C4 /* SetUsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetUsernameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 				A4AC5C771C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld */,
 				A418A6191C5D836000FCFB40 /* NetManager.swift */,
 				470F71A21C5D8A9700112448 /* User.swift */,
+				A4FB4B3A1C7A6441006696C4 /* Squad.swift */,
+				A4FB4B3C1C7A6E12006696C4 /* SetUsernameViewController.swift */,
 			);
 			path = ProjectSquad;
 			sourceTree = "<group>";
@@ -193,8 +199,10 @@
 			files = (
 				A4AC5C731C5ABC4900FEF25E /* ViewController.swift in Sources */,
 				A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */,
+				A4FB4B3B1C7A6441006696C4 /* Squad.swift in Sources */,
 				A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */,
 				470F71A31C5D8A9700112448 /* User.swift in Sources */,
+				A4FB4B3D1C7A6E12006696C4 /* SetUsernameViewController.swift in Sources */,
 				A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,12 +9,19 @@
 import Foundation
 import Firebase
 
+//protocol NetManagerDelegate {
+//    func loginStatus(success: Bool, hasUsername: Bool)
+//}
+
 class NetManager {
     
     static let sharedManager = NetManager()
+    //var delegate: NetManagerDelegate?
+    private let firebaseRefURL = "https://squad-development.firebaseio.com/"
+    private var currentUserData: User?
     
-    func loginWithToken(token: FBSDKAccessToken) {
-        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+    func loginWithToken(token: FBSDKAccessToken, completionBlock: (success: Bool, hasUsername: Bool) -> Void) {
+        let ref = Firebase(url: self.firebaseRefURL)
         
         ref.authWithOAuthProvider("facebook", token: token.tokenString, withCompletionBlock: { (error: NSError?, authData: FAuthData?) -> Void in
             if let error = error {
@@ -29,12 +36,23 @@ class NetManager {
                 let email = authData.providerData["email"] as! String
                 let profPicURL = authData.providerData["profileImageURL"] as! String
                 
-                let userData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)
+                self.currentUserData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)
                 
                 let userRef = ref.childByAppendingPath("users").childByAppendingPath(uid)
-                userRef.setValue(userData.returnUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
-                    if let error = error {
-                        print("Error sending profile info! \(error)")
+                userRef.updateChildValues(self.currentUserData!.returnUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase!) -> Void in
+                    if error == nil {
+                        firebase.observeSingleEventOfType(.Value, withBlock: { (snapshot: FDataSnapshot!) -> Void in
+                            if snapshot.value["username"]! == nil {
+                                completionBlock(success: true, hasUsername: false)
+                                //self.delegate?.loginStatus(true, hasUsername: false)
+                            } else {
+                                completionBlock(success: true, hasUsername: true)
+                                //self.delegate?.loginStatus(true, hasUsername: true)
+                            }
+                        })
+                    } else {
+                        completionBlock(success: false, hasUsername: false)
+                        //self.delegate?.loginStatus(false, hasUsername: false)
                     }
                 })
                 
@@ -46,5 +64,13 @@ class NetManager {
                 */
             }
         })
+    }
+    
+    func setUsername(username: String, completionBlock: (error: NSError?) -> Void) {
+        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid)
+
+        ref.updateChildValues(["username": username]) { (error: NSError?, firebase: Firebase!) -> Void in
+            completionBlock(error: error)
+        }
     }
 }
