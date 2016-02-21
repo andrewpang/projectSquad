@@ -32,7 +32,7 @@ class NetManager {
                 let userData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)
                 
                 let userRef = ref.childByAppendingPath("users").childByAppendingPath(uid)
-                userRef.setValue(userData.returnUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                userRef.setValue(userData.returnFBUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                     if let error = error {
                         print("Error sending profile info! \(error)")
                     }
@@ -48,15 +48,28 @@ class NetManager {
         })
     }
     
-    func addFriend(uid: String, friendID: String){
+    func addFriend(uid: String, friendID: String, friendUsername: String){
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
         let friendsRef = ref.childByAppendingPath("friendLists").childByAppendingPath(uid)
-        friendsRef.updateChildValues([friendID: true],
+        friendsRef.updateChildValues([friendID: friendUsername],
             withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
             if let error = error {
                 print("Error sending profile info! \(error)")
             }
         })
     }
+    
+    func getFriends(uid: String){
+        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+        let friendsRef = ref.childByAppendingPath("friendLists").childByAppendingPath(uid)
+        friendsRef.observeEventType(.Value, withBlock: { snapshot in
+            print(snapshot)
+            }, withCancelBlock: { error in
+                print(error.description)
+        })
+    
+}
+    
+    
     
 }
