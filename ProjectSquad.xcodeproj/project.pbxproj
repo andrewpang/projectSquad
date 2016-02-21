@@ -11,6 +11,7 @@
 		470F719F1C5D759B00112448 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */; };
 		470F71A01C5D759B00112448 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */; };
 		470F71A31C5D8A9700112448 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F71A21C5D8A9700112448 /* User.swift */; };
+		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
 		A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60C1C5D718200FCFB40 /* libicucore.tbd */; };
 		A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60E1C5D718800FCFB40 /* libc++.tbd */; };
 		A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6101C5D718E00FCFB40 /* CFNetwork.framework */; };
@@ -32,6 +33,7 @@
 		470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectSquad-Bridging-Header.h"; sourceTree = "<group>"; };
 		470F71A21C5D8A9700112448 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A418A60C1C5D718200FCFB40 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		A418A60E1C5D718800FCFB40 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A418A6101C5D718E00FCFB40 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -107,6 +109,7 @@
 			children = (
 				A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */,
 				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
+				471D15411C7A6C2F000EA967 /* Test.swift */,
 				A4AC5C741C5ABC4900FEF25E /* Main.storyboard */,
 				A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */,
 				A4AC5C7C1C5ABC4900FEF25E /* LaunchScreen.storyboard */,
@@ -194,6 +197,7 @@
 				A4AC5C731C5ABC4900FEF25E /* ViewController.swift in Sources */,
 				A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */,
 				A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */,
+				471D15421C7A6C2F000EA967 /* Test.swift in Sources */,
 				470F71A31C5D8A9700112448 /* User.swift in Sources */,
 				A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */,
 			);

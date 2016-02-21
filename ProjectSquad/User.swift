@@ -10,6 +10,7 @@ import Foundation
 
 class User{
     var uid: String
+    var username: String?
     var provider: String
     var displayName: String
     var email: String
@@ -23,7 +24,7 @@ class User{
         self.picURL = picURL
     }
     
-    func returnUserDict() -> [String: String]{
+    func returnFBUserDict() -> [String: String]{
         let data: [String: String] = [
             "provider": self.provider,
             "displayName": self.displayName,

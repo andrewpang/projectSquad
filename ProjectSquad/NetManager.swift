@@ -47,4 +47,16 @@ class NetManager {
             }
         })
     }
+    
+    func addFriend(uid: String, friendID: String){
+        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+        let friendsRef = ref.childByAppendingPath("friendLists").childByAppendingPath(uid)
+        friendsRef.updateChildValues([friendID: true],
+            withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+            if let error = error {
+                print("Error sending profile info! \(error)")
+            }
+        })
+    }
+    
 }
