@@ -10,10 +10,12 @@ import Foundation
 
 class User{
     var uid: String
+    var username: String?
     var provider: String
     var displayName: String
     var email: String
     var picURL: String
+    var friends: [String]?
     
     init(uid: String, provider: String, displayName: String, email: String, picURL: String){
         self.uid = uid
@@ -23,7 +25,7 @@ class User{
         self.picURL = picURL
     }
     
-    func returnUserDict() -> [String: String]{
+    func returnFBUserDict() -> [String: String]{
         let data: [String: String] = [
             "provider": self.provider,
             "displayName": self.displayName,

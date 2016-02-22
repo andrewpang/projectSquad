@@ -15,6 +15,7 @@
 		9C1571C11C7A688C0092F992 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C01C7A688C0092F992 /* Map.swift */; };
 		9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C21C7A6ABF0092F992 /* Extensions.swift */; };
 		9C1571C51C7A73FB0092F992 /* SquadOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C41C7A73FB0092F992 /* SquadOverview.swift */; };
+		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
 		A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60C1C5D718200FCFB40 /* libicucore.tbd */; };
 		A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60E1C5D718800FCFB40 /* libc++.tbd */; };
 		A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6101C5D718E00FCFB40 /* CFNetwork.framework */; };
@@ -40,6 +41,7 @@
 		9C1571C01C7A688C0092F992 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9C1571C21C7A6ABF0092F992 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9C1571C41C7A73FB0092F992 /* SquadOverview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquadOverview.swift; sourceTree = "<group>"; };
+		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A418A60C1C5D718200FCFB40 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		A418A60E1C5D718800FCFB40 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A418A6101C5D718E00FCFB40 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -119,6 +121,7 @@
 				9C1571C01C7A688C0092F992 /* Map.swift */,
 				9C1571C41C7A73FB0092F992 /* SquadOverview.swift */,
 				9C1571C21C7A6ABF0092F992 /* Extensions.swift */,
+				471D15411C7A6C2F000EA967 /* Test.swift */,
 				A4AC5C741C5ABC4900FEF25E /* Main.storyboard */,
 				A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */,
 				A4AC5C7C1C5ABC4900FEF25E /* LaunchScreen.storyboard */,
@@ -210,6 +213,7 @@
 				9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */,
 				9C1571C11C7A688C0092F992 /* Map.swift in Sources */,
 				A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */,
+				471D15421C7A6C2F000EA967 /* Test.swift in Sources */,
 				470F71A31C5D8A9700112448 /* User.swift in Sources */,
 				A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */,
 			);
