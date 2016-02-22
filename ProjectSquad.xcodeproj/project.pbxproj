@@ -11,11 +11,11 @@
 		470F719F1C5D759B00112448 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */; };
 		470F71A01C5D759B00112448 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */; };
 		470F71A31C5D8A9700112448 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F71A21C5D8A9700112448 /* User.swift */; };
+		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
 		9C1571BF1C7A67670092F992 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571BE1C7A67670092F992 /* Themes.swift */; };
 		9C1571C11C7A688C0092F992 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C01C7A688C0092F992 /* Map.swift */; };
 		9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C21C7A6ABF0092F992 /* Extensions.swift */; };
 		9C1571C51C7A73FB0092F992 /* SquadOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C41C7A73FB0092F992 /* SquadOverview.swift */; };
-		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
 		A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60C1C5D718200FCFB40 /* libicucore.tbd */; };
 		A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60E1C5D718800FCFB40 /* libc++.tbd */; };
 		A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6101C5D718E00FCFB40 /* CFNetwork.framework */; };
@@ -29,6 +29,8 @@
 		A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4AC5C771C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld */; };
 		A4AC5C7B1C5ABC4900FEF25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */; };
 		A4AC5C7E1C5ABC4900FEF25E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4AC5C7C1C5ABC4900FEF25E /* LaunchScreen.storyboard */; };
+		A4FB4B3B1C7A6441006696C4 /* Squad.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB4B3A1C7A6441006696C4 /* Squad.swift */; };
+		A4FB4B3D1C7A6E12006696C4 /* SetUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB4B3C1C7A6E12006696C4 /* SetUsernameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,11 +39,11 @@
 		470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectSquad-Bridging-Header.h"; sourceTree = "<group>"; };
 		470F71A21C5D8A9700112448 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		9C1571BE1C7A67670092F992 /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		9C1571C01C7A688C0092F992 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9C1571C21C7A6ABF0092F992 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9C1571C41C7A73FB0092F992 /* SquadOverview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquadOverview.swift; sourceTree = "<group>"; };
-		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A418A60C1C5D718200FCFB40 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		A418A60E1C5D718800FCFB40 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A418A6101C5D718E00FCFB40 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -57,6 +59,8 @@
 		A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4AC5C7D1C5ABC4900FEF25E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4AC5C7F1C5ABC4900FEF25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4FB4B3A1C7A6441006696C4 /* Squad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Squad.swift; sourceTree = "<group>"; };
+		A4FB4B3C1C7A6E12006696C4 /* SetUsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetUsernameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A407A63F1C7AA4EA003D40EB /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A4FB4B3C1C7A6E12006696C4 /* SetUsernameViewController.swift */,
+				471D15411C7A6C2F000EA967 /* Test.swift */,
+				9C1571C01C7A688C0092F992 /* Map.swift */,
+				9C1571C41C7A73FB0092F992 /* SquadOverview.swift */,
+				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A407A6401C7AA515003D40EB /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				9C1571BE1C7A67670092F992 /* Themes.swift */,
+				9C1571C21C7A6ABF0092F992 /* Extensions.swift */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		A407A6411C7AA526003D40EB /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				A4AC5C741C5ABC4900FEF25E /* Main.storyboard */,
+				A4AC5C7C1C5ABC4900FEF25E /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		A407A6421C7AA540003D40EB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				470F71A21C5D8A9700112448 /* User.swift */,
+				A4FB4B3A1C7A6441006696C4 /* Squad.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		A418A6161C5D723900FCFB40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,21 +158,16 @@
 		A4AC5C6F1C5ABC4900FEF25E /* ProjectSquad */ = {
 			isa = PBXGroup;
 			children = (
+				A407A6421C7AA540003D40EB /* Data */,
+				A407A63F1C7AA4EA003D40EB /* View Controllers */,
+				A407A6411C7AA526003D40EB /* Storyboards */,
+				A407A6401C7AA515003D40EB /* User Interface */,
 				A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */,
-				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
-				9C1571BE1C7A67670092F992 /* Themes.swift */,
-				9C1571C01C7A688C0092F992 /* Map.swift */,
-				9C1571C41C7A73FB0092F992 /* SquadOverview.swift */,
-				9C1571C21C7A6ABF0092F992 /* Extensions.swift */,
-				471D15411C7A6C2F000EA967 /* Test.swift */,
-				A4AC5C741C5ABC4900FEF25E /* Main.storyboard */,
+				A418A6191C5D836000FCFB40 /* NetManager.swift */,
 				A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */,
-				A4AC5C7C1C5ABC4900FEF25E /* LaunchScreen.storyboard */,
 				470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */,
 				A4AC5C7F1C5ABC4900FEF25E /* Info.plist */,
 				A4AC5C771C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld */,
-				A418A6191C5D836000FCFB40 /* NetManager.swift */,
-				470F71A21C5D8A9700112448 /* User.swift */,
 			);
 			path = ProjectSquad;
 			sourceTree = "<group>";
@@ -212,9 +250,11 @@
 				A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */,
 				9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */,
 				9C1571C11C7A688C0092F992 /* Map.swift in Sources */,
+				A4FB4B3B1C7A6441006696C4 /* Squad.swift in Sources */,
 				A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */,
 				471D15421C7A6C2F000EA967 /* Test.swift in Sources */,
 				470F71A31C5D8A9700112448 /* User.swift in Sources */,
+				A4FB4B3D1C7A6E12006696C4 /* SetUsernameViewController.swift in Sources */,
 				A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

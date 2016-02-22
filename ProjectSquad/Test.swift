@@ -15,8 +15,8 @@ class Test: UIViewController {
     }
 
     @IBAction func test(){
-        NetManager.sharedManager.addFriend("alsfj;", friendID: "4")
-        NetManager.sharedManager.getFriends("alsfj;")
+//        NetManager.sharedManager.addFriend("alsfj;", friendID: "fdsaf", friendID: "4")
+//        NetManager.sharedManager.getFriends("alsfj;")
     }
     
 }

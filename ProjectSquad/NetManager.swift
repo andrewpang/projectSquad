@@ -12,9 +12,11 @@ import Firebase
 class NetManager {
     
     static let sharedManager = NetManager()
+    private let firebaseRefURL = "https://squad-development.firebaseio.com/"
+    private var currentUserData: User?
     
-    func loginWithToken(token: FBSDKAccessToken) {
-        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+    func loginWithToken(token: FBSDKAccessToken, completionBlock: (success: Bool, hasUsername: Bool) -> Void) {
+        let ref = Firebase(url: self.firebaseRefURL)
         
         ref.authWithOAuthProvider("facebook", token: token.tokenString, withCompletionBlock: { (error: NSError?, authData: FAuthData?) -> Void in
             if let error = error {
@@ -29,26 +31,27 @@ class NetManager {
                 let email = authData.providerData["email"] as! String
                 let profPicURL = authData.providerData["profileImageURL"] as! String
                 
-                let userData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)
+                self.currentUserData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)
                 
                 let userRef = ref.childByAppendingPath("users").childByAppendingPath(uid)
-                userRef.setValue(userData.returnFBUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
-                    if let error = error {
-                        print("Error sending profile info! \(error)")
+                userRef.updateChildValues(self.currentUserData!.returnFBUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase!) -> Void in
+                    if error == nil {
+                        firebase.observeSingleEventOfType(.Value, withBlock: { (snapshot: FDataSnapshot!) -> Void in
+                            if snapshot.value["username"]! == nil {
+                                completionBlock(success: true, hasUsername: false)
+                            } else {
+                                completionBlock(success: true, hasUsername: true)
+                            }
+                        })
+                    } else {
+                        completionBlock(success: false, hasUsername: false)
                     }
                 })
-                
-                
-                /* TODO: 
-                    1. Write authData data to Firebase
-                    2. Create class to store user data locally
-                    3. Store authData data in user data class 
-                */
             }
         })
     }
     
-    func addFriend(uid: String, friendID: String, friendUsername: String){
+    func addFriend(uid: String, friendID: String, friendUsername: String) {
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
         let friendsRef = ref.childByAppendingPath("friendLists").childByAppendingPath(uid)
         friendsRef.updateChildValues([friendID: friendUsername],
@@ -59,7 +62,7 @@ class NetManager {
         })
     }
     
-    func getFriends(uid: String){
+    func getFriends(uid: String) {
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
         let friendsRef = ref.childByAppendingPath("friendLists").childByAppendingPath(uid)
         friendsRef.observeEventType(.Value, withBlock: { snapshot in
@@ -67,9 +70,14 @@ class NetManager {
             }, withCancelBlock: { error in
                 print(error.description)
         })
-    
-}
-    
+    }
     
     
+    func setUsername(username: String, completionBlock: (error: NSError?) -> Void) {
+        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid)
+
+        ref.updateChildValues(["username": username]) { (error: NSError?, firebase: Firebase!) -> Void in
+            completionBlock(error: error)
+        }
+    }
 }

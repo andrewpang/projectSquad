@@ -39,7 +39,16 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         if let error = error {
             print("Error logging in \(error)")
         } else if let result = result, token = result.token {
-            NetManager.sharedManager.loginWithToken(token)
+            NetManager.sharedManager.loginWithToken(token, completionBlock: { (success: Bool, hasUsername: Bool) -> Void in
+                if success && hasUsername {
+                    print("User logged in successfully!")
+                } else if !hasUsername {
+                    print("User doesn't have a username!")
+                    self.performSegueWithIdentifier("username", sender: nil)
+                } else {
+                    print("Error logging in!")
+                }
+            })
         } else {
             print("Not logged in!")
         }
@@ -52,6 +61,5 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
         return true
     }
-
 }
 
