@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import JSQMessagesViewController
 
 class NetManager {
     
@@ -99,7 +100,9 @@ class NetManager {
         
 //        let leader =  self.currentUserData!.uid
         let leader = "hardcode"
-        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leader: leader)
+        let leadername = "hardcode"
+        
+        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leader, leaderUsername: leadername)
         
         
         squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
@@ -115,12 +118,49 @@ class NetManager {
                     })
             }
         })
-
+    }
+    
+    //Add a new message to a chat
+    func addChatMessage(message: JSQMessage, groupId: String){
+        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+        let chatRef = ref.childByAppendingPath("chat")
+        let groupChatRef = chatRef.childByAppendingPath(groupId)
+        let messageRef = groupChatRef.childByAutoId()
         
+        messageRef.setValue([
+                "text": message.text,
+                "sender": message.senderId,
+                "senderName": message.senderDisplayName,
+                "date": FirebaseServerValue.timestamp()
+            ], withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                if let error = error {
+                    print("Error adding chat message! \(error)")
+                }
+        })
         
     }
     
-    
+//    //Return array of JSQMessages
+//    func getChatMessages(groupId: String, completion: (result: [JSQMessage]) -> Void) -> [JSQMessage]{
+//        var messages = [JSQMessage]()
+//        
+//        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+//        let chatRef = ref.childByAppendingPath("chat")
+//        let groupChatRef = chatRef.childByAppendingPath(groupId)
+//        
+//        groupChatRef.queryLimitedToLast(25).observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) in
+//            let text = snapshot.value["text"] as? String
+//            let id = snapshot.value["sender"] as? String
+//            let name = snapshot.value["senderName"] as? String
+//            let dateInterval = snapshot.value["date"] as? NSTimeInterval
+//            let date = NSDate(timeIntervalSince1970: dateInterval!)
+//            
+//            let message = JSQMessage(senderId: id, senderDisplayName: name, date: date, text: text)
+//            messages.append(message)
+//        })
+//        return messages
+//    }
+//    
     
     
     
