@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import MapKit
 
 class NetManager {
     
@@ -78,6 +79,67 @@ class NetManager {
 
         ref.updateChildValues(["username": username]) { (error: NSError?, firebase: Firebase!) -> Void in
             completionBlock(error: error)
+        }
+    }
+    
+    //MARK: - Location
+    func listenForLocationUpdates() {
+        let ref = self.getFirebaseLocationsRef()
+        ref.observeEventType(FEventType.ChildAdded) { (snapshot: FDataSnapshot?) -> Void in
+            self.processChildAddedAndChanged(snapshot)
+        }
+        
+        ref.observeEventType(FEventType.ChildChanged) { (snapshot: FDataSnapshot?) -> Void in
+            self.processChildAddedAndChanged(snapshot)
+        }
+    }
+    
+    private func processChildAddedAndChanged(snapshot: FDataSnapshot?) {
+        if let snapshot = snapshot {
+            if !(snapshot.value is NSNull) {
+                if snapshot.key != self.currentUserData!.uid {
+                    let geoRef = self.getUserLocationRef(snapshot.key)
+                    let geofire = GeoFire(firebaseRef: geoRef)
+                    geofire.getLocationForKey("loc") { (location: CLLocation?, error: NSError?) -> Void in
+                        if let location = location {
+                            let uid = snapshot.key
+                            if let user = self.getUserWithUID(uid) {
+                                user.location = location
+                                self.delegate?.userLocationUpdated(user, isNew: false)
+                            } else {
+                                let newUser = UserData(uid: uid, location: location)
+                                self.users.append(newUser)
+                                self.delegate?.userLocationUpdated(newUser, isNew: true)
+                            }
+                        } else {
+                            print("Location was nil")
+                        }
+                    }
+                }
+            } else {
+                print("Snapshot.value was NSNull")
+            }
+        } else {
+            print("Snapshot was nil")
+        }
+    }
+    
+    func stopListeningForLocationUpdates() {
+        
+    }
+    
+    func updateCurrentLocation(currentLocation: CLLocation) {
+        if let ref = self.getCurrentUserLocationRef() {
+            let geofire = GeoFire(firebaseRef: ref)
+            geofire.setLocation(currentLocation, forKey: "loc") { (error: NSError?) -> Void in
+                if let error = error {
+                    self.delegate?.didSetLocation(error)
+                } else {
+                    self.delegate?.didSetLocation(nil)
+                }
+            }
+        } else {
+            print("Could NOT update location. User not authenticated.")
         }
     }
 }
