@@ -15,6 +15,7 @@ class NetManager {
     static let sharedManager = NetManager()
     private let firebaseRefURL = "https://squad-development.firebaseio.com/"
     private var currentUserData: User?
+    private var currentSquadData: Squad?
     
     func loginWithToken(token: FBSDKAccessToken, completionBlock: (success: Bool, hasUsername: Bool) -> Void) {
         let ref = Firebase(url: self.firebaseRefURL)
@@ -54,7 +55,7 @@ class NetManager {
     
     func addFriend(uid: String, friendID: String, friendUsername: String) {
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
-        let friendsRef = ref.childByAppendingPath("friendLists").childByAppendingPath(uid)
+        let friendsRef = ref.childByAppendingPath("users").childByAppendingPath(uid).childByAppendingPath("friends")
         friendsRef.updateChildValues([friendID: friendUsername],
             withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
             if let error = error {
@@ -65,7 +66,7 @@ class NetManager {
     
     func getFriends(uid: String) {
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
-        let friendsRef = ref.childByAppendingPath("friendLists").childByAppendingPath(uid)
+        let friendsRef = ref.childByAppendingPath("users").childByAppendingPath(uid).childByAppendingPath("friends")
         friendsRef.observeEventType(.Value, withBlock: { snapshot in
             print(snapshot)
             }, withCancelBlock: { error in
@@ -141,5 +142,40 @@ class NetManager {
         } else {
             print("Could NOT update location. User not authenticated.")
         }
+    }
+
+    func getUserByUsername(username: String) {
+        let ref = Firebase(url: "https://squad-development.firebaseio.com/users");
+        ref.queryOrderedByChild("username").observeEventType(.ChildAdded, withBlock: { snapshot in
+            if let username = snapshot.value["username"] as? String {
+                print("\(snapshot.key) is \(username) and \(snapshot.childSnapshotForPath("email"))")
+            }
+        })
+    }
+    
+    func setSquad(name: String, startTime: NSDate, endTime: NSDate, description: String, members: [String: String]) {
+        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+        let squadRef = ref.childByAppendingPath("squad")
+        let squad1Ref = squadRef.childByAutoId()
+        let membersRef = squad1Ref.childByAppendingPath("members")
+        
+//        let leader =  self.currentUserData!.uid
+        let leader = "hardcode"
+        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leader: leader)
+        
+        
+        squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                if let error = error {
+                    print("Error sending profile info! \(error)")
+                } else{
+                    //If no error with setting squad, set members of squad
+                    membersRef.setValue(members,
+                        withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                        if let error = error {
+                            print("Error sending profile info! \(error)")
+                        }
+                    })
+            }
+        })
     }
 }
