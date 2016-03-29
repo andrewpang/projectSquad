@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 import MapKit
+import JSQMessagesViewController
+import GeoFire
 
 class NetManager {
     
@@ -84,46 +86,46 @@ class NetManager {
     }
     
     //MARK: - Location
-    func listenForLocationUpdates() {
-        let ref = self.getFirebaseLocationsRef()
-        ref.observeEventType(FEventType.ChildAdded) { (snapshot: FDataSnapshot?) -> Void in
-            self.processChildAddedAndChanged(snapshot)
-        }
-        
-        ref.observeEventType(FEventType.ChildChanged) { (snapshot: FDataSnapshot?) -> Void in
-            self.processChildAddedAndChanged(snapshot)
-        }
-    }
+//    func listenForLocationUpdates() {
+//        let ref = self.getFirebaseLocationsRef()
+//        ref.observeEventType(FEventType.ChildAdded) { (snapshot: FDataSnapshot?) -> Void in
+//            self.processChildAddedAndChanged(snapshot)
+//        }
+//        
+//        ref.observeEventType(FEventType.ChildChanged) { (snapshot: FDataSnapshot?) -> Void in
+//            self.processChildAddedAndChanged(snapshot)
+//        }
+//    }
     
-    private func processChildAddedAndChanged(snapshot: FDataSnapshot?) {
-        if let snapshot = snapshot {
-            if !(snapshot.value is NSNull) {
-                if snapshot.key != self.currentUserData!.uid {
-                    let geoRef = self.getUserLocationRef(snapshot.key)
-                    let geofire = GeoFire(firebaseRef: geoRef)
-                    geofire.getLocationForKey("loc") { (location: CLLocation?, error: NSError?) -> Void in
-                        if let location = location {
-                            let uid = snapshot.key
-                            if let user = self.getUserWithUID(uid) {
-                                user.location = location
-                                self.delegate?.userLocationUpdated(user, isNew: false)
-                            } else {
-                                let newUser = UserData(uid: uid, location: location)
-                                self.users.append(newUser)
-                                self.delegate?.userLocationUpdated(newUser, isNew: true)
-                            }
-                        } else {
-                            print("Location was nil")
-                        }
-                    }
-                }
-            } else {
-                print("Snapshot.value was NSNull")
-            }
-        } else {
-            print("Snapshot was nil")
-        }
-    }
+//    private func processChildAddedAndChanged(snapshot: FDataSnapshot?) {
+//        if let snapshot = snapshot {
+//            if !(snapshot.value is NSNull) {
+//                if snapshot.key != self.currentUserData!.uid {
+//                    let geoRef = self.getUserLocationRef(snapshot.key)
+//                    let geofire = GeoFire(firebaseRef: geoRef)
+//                    geofire.getLocationForKey("loc") { (location: CLLocation?, error: NSError?) -> Void in
+//                        if let location = location {
+//                            let uid = snapshot.key
+//                            if let user = self.getUserWithUID(uid) {
+//                                user.location = location
+//                                self.delegate?.userLocationUpdated(user, isNew: false)
+//                            } else {
+//                                let newUser = UserData(uid: uid, location: location)
+//                                self.users.append(newUser)
+//                                self.delegate?.userLocationUpdated(newUser, isNew: true)
+//                            }
+//                        } else {
+//                            print("Location was nil")
+//                        }
+//                    }
+//                }
+//            } else {
+//                print("Snapshot.value was NSNull")
+//            }
+//        } else {
+//            print("Snapshot was nil")
+//        }
+//    }
     
     func stopListeningForLocationUpdates() {
         
@@ -134,9 +136,9 @@ class NetManager {
             let geofire = GeoFire(firebaseRef: ref)
             geofire.setLocation(currentLocation, forKey: "loc") { (error: NSError?) -> Void in
                 if let error = error {
-                    self.delegate?.didSetLocation(error)
+//                    self.delegate?.didSetLocation(error)
                 } else {
-                    self.delegate?.didSetLocation(nil)
+//                    self.delegate?.didSetLocation(nil)
                 }
             }
         } else {
@@ -161,7 +163,9 @@ class NetManager {
         
 //        let leader =  self.currentUserData!.uid
         let leader = "hardcode"
-        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leader: leader)
+        let leadername = "hardcode"
+        
+        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leader, leaderUsername: leadername)
         
         
         squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
@@ -178,4 +182,89 @@ class NetManager {
             }
         })
     }
+    
+    //Add a new message to a chat
+    func addChatMessage(message: JSQMessage, groupId: String){
+        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+        let chatRef = ref.childByAppendingPath("chat")
+        let groupChatRef = chatRef.childByAppendingPath(groupId)
+        let messageRef = groupChatRef.childByAutoId()
+        
+        messageRef.setValue([
+                "text": message.text,
+                "sender": message.senderId,
+                "senderName": message.senderDisplayName,
+                "date": FirebaseServerValue.timestamp()
+            ], withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                if let error = error {
+                    print("Error adding chat message! \(error)")
+                }
+        })
+        
+    }
+    
+//    //Return array of JSQMessages
+//    func getChatMessages(groupId: String, completion: (result: [JSQMessage]) -> Void) -> [JSQMessage]{
+//        var messages = [JSQMessage]()
+//        
+//        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
+//        let chatRef = ref.childByAppendingPath("chat")
+//        let groupChatRef = chatRef.childByAppendingPath(groupId)
+//        
+//        groupChatRef.queryLimitedToLast(25).observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) in
+//            let text = snapshot.value["text"] as? String
+//            let id = snapshot.value["sender"] as? String
+//            let name = snapshot.value["senderName"] as? String
+//            let dateInterval = snapshot.value["date"] as? NSTimeInterval
+//            let date = NSDate(timeIntervalSince1970: dateInterval!)
+//            
+//            let message = JSQMessage(senderId: id, senderDisplayName: name, date: date, text: text)
+//            messages.append(message)
+//        })
+//        return messages
+//    }
+//
+    
+    //MARK: - Helpers
+    private func getFirebaseRef() -> Firebase {
+        return Firebase(url: self.firebaseRefURL)
+    }
+    
+    private func getFirebaseLocationsRef() -> Firebase {
+        return Firebase(url: self.firebaseRefURL).childByAppendingPath("locations")
+    }
+    
+    private func getCurrentUserRef() -> Firebase {
+//        if let currentUserUID = currentUserUID {
+            return Firebase(url: self.firebaseRefURL).childByAppendingPath(currentUserData!.uid)
+//        }
+        
+//        return nil
+    }
+    
+    private func getCurrentUserLocationRef() -> Firebase? {
+//        if let currentUserUID = currentUserUID {
+            return Firebase(url: self.firebaseRefURL).childByAppendingPath("locations").childByAppendingPath(currentUserData!.uid)
+//        }
+        
+//        return nil
+    }
+    
+    private func getUserLocationRef(uid: String) -> Firebase {
+        return Firebase(url: self.firebaseRefURL).childByAppendingPath("locations").childByAppendingPath(uid)
+    }
+    
+    private func getFirebaseMessagesRef() -> Firebase {
+        return Firebase(url: self.firebaseRefURL).childByAppendingPath("messages")
+    }
+    
+//    private func getUserWithUID(uid: String) -> User? {
+//        for user in self.users {
+//            if user.uid == uid {
+//                return user
+//            }
+//        }
+//        
+//        return nil
+//    }
 }

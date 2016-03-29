@@ -31,7 +31,7 @@ class Map: UIViewController {
         containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
         //containerView.userInteractionEnabled = true
         
-        let tap = UITapGestureRecognizer(target: self, action: "toSquadOverview")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(Map.toSquadOverview))
         
         containerView.addSubview(titleLabel)
         containerView.addSubview(arrow)
