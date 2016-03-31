@@ -14,6 +14,8 @@
 		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
 		47966B861CA26B4C00883F81 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47966B851CA26B4C00883F81 /* Message.swift */; };
 		47AE25961CAB4276005E14C0 /* CreateSquadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */; };
+		47B591B41CAD1F020011E366 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B591B31CAD1F020011E366 /* AddFriendViewController.swift */; };
+		47B591B81CAD279A0011E366 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B591B71CAD279A0011E366 /* UserCell.swift */; };
 		47EC9BB81CA35D5B00356BBD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */; };
 		9C1571BF1C7A67670092F992 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571BE1C7A67670092F992 /* Themes.swift */; };
 		9C1571C11C7A688C0092F992 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C01C7A688C0092F992 /* Map.swift */; };
@@ -48,6 +50,8 @@
 		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		47966B851CA26B4C00883F81 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSquadViewController.swift; sourceTree = "<group>"; };
+		47B591B31CAD1F020011E366 /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		47B591B71CAD279A0011E366 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		73579391B9C03C64C2F8B412 /* Pods-ProjectSquad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectSquad.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectSquad/Pods-ProjectSquad.release.xcconfig"; sourceTree = "<group>"; };
 		9C1571BE1C7A67670092F992 /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
 				47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */,
 				47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */,
+				47B591B31CAD1F020011E366 /* AddFriendViewController.swift */,
+				47B591B71CAD279A0011E366 /* UserCell.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -328,10 +334,12 @@
 				9C1571C51C7A73FB0092F992 /* SquadOverview.swift in Sources */,
 				9C1571BF1C7A67670092F992 /* Themes.swift in Sources */,
 				A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */,
+				47B591B81CAD279A0011E366 /* UserCell.swift in Sources */,
 				9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */,
 				9C1571C11C7A688C0092F992 /* Map.swift in Sources */,
 				A4FB4B3B1C7A6441006696C4 /* Squad.swift in Sources */,
 				A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */,
+				47B591B41CAD1F020011E366 /* AddFriendViewController.swift in Sources */,
 				471D15421C7A6C2F000EA967 /* Test.swift in Sources */,
 				470F71A31C5D8A9700112448 /* User.swift in Sources */,
 				47EC9BB81CA35D5B00356BBD /* ChatViewController.swift in Sources */,
