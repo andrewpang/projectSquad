@@ -19,6 +19,8 @@ class Test: UIViewController {
 //        NetManager.sharedManager.getFriends("alsfj;")
 //        var members = ["hi": "hey", "1": "2"]
 //        NetManager.sharedManager.setSquad("name", startTime: NSDate(), endTime: NSDate(), description: "hi", members: members)
+        
+//        NetManager.sharedManager.getFacebookFriends()
 
 
 

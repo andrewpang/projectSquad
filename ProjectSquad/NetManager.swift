@@ -74,6 +74,22 @@ class NetManager {
         })
     }
     
+    func getFacebookFriends(block: (resultDict: NSDictionary) -> Void) {
+        let fbRequest = FBSDKGraphRequest(graphPath:"/me/friends", parameters: ["fields": "id, name, location"]);
+        fbRequest.startWithCompletionHandler { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
+            
+            var resultDictionary:NSDictionary!
+            
+            if error == nil {
+                resultDictionary = result as! [String: AnyObject]
+                block(resultDict: resultDictionary)
+                print("Friends are : \(result)")
+            } else {
+                print("Error Getting Friends \(error)");
+            }
+        }
+    }
+    
     
     func setUsername(username: String, completionBlock: (error: NSError?) -> Void) {
         let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid)
@@ -161,6 +177,7 @@ class NetManager {
 //        return messages
 //    }
 //    
+    
     
     
     

@@ -13,6 +13,7 @@
 		470F71A31C5D8A9700112448 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F71A21C5D8A9700112448 /* User.swift */; };
 		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
 		47966B861CA26B4C00883F81 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47966B851CA26B4C00883F81 /* Message.swift */; };
+		47AE25961CAB4276005E14C0 /* CreateSquadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */; };
 		47EC9BB81CA35D5B00356BBD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */; };
 		9C1571BF1C7A67670092F992 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571BE1C7A67670092F992 /* Themes.swift */; };
 		9C1571C11C7A688C0092F992 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C01C7A688C0092F992 /* Map.swift */; };
@@ -45,6 +46,7 @@
 		470F71A21C5D8A9700112448 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		47966B851CA26B4C00883F81 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSquadViewController.swift; sourceTree = "<group>"; };
 		47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		73579391B9C03C64C2F8B412 /* Pods-ProjectSquad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectSquad.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectSquad/Pods-ProjectSquad.release.xcconfig"; sourceTree = "<group>"; };
 		9C1571BE1C7A67670092F992 /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				9C1571C41C7A73FB0092F992 /* SquadOverview.swift */,
 				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
 				47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */,
+				47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				47EC9BB81CA35D5B00356BBD /* ChatViewController.swift in Sources */,
 				A4FB4B3D1C7A6E12006696C4 /* SetUsernameViewController.swift in Sources */,
 				A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */,
+				47AE25961CAB4276005E14C0 /* CreateSquadViewController.swift in Sources */,
 				47966B861CA26B4C00883F81 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

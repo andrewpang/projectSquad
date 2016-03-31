@@ -44,7 +44,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                     print("User logged in successfully!")
                 } else if !hasUsername {
                     print("User doesn't have a username!")
-                    self.performSegueWithIdentifier("username", sender: nil)
+//                    self.performSegueWithIdentifier("username", sender: nil)
                 } else {
                     print("Error logging in!")
                 }
@@ -61,5 +61,11 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
         return true
     }
+    
+    
+    @IBAction func test(){
+        NetManager.sharedManager.getFacebookFriends()
+    }
+    
 }
 
