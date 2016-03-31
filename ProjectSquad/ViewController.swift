@@ -64,7 +64,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     
     @IBAction func test(){
-        NetManager.sharedManager.getFacebookFriends()
+        NetManager.sharedManager.getFacebookFriends({x in print(x)})
     }
     
 }

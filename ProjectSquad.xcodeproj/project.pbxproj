@@ -19,6 +19,7 @@
 		9C1571C11C7A688C0092F992 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C01C7A688C0092F992 /* Map.swift */; };
 		9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C21C7A6ABF0092F992 /* Extensions.swift */; };
 		9C1571C51C7A73FB0092F992 /* SquadOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C41C7A73FB0092F992 /* SquadOverview.swift */; };
+		A4152C881CAB2C7500A48876 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4152C871CAB2C7500A48876 /* MapKit.framework */; };
 		A418A60D1C5D718200FCFB40 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60C1C5D718200FCFB40 /* libicucore.tbd */; };
 		A418A60F1C5D718800FCFB40 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A60E1C5D718800FCFB40 /* libc++.tbd */; };
 		A418A6111C5D718E00FCFB40 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A418A6101C5D718E00FCFB40 /* CFNetwork.framework */; };
@@ -53,6 +54,7 @@
 		9C1571C01C7A688C0092F992 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9C1571C21C7A6ABF0092F992 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9C1571C41C7A73FB0092F992 /* SquadOverview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquadOverview.swift; sourceTree = "<group>"; };
+		A4152C871CAB2C7500A48876 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A418A60C1C5D718200FCFB40 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		A418A60E1C5D718800FCFB40 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A418A6101C5D718E00FCFB40 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4152C881CAB2C7500A48876 /* MapKit.framework in Frameworks */,
 				A418A6151C5D719F00FCFB40 /* SystemConfiguration.framework in Frameworks */,
 				A418A6181C5D724900FCFB40 /* Firebase.framework in Frameworks */,
 				A418A6131C5D719300FCFB40 /* Security.framework in Frameworks */,
@@ -148,6 +151,7 @@
 		A418A6161C5D723900FCFB40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4152C871CAB2C7500A48876 /* MapKit.framework */,
 				470F719B1C5D759B00112448 /* FBSDKCoreKit.framework */,
 				470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */,
 				470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */,
