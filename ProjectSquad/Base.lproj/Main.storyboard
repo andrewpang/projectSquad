@@ -215,10 +215,10 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jie-jg-LNz">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="widthClass=compact" fixedFrame="YES">
-                                                        <rect key="frame" x="36" y="11" width="42" height="21"/>
+                                                        <rect key="frame" x="36" y="11" width="298" height="21"/>
                                                     </variation>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4f-Yf-w1A">
@@ -226,6 +226,9 @@
                                                     <variation key="widthClass=compact" fixedFrame="YES">
                                                         <rect key="frame" x="351" y="8" width="22" height="22"/>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="addFBFriend:" destination="3BU-Ag-BBM" eventType="touchUpInside" id="RqL-kg-CUD"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <variation key="default">
@@ -242,6 +245,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addButton" destination="d4f-Yf-w1A" id="DLb-A1-YX8"/>
                                             <outlet property="nameLabel" destination="Jie-jg-LNz" id="0gm-eq-zMs"/>
                                         </connections>
                                     </tableViewCell>

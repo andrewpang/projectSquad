@@ -64,8 +64,18 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     
     @IBAction func test(){
-        NetManager.sharedManager.getFacebookFriends({x in print(x)})
+        NetManager.sharedManager.getFacebookFriends({result in
+            if let friendObjects = result["data"] as? [NSDictionary] {
+                for friendObject in friendObjects {
+                    print(friendObject["id"] as! NSString)
+                    print(friendObject["name"] as! NSString)
+                }
+            }
+        })
     }
+    
+    
+    
     
 }
 

@@ -11,8 +11,21 @@ import Foundation
 class UserCell: UITableViewCell{
     
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    var friendId: String!
     
-    func loadItem(name: String) {
+    
+    //ifAdded is true, hide the add button
+    func loadItem(name: String, uid: String, ifAdded: Bool) {
         nameLabel?.text = name
+        friendId = uid
+        addButton.hidden = ifAdded
     }
+    
+    @IBAction func addFBFriend(sender: AnyObject) {
+        addButton.hidden = true
+        NetManager.sharedManager.addFriend(self.friendId, friendUsername: nameLabel.text!)
+    }
+    
+    
 }

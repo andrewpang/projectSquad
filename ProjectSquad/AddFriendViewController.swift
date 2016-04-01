@@ -10,7 +10,8 @@ import Foundation
 
 class AddFriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let test = ["hi", "this", "is", "fun"]
+    var friendNames = ["hi"]
+    var friendIds = ["hi"]
     
     @IBOutlet weak var tableView: UITableView!
     let textCellIdentifier = "UserCell"
@@ -20,6 +21,15 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
         
         tableView.delegate = self
         tableView.dataSource = self
+        NetManager.sharedManager.getFacebookFriends({result in
+            if let friendObjects = result["data"] as? [NSDictionary] {
+                for friendObject in friendObjects {
+                    self.friendIds.append(friendObject["id"] as! String)
+                    self.friendNames.append(friendObject["name"] as! String)
+                }
+                self.tableView.reloadData()
+            }
+        })
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -27,7 +37,7 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return test.count
+        return friendNames.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -35,7 +45,7 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
         
         
         let row = indexPath.row
-        cell.loadItem(test[row])
+        cell.loadItem(friendNames[row], uid: friendIds[row], ifAdded: false)
         
         return cell
     }
@@ -44,7 +54,6 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let row = indexPath.row
-        print(test[row])
     }
     
 }

@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ProjectSquad/ViewController.swift"
-            timestampString = "480988689.622383"
+            filePath = "ProjectSquad/UserCell.swift"
+            timestampString = "481241873.224036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "loginButton(_:didCompleteWithResult:error:)"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "addFBFriend(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

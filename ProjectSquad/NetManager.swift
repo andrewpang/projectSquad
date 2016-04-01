@@ -55,9 +55,9 @@ class NetManager {
         })
     }
     
-    func addFriend(uid: String, friendID: String, friendUsername: String) {
+    func addFriend(friendID: String, friendUsername: String) {
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
-        let friendsRef = ref.childByAppendingPath("users").childByAppendingPath(uid).childByAppendingPath("friends")
+        let friendsRef = ref.childByAppendingPath("users").childByAppendingPath(currentUserData!.uid).childByAppendingPath("friends")
         friendsRef.updateChildValues([friendID: friendUsername],
             withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
             if let error = error {
@@ -85,7 +85,6 @@ class NetManager {
             if error == nil {
                 resultDictionary = result as! [String: AnyObject]
                 block(resultDict: resultDictionary)
-                print("Friends are : \(result)")
             } else {
                 print("Error Getting Friends \(error)");
             }
