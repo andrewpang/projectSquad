@@ -9,6 +9,7 @@
 import UIKit
 import JSQMessagesViewController
 import Firebase
+import Kingfisher
 
 class ChatViewController: JSQMessagesViewController {
     
@@ -18,6 +19,9 @@ class ChatViewController: JSQMessagesViewController {
     //
     var groupId = "hardcoded"
     
+    var image: UIImage?
+    var currentUserAvatar: UIImageView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Squad Chat"
@@ -25,13 +29,23 @@ class ChatViewController: JSQMessagesViewController {
         self.senderDisplayName = "Someone"
         self.senderId = "2"
         
-        // No avatars
-        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
-        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+//        // No avatars
+//        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
+//        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        
+        currentUserAvatar = UIImageView()
+        
+        currentUserAvatar!.kf_setImageWithURL(NSURL(string: "https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6")!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
+                self.image = image
+                self.reloadMessagesView()
+        })
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+
         
         //Gets existing chat from Firebase
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
@@ -45,6 +59,7 @@ class ChatViewController: JSQMessagesViewController {
             let dateInterval = snapshot.value["date"] as? NSTimeInterval
             let date = NSDate(timeIntervalSince1970: dateInterval!)
             
+            
             let message = JSQMessage(senderId: id, senderDisplayName: name, date: date, text: text)
             self.messages.append(message)
             self.finishReceivingMessage()
@@ -55,6 +70,7 @@ class ChatViewController: JSQMessagesViewController {
     func reloadMessagesView() {
         self.collectionView?.reloadData()
     }
+    
     
 //    func addDemoMessages() {
 //        for i in 1...10 {
@@ -95,8 +111,12 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+        self.image = self.currentUserAvatar!.image
+        if(self.image != nil){
+            return JSQMessagesAvatarImage(avatarImage: self.image, highlightedImage: self.image, placeholderImage: self.image)}
         return nil
     }
+
     
     func addMessage(id: String, name:String, text: String) -> JSQMessage {
         let message = JSQMessage(senderId: id, displayName: name, text: text)

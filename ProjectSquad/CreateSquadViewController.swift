@@ -24,18 +24,21 @@ class CreateSquadViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func createSquad(){
-        let squadName = self.squadNameTextField.text!
-        let startTime = self.startTimeDatePicker.date
-        let endTime = self.endTimeDatePicker.date
-        let description = "HI"
-        let members = ["me": "1231", "asfk": "aslf"]
+    @IBAction func goToInvite(sender: AnyObject) {
         
-        NetManager.sharedManager.setSquad(squadName, startTime: startTime, endTime: endTime, description: description, members: members)
-        
+        self.performSegueWithIdentifier("inviteSegue", sender: nil)
     }
 
-
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "inviteSegue") {
+            
+            let addFriendViewController = (segue.destinationViewController as! AddFriendViewController)
+            addFriendViewController.squadName = self.squadNameTextField.text!
+            addFriendViewController.startTime = self.startTimeDatePicker.date
+            addFriendViewController.endTime = self.endTimeDatePicker.date
+            addFriendViewController.squadGoal = "HI"
+        }
+    }
 
 
 

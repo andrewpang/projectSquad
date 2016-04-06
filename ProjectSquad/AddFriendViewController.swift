@@ -12,6 +12,13 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     
     var friendNames = ["hi"]
     var friendIds = ["hi"]
+    var squadInvites = ["hi":"hi"]
+    
+    var squadName: String!
+    var startTime: NSDate!
+    var endTime: NSDate!
+    var squadGoal: String!
+
     
     @IBOutlet weak var tableView: UITableView!
     let textCellIdentifier = "UserCell"
@@ -45,6 +52,7 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
         
         
         let row = indexPath.row
+        //TODO: compare to current users friend list to set ifAdded
         cell.loadItem(friendNames[row], uid: friendIds[row], ifAdded: false)
         
         return cell
@@ -56,4 +64,9 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
         let row = indexPath.row
     }
     
+    @IBAction func createSquad(sender: AnyObject) {
+        NetManager.sharedManager.setSquad(squadName, startTime: startTime, endTime: endTime, description: squadGoal, members: squadInvites)
+        self.performSegueWithIdentifier("createdSquadSegue", sender: nil)
+    }
+
 }

@@ -8,9 +8,14 @@
 
 import UIKit
 import Firebase
+import Kingfisher
 
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
 
+    @IBOutlet weak var testImageView: UIImageView!
+ 
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,6 +33,26 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginView.center = self.view.center
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
+        
+//                ImageLoader.sharedLoader.imageForUrl("https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6", completionHandler:{(image: UIImage?, url: String) in
+//                    self.testImageView.image = image
+////                    JSQMessagesAvatarImage(avatarImage: image!, highlightedImage: image!, placeholderImage: image!)
+////                    self.reloadMessagesView()
+//                })
+
+//        imageView.kf_setImageWithURL(NSURL(string: "https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6")!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
+//            self.testImageView.image = image
+//        })
+        
+        
+//        let url = NSURL(fileURLWithPath: "https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6")
+//        ImageDownloader(name: "imageDL").downloadImageWithURL(url, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
+//                self.testImageView.image = image
+//        })
+        
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,9 +67,10 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             NetManager.sharedManager.loginWithToken(token, completionBlock: { (success: Bool, hasUsername: Bool) -> Void in
                 if success && hasUsername {
                     print("User logged in successfully!")
+                    self.performSegueWithIdentifier("loggedInSegue", sender: nil)
                 } else if !hasUsername {
                     print("User doesn't have a username!")
-//                    self.performSegueWithIdentifier("username", sender: nil)
+                    self.performSegueWithIdentifier("setUsernameSegue", sender: nil)
                 } else {
                     print("Error logging in!")
                 }
@@ -73,6 +99,8 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         })
     }
+    
+
     
     
     

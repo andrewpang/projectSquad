@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8DG-8W-z5Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bHH-bg-23o">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Chat View Controller-->
+        <!--Chat-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ChatViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,9 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Chat" id="Yy6-pn-LFz"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1116" y="1450"/>
         </scene>
         <!--Create Squad View Controller-->
         <scene sceneID="FDE-re-K3c">
@@ -48,7 +50,7 @@
                                     <!--2016-01-31 00:46:35 +0000-->
                                 </date>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="128" width="400" height="75"/>
+                                    <rect key="frame" x="0.0" y="256" width="400" height="75"/>
                                 </variation>
                             </datePicker>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="DsP-v2-PXM">
@@ -57,7 +59,7 @@
                                     <!--2016-01-31 00:46:56 +0000-->
                                 </date>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="255" width="400" height="75"/>
+                                    <rect key="frame" x="0.0" y="411" width="400" height="75"/>
                                 </variation>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Squad Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcA-tq-Txo">
@@ -75,7 +77,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="94" width="86" height="21"/>
+                                    <rect key="frame" x="28" y="212" width="86" height="21"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9s-G4-A5M">
@@ -84,66 +86,39 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="226" width="72" height="21"/>
+                                    <rect key="frame" x="28" y="364" width="72" height="21"/>
                                 </variation>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aHW-ou-84X">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFQ-Ch-jYP">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Next"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="116" y="533" width="169" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="goToInvite:" destination="qmp-Or-pwB" eventType="touchUpInside" id="BAg-DQ-8mp"/>
+                                    <segue destination="8DG-8W-z5Q" kind="presentation" identifier="inviteSegue" id="2sE-sC-NFI"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OtV-Uu-hTh">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Y2L-kP-xiN">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2L-kP-xiN" id="mnE-ig-SUX">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend's Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wS7-oJ-Rfs">
-                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="widthClass=compact" fixedFrame="YES">
-                                                        <rect key="frame" x="22" y="11" width="112" height="21"/>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
-                                            <variation key="default">
-                                                <mask key="subviews">
-                                                    <exclude reference="wS7-oJ-Rfs"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="widthClass=compact">
-                                                <mask key="subviews">
-                                                    <include reference="wS7-oJ-Rfs"/>
-                                                </mask>
-                                            </variation>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="376" width="400" height="128"/>
+                                    <rect key="frame" x="85" y="129" width="263" height="63"/>
                                 </variation>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Members:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eju-ce-3Kv">
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#squadgoals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RK-nE-n4J">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="33" y="347" width="77" height="21"/>
+                                    <rect key="frame" x="28" y="111" width="129" height="21"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFQ-Ch-jYP">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Invite"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="116" y="533" width="169" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="createSquad" destination="qmp-Or-pwB" eventType="touchUpInside" id="jL1-1q-amd"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -154,9 +129,9 @@
                                 <exclude reference="CcA-tq-Txo"/>
                                 <exclude reference="39g-CT-UHm"/>
                                 <exclude reference="y9s-G4-A5M"/>
-                                <exclude reference="aHW-ou-84X"/>
-                                <exclude reference="eju-ce-3Kv"/>
                                 <exclude reference="tFQ-Ch-jYP"/>
+                                <exclude reference="OtV-Uu-hTh"/>
+                                <exclude reference="0RK-nE-n4J"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -167,9 +142,9 @@
                                 <include reference="CcA-tq-Txo"/>
                                 <include reference="39g-CT-UHm"/>
                                 <include reference="y9s-G4-A5M"/>
-                                <include reference="aHW-ou-84X"/>
-                                <include reference="eju-ce-3Kv"/>
                                 <include reference="tFQ-Ch-jYP"/>
+                                <include reference="OtV-Uu-hTh"/>
+                                <include reference="0RK-nE-n4J"/>
                             </mask>
                         </variation>
                     </view>
@@ -181,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUH-4h-1sn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1188" y="197"/>
+            <point key="canvasLocation" x="-1174.5" y="756"/>
         </scene>
         <!--Add Friend View Controller-->
         <scene sceneID="d8i-Af-KDB">
@@ -251,31 +226,128 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="75" width="400" height="485"/>
+                                    <rect key="frame" x="0.0" y="75" width="400" height="451"/>
                                 </variation>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAS-ae-wF3">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Create Squad"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="153" y="550" width="94" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="createSquad:" destination="8DG-8W-z5Q" eventType="touchUpInside" id="x9X-31-0sg"/>
+                                    <segue destination="bHH-bg-23o" kind="presentation" identifier="createdSquadSegue" id="eTx-Yn-iRR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="8NQ-YF-Rwv"/>
                                 <exclude reference="UbR-fe-HIX"/>
+                                <exclude reference="iAS-ae-wF3"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="8NQ-YF-Rwv"/>
                                 <include reference="UbR-fe-HIX"/>
+                                <include reference="iAS-ae-wF3"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="createSquad" destination="iAS-ae-wF3" id="anx-tY-3jm"/>
                         <outlet property="tableView" destination="UbR-fe-HIX" id="rJb-Dq-9N9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uPj-d4-AvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1179" y="192"/>
+            <point key="canvasLocation" x="-498" y="756"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="gne-y7-UpQ">
+            <objects>
+                <tabBarController id="bHH-bg-23o" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="0de-oC-04i">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="kXc-9E-74e" kind="relationship" relationship="viewControllers" id="KdG-2z-tIa"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="JNw-hD-gCD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tRY-UC-XYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="214.5" y="756"/>
+        </scene>
+        <!--Set Username View Controller-->
+        <scene sceneID="fn2-bu-foj">
+            <objects>
+                <viewController id="xMH-XL-SJ3" customClass="SetUsernameViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="smG-B1-hSf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cmr-0M-NBu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bFt-C9-FWZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JA-ea-vnu">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="120" y="166" width="160" height="21"/>
+                                </variation>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P0h-kX-BwP">
+                                <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="39" y="233" width="322" height="30"/>
+                                </variation>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJo-fi-Szt">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Submit"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="401" width="49" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="setUsername:" destination="xMH-XL-SJ3" eventType="touchUpInside" id="pCZ-Ug-8Hl"/>
+                                    <segue destination="qmp-Or-pwB" kind="presentation" id="piV-2g-hgb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="8JA-ea-vnu"/>
+                                <exclude reference="P0h-kX-BwP"/>
+                                <exclude reference="yJo-fi-Szt"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="8JA-ea-vnu"/>
+                                <include reference="P0h-kX-BwP"/>
+                                <include reference="yJo-fi-Szt"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="usernameTextField" destination="P0h-kX-BwP" id="Xz4-Ob-MdH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyP-nf-ByM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1350" y="22"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zAR-GO-xUL">
@@ -297,25 +369,47 @@
                                 </variation>
                                 <connections>
                                     <action selector="test" destination="O1M-R7-pGv" eventType="touchUpInside" id="mjA-m3-cQx"/>
+                                    <segue destination="qmp-Or-pwB" kind="presentation" identifier="loggedInSegue" id="BKi-MX-rwa"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="emV-aS-jNR">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="28" y="72" width="240" height="128"/>
+                                </variation>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3cc-TZ-0Fy">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="140" y="478" width="240" height="128"/>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="mZq-6e-vWN"/>
+                                <exclude reference="emV-aS-jNR"/>
+                                <exclude reference="3cc-TZ-0Fy"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="mZq-6e-vWN"/>
+                                <include reference="emV-aS-jNR"/>
+                                <include reference="3cc-TZ-0Fy"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="emV-aS-jNR" id="dbV-qo-fPY"/>
+                        <outlet property="testImageView" destination="3cc-TZ-0Fy" id="bMe-oK-bE3"/>
+                        <segue destination="xMH-XL-SJ3" kind="presentation" identifier="setUsernameSegue" id="od7-yw-OoU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oEO-P6-Xuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-370.5" y="196"/>
+            <point key="canvasLocation" x="-1915.5" y="756"/>
         </scene>
         <!--Map-->
         <scene sceneID="zdT-a2-Vyp">
@@ -371,12 +465,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJ5-RP-Zm5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2931" y="196"/>
+            <point key="canvasLocation" x="2181" y="816"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Now-It-gtr">
             <objects>
-                <viewController id="wT0-7Q-2da" customClass="ViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wT0-7Q-2da" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BmZ-8f-SuN"/>
                         <viewControllerLayoutGuide type="bottom" id="tV4-3y-3DU"/>
@@ -389,12 +483,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJo-gK-QPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3828" y="196"/>
+            <point key="canvasLocation" x="2808" y="816"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Map-->
         <scene sceneID="z0K-YN-XFZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kXc-9E-74e" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" id="4lv-fZ-3pt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="9cT-Rc-jsL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -411,7 +506,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xID-uk-AOB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2118" y="196"/>
+            <point key="canvasLocation" x="1116" y="756"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="piV-2g-hgb"/>
+    </inferredMetricsTieBreakers>
 </document>

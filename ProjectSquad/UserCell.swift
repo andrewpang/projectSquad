@@ -22,7 +22,7 @@ class UserCell: UITableViewCell{
         addButton.hidden = ifAdded
     }
     
-    @IBAction func addFBFriend(sender: AnyObject) {
+    @IBAction func addFriend(sender: AnyObject) {
         addButton.hidden = true
         NetManager.sharedManager.addFriend(self.friendId, friendUsername: nameLabel.text!)
     }
