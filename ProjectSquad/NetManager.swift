@@ -167,16 +167,30 @@ class NetManager {
         })
     }
     
-    func setSquad(name: String, startTime: NSDate, endTime: NSDate, description: String, members: [String: String]) {
+    //Send a request to user to join a squad
+    func sendSquadRequest(userId: String, squadId: String) {
+        let requestRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(userId).childByAppendingPath("requests")
+        
+        requestRef.updateChildValues(["squadId": squadId],
+            withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                if let error = error {
+                    print("Error sending profile info! \(error)")
+                }
+            })
+    }
+    
+    func setSquad(name: String, startTime: NSDate, endTime: NSDate, description: String, invites: [String: String]) {
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squad")
         let squad1Ref = squadRef.childByAutoId()
         let membersRef = squad1Ref.childByAppendingPath("members")
         
 //        let leader =  self.currentUserData!.uid
-        let leader = "hardcode"
+        let leaderId = "hardcode"
         let leadername = "hardcode"
+//        let leader = [self.currentUserData!.displayName : self.currentUserData!.uid]
+        let leader = ["Andrew Pang":"facebook:10153631255636387"]
         
-        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leader, leaderUsername: leadername)
+        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leaderId, leaderUsername: leadername)
         
         
         squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
@@ -184,7 +198,7 @@ class NetManager {
                     print("Error sending profile info! \(error)")
                 } else{
                     //If no error with setting squad, set members of squad
-                    membersRef.setValue(members,
+                    membersRef.setValue(leader ,
                         withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                         if let error = error {
                             print("Error sending profile info! \(error)")
@@ -192,15 +206,23 @@ class NetManager {
                     })
             }
         })
+        for(inviteeName, inviteeId) in invites{
+            sendSquadRequest(inviteeId, squadId: squad1Ref.key)
+        }
+
+        
     }
     
-    //Send a request to user to join a squad
-    func sendSquadRequest(squad: String, completionBlock: (error: NSError?) -> Void) {
-        let requestRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid).childByAppendingPath("requests")
+
+    
+    func getSquadRequests() {
+        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath.(self.currentUserData?.uid).childByAppendingPath("requests").
         
-        requestRef.updateChildValues(["squad": squad]) { (error: NSError?, firebase: Firebase!) -> Void in
-            completionBlock(error: error)
-        }
+        requestsRef.observeEventType(.Value, withBlock: { snapshot in
+            print(snapshot)
+            }, withCancelBlock: { error in
+                print(error.description)
+        })
     }
     
     //Add current user to a squad

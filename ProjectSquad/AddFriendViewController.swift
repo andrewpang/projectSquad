@@ -65,7 +65,7 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func createSquad(sender: AnyObject) {
-        NetManager.sharedManager.setSquad(squadName, startTime: startTime, endTime: endTime, description: squadGoal, members: squadInvites)
+        NetManager.sharedManager.setSquad(squadName, startTime: startTime, endTime: endTime, description: squadGoal, invites: squadInvites)
         self.performSegueWithIdentifier("createdSquadSegue", sender: nil)
     }
 
