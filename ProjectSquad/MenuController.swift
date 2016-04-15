@@ -22,6 +22,7 @@ class MenuController: UIViewController{
     }
 
     @IBAction func goToRequests(sender: AnyObject) {
+        self.performSegueWithIdentifier("goToRequestsSegue", sender: nil)
     }
     @IBAction func createSquad(sender: AnyObject) {
         self.performSegueWithIdentifier("createSquadSegue", sender: nil)
