@@ -8,12 +8,16 @@
 
 import Foundation
 
+protocol UserCellDelegate {
+    func cellButtonTapped(cell: UserCell)
+}
+
 class UserCell: UITableViewCell{
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     var friendId: String!
-    
+    var delegate: UserCellDelegate?
     
     //ifAdded is true, hide the add button
     func loadItem(name: String, uid: String, ifAdded: Bool) {
@@ -24,6 +28,7 @@ class UserCell: UITableViewCell{
     
     @IBAction func addFriend(sender: AnyObject) {
         addButton.hidden = true
+        delegate?.cellButtonTapped(self)
 //        NetManager.sharedManager.addFriend(self.friendId, friendUsername: nameLabel.text!)
     }
 

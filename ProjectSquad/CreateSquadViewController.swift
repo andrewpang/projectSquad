@@ -13,6 +13,7 @@ class CreateSquadViewController: UIViewController{
     @IBOutlet weak var squadNameTextField: UITextField!
     @IBOutlet weak var startTimeDatePicker: UIDatePicker!
     @IBOutlet weak var endTimeDatePicker: UIDatePicker!
+    @IBOutlet weak var squadGoalTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,7 @@ class CreateSquadViewController: UIViewController{
             addFriendViewController.squadName = self.squadNameTextField.text!
             addFriendViewController.startTime = self.startTimeDatePicker.date
             addFriendViewController.endTime = self.endTimeDatePicker.date
-            addFriendViewController.squadGoal = "HI"
+            addFriendViewController.squadGoal = self.squadGoalTextView.text!
         }
     }
 

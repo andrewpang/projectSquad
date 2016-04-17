@@ -8,11 +8,11 @@
 
 import Foundation
 
-class AddFriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddFriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UserCellDelegate {
     
-    var friendNames = ["hi"]
-    var friendIds = ["hi"]
-    var squadInvites = ["hi":"hi"]
+    var friendNames: [String] = []
+    var friendIds:[String] = []
+    var squadInvites: [String: String] = [:]
     
     var squadName: String!
     var startTime: NSDate!
@@ -31,7 +31,8 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
         NetManager.sharedManager.getFacebookFriends({result in
             if let friendObjects = result["data"] as? [NSDictionary] {
                 for friendObject in friendObjects {
-                    self.friendIds.append(friendObject["id"] as! String)
+                    let fbId = "facebook:" + (friendObject["id"] as! String)
+                    self.friendIds.append(fbId)
                     self.friendNames.append(friendObject["name"] as! String)
                 }
                 self.tableView.reloadData()
@@ -49,8 +50,7 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("UserCell") as! UserCell
-        
-        
+        cell.delegate = self
         let row = indexPath.row
         //TODO: compare to current users friend list to set ifAdded
         cell.loadItem(friendNames[row], uid: friendIds[row], ifAdded: false)
@@ -67,6 +67,18 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     @IBAction func createSquad(sender: AnyObject) {
         NetManager.sharedManager.setSquad(squadName, startTime: startTime, endTime: endTime, description: squadGoal, invites: squadInvites)
         self.performSegueWithIdentifier("createdSquadSegue", sender: nil)
+    }
+    
+    func cellButtonTapped(cell: UserCell) {
+        let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
+        let selectedName = friendNames[indexPath.row]
+        let selectedId = friendIds[indexPath.row]
+        
+        if (squadInvites.indexForKey(selectedName) != nil) {
+            squadInvites.removeValueForKey(selectedName)
+        } else {
+            squadInvites[selectedName] = selectedId
+        }
     }
 
 }

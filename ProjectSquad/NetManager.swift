@@ -180,15 +180,15 @@ class NetManager {
     }
     
     func setSquad(name: String, startTime: NSDate, endTime: NSDate, description: String, invites: [String: String]) {
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squad")
+        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads")
         let squad1Ref = squadRef.childByAutoId()
         let membersRef = squad1Ref.childByAppendingPath("members")
         
 //        let leader =  self.currentUserData!.uid
-        let leaderId = "hardcode"
-        let leadername = "hardcode"
-//        let leader = [self.currentUserData!.displayName : self.currentUserData!.uid]
-        let leader = ["Andrew Pang":"facebook:10153631255636387"]
+        let leaderId = self.currentUserData!.uid
+        let leadername = self.currentUserData!.displayName
+        let leader = [self.currentUserData!.displayName : self.currentUserData!.uid]
+//        let leader = ["Andrew Pang":"facebook:10153631255636387"]
         
         self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leaderId, leaderUsername: leadername)
         
@@ -216,7 +216,7 @@ class NetManager {
 
     
     func getSquadRequests() {
-        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath.(self.currentUserData?.uid).childByAppendingPath("requests").
+        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("requests")
         
         requestsRef.observeEventType(.Value, withBlock: { snapshot in
             print(snapshot)
@@ -227,7 +227,7 @@ class NetManager {
     
     //Add current user to a squad
     func joinSquad(squadId: String, completionBlock: (error: NSError?) -> Void) {
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squad").childByAppendingPath(squadId)
+        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
         
         squadRef.updateChildValues([(self.currentUserData?.uid)!: (self.currentUserData?.username)!]) { (error: NSError?, firebase: Firebase!) -> Void in
             completionBlock(error: error)
