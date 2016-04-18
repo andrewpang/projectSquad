@@ -35,7 +35,7 @@ class CreateSquadViewController: UIViewController{
             
             let addFriendViewController = (segue.destinationViewController as! AddFriendViewController)
             addFriendViewController.squadName = self.squadNameTextField.text!
-            addFriendViewController.startTime = self.startTimeDatePicker.date
+            addFriendViewController.startTime = NSDate()
             addFriendViewController.endTime = self.endTimeDatePicker.date
             addFriendViewController.squadGoal = self.squadGoalTextView.text!
         }

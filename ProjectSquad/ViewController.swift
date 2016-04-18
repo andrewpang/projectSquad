@@ -19,40 +19,22 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        if (FBSDKAccessToken.currentAccessToken() != nil)
-//        {
-//            // User is already logged in, do work such as go to next view controller.
-//        }
-//        else
-//        {
-//           
-//        }
         
         let loginView : FBSDKLoginButton = FBSDKLoginButton()
         self.view.addSubview(loginView)
         loginView.center = self.view.center
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
-        
-//                ImageLoader.sharedLoader.imageForUrl("https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6", completionHandler:{(image: UIImage?, url: String) in
-//                    self.testImageView.image = image
-////                    JSQMessagesAvatarImage(avatarImage: image!, highlightedImage: image!, placeholderImage: image!)
-////                    self.reloadMessagesView()
-//                })
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+//        if (FBSDKAccessToken.currentAccessToken() != nil)
+//        {
+//            // User is already logged in, do work such as go to next view controller.
+//            print("User already logged in!")
+//            self.performSegueWithIdentifier("loggedInSegue", sender: nil)
+//        }
 
-//        imageView.kf_setImageWithURL(NSURL(string: "https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6")!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
-//            self.testImageView.image = image
-//        })
-        
-        
-//        let url = NSURL(fileURLWithPath: "https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6")
-//        ImageDownloader(name: "imageDL").downloadImageWithURL(url, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
-//                self.testImageView.image = image
-//        })
-        
-        
-        
-        
     }
 
     override func didReceiveMemoryWarning() {

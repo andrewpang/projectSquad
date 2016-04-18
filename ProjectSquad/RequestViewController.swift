@@ -31,6 +31,20 @@ class RequestViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NetManager.sharedManager.getSquadRequests({result in
+            for(id, name) in result{
+                NetManager.sharedManager.getSquad(id as! String, block: {squadResult in
+                    self.squadNames.append(squadResult.name)
+                    self.squadGoals.append(squadResult.description)
+                    self.leaderNames.append(squadResult.leader)
+                    self.times.append("hardcode")
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.tableView.reloadData()
+                    }
+                })
+            }
+
+        })
 //        NetManager.sharedManager.getFacebookFriends({result in
 //            if let friendObjects = result["data"] as? [NSDictionary] {
 //                for friendObject in friendObjects {

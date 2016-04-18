@@ -168,10 +168,10 @@ class NetManager {
     }
     
     //Send a request to user to join a squad
-    func sendSquadRequest(userId: String, squadId: String) {
+    func sendSquadRequest(userId: String, squadId: String, squadName: String) {
         let requestRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(userId).childByAppendingPath("requests")
         
-        requestRef.updateChildValues(["squadId": squadId],
+        requestRef.updateChildValues([squadId: squadName],
             withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                 if let error = error {
                     print("Error sending profile info! \(error)")
@@ -207,19 +207,46 @@ class NetManager {
             }
         })
         for(inviteeName, inviteeId) in invites{
-            sendSquadRequest(inviteeId, squadId: squad1Ref.key)
+            sendSquadRequest(inviteeId, squadId: squad1Ref.key, squadName: name)
         }
 
         
     }
     
-
     
-    func getSquadRequests() {
+    func getSquad(squadId: String, block: (squad: Squad) -> Void) {
+        
+        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
+        
+        squadRef.observeEventType(.Value, withBlock: { snapshot in
+            var squadName = snapshot.value.valueForKey("name") as! String
+            var description = snapshot.value.valueForKey("description") as! String
+            var startTime = snapshot.value.valueForKey("startTime") as! String
+            var endTime = snapshot.value.valueForKey("endTime") as! String
+            var leaderId = snapshot.value.valueForKey("leader") as! String
+            var leaderUsername = "username"
+            
+            var startDate = NSDate(timeIntervalSince1970: Double(startTime)!)
+            var endDate = NSDate(timeIntervalSince1970: Double(endTime)!)
+            
+            var squad = Squad(name: squadName, startTime: startDate, endTime: endDate, description: description, leaderId: leaderId, leaderUsername: leaderUsername)
+            
+            block(squad: squad)
+            }, withCancelBlock: { error in
+                print(error.description)
+        })
+    }
+    
+    func getSquadRequests(block: (resultDict: NSDictionary) -> Void) {
         let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("requests")
+    
         
         requestsRef.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot)
+            var resultDictionary: [String: String] = [:]
+            for(title, id) in snapshot.value as! NSDictionary{
+                resultDictionary[title as! String] = id as? String
+            }
+            block(resultDict: resultDictionary)
             }, withCancelBlock: { error in
                 print(error.description)
         })

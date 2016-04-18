@@ -98,43 +98,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="172" y="72" width="176" height="30"/>
+                                    <rect key="frame" x="28" y="119" width="344" height="30"/>
                                 </variation>
                             </textField>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="R9z-Uo-qvf">
-                                <rect key="frame" x="-160" y="-108" width="320" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="475893995.53303599">
-                                    <!--2016-01-31 00:46:35 +0000-->
-                                </date>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="256" width="400" height="75"/>
-                                </variation>
-                            </datePicker>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="DsP-v2-PXM">
-                                <rect key="frame" x="-160" y="-108" width="320" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="475894016.22840798">
-                                    <!--2016-01-31 00:46:56 +0000-->
-                                </date>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="411" width="400" height="75"/>
-                                </variation>
-                            </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Begin Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39g-CT-UHm">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="212" width="86" height="21"/>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9s-G4-A5M">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="364" width="72" height="21"/>
+                                    <rect key="frame" x="33" y="352" width="72" height="21"/>
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFQ-Ch-jYP">
@@ -153,7 +126,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="85" y="129" width="263" height="63"/>
+                                    <rect key="frame" x="28" y="212" width="352" height="138"/>
                                 </variation>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#squadgoals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RK-nE-n4J">
@@ -162,7 +135,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="111" width="129" height="21"/>
+                                    <rect key="frame" x="28" y="170" width="129" height="21"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Squad Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcA-tq-Txo">
@@ -171,35 +144,40 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="72" width="99" height="21"/>
+                                    <rect key="frame" x="28" y="90" width="99" height="21"/>
                                 </variation>
                             </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="DsP-v2-PXM">
+                                <rect key="frame" x="-160" y="-108" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="475894016.22840798">
+                                    <!--2016-01-31 00:46:56 +0000-->
+                                </date>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="395" width="400" height="130"/>
+                                </variation>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="WpC-DV-El5"/>
-                                <exclude reference="R9z-Uo-qvf"/>
-                                <exclude reference="DsP-v2-PXM"/>
-                                <exclude reference="39g-CT-UHm"/>
                                 <exclude reference="y9s-G4-A5M"/>
                                 <exclude reference="tFQ-Ch-jYP"/>
                                 <exclude reference="OtV-Uu-hTh"/>
                                 <exclude reference="0RK-nE-n4J"/>
                                 <exclude reference="CcA-tq-Txo"/>
+                                <exclude reference="DsP-v2-PXM"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="WpC-DV-El5"/>
-                                <include reference="R9z-Uo-qvf"/>
-                                <include reference="DsP-v2-PXM"/>
-                                <include reference="39g-CT-UHm"/>
                                 <include reference="y9s-G4-A5M"/>
                                 <include reference="tFQ-Ch-jYP"/>
                                 <include reference="OtV-Uu-hTh"/>
                                 <include reference="0RK-nE-n4J"/>
                                 <include reference="CcA-tq-Txo"/>
+                                <include reference="DsP-v2-PXM"/>
                             </mask>
                         </variation>
                     </view>
@@ -208,7 +186,6 @@
                         <outlet property="endTimeDatePicker" destination="DsP-v2-PXM" id="x7o-Wa-VcJ"/>
                         <outlet property="squadGoalTextView" destination="OtV-Uu-hTh" id="Mbn-RG-K53"/>
                         <outlet property="squadNameTextField" destination="WpC-DV-El5" id="rjB-6u-cmL"/>
-                        <outlet property="startTimeDatePicker" destination="R9z-Uo-qvf" id="XC3-N5-LD1"/>
                         <segue destination="8DG-8W-z5Q" kind="show" identifier="inviteSegue" id="OwQ-JA-E8N"/>
                     </connections>
                 </viewController>
@@ -399,19 +376,28 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="75" width="400" height="451"/>
+                                    <rect key="frame" x="0.0" y="105" width="400" height="451"/>
                                 </variation>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAS-ae-wF3">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Create Squad"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="153" y="550" width="94" height="30"/>
+                                    <rect key="frame" x="153" y="557" width="94" height="30"/>
                                 </variation>
                                 <connections>
                                     <action selector="createSquad:" destination="8DG-8W-z5Q" eventType="touchUpInside" id="x9X-31-0sg"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jv-w4-RnF">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="156" y="72" width="89" height="21"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -419,6 +405,7 @@
                                 <exclude reference="8NQ-YF-Rwv"/>
                                 <exclude reference="UbR-fe-HIX"/>
                                 <exclude reference="iAS-ae-wF3"/>
+                                <exclude reference="0jv-w4-RnF"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -426,6 +413,7 @@
                                 <include reference="8NQ-YF-Rwv"/>
                                 <include reference="UbR-fe-HIX"/>
                                 <include reference="iAS-ae-wF3"/>
+                                <include reference="0jv-w4-RnF"/>
                             </mask>
                         </variation>
                     </view>
