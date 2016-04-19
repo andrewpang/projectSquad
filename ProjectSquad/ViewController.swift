@@ -9,12 +9,15 @@
 import UIKit
 import Firebase
 import Kingfisher
+import CoreLocation
 
-class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var testImageView: UIImageView!
  
     @IBOutlet weak var imageView: UIImageView!
+    
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +28,27 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginView.center = self.view.center
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
+        
+        
+        
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
     }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+
     
     override func viewDidAppear(animated: Bool) {
 //        if (FBSDKAccessToken.currentAccessToken() != nil)
