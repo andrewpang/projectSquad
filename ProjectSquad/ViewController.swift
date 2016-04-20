@@ -13,18 +13,21 @@ import Kingfisher
 class ViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     @IBOutlet weak var testImageView: UIImageView!
- 
     @IBOutlet weak var imageView: UIImageView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
         
         let loginView : FBSDKLoginButton = FBSDKLoginButton()
         self.view.addSubview(loginView)
         loginView.center = self.view.center
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {

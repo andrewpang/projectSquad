@@ -29,9 +29,34 @@ class ChatViewController: JSQMessagesViewController {
         self.senderDisplayName = "Someone"
         self.senderId = "2"
         
+        self.tabBarController?.tabBar.hidden = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
+
+        
 //        // No avatars
 //        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
 //        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        
+        let containerView = UIView()
+        let titleLabel = UILabel()
+        titleLabel.font = Themes.Fonts.bigBold
+        titleLabel.attributedText = NSAttributedString(string: self.title!)
+        titleLabel.kern(Themes.Fonts.kerning)
+        titleLabel.textColor = Themes.Colors.light
+        titleLabel.sizeToFit()
+        
+        containerView.frame.size.height = titleLabel.frame.size.height
+        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
+        //containerView.userInteractionEnabled = true
+        
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(Map.toSquadOverview))
+        
+        containerView.addSubview(titleLabel)
+        
+        self.navigationItem.titleView = containerView
+        self.navigationItem.titleView?.userInteractionEnabled = true
+//        self.navigationItem.titleView?.addGestureRecognizer(tap)
+
         
         currentUserAvatar = UIImageView()
         

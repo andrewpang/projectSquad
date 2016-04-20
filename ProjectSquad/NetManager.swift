@@ -99,24 +99,39 @@ class NetManager {
     }
     
     //MARK: - Location
-//    func listenForLocationUpdates() {
-//        let ref = self.getFirebaseLocationsRef()
-//        ref.observeEventType(FEventType.ChildAdded) { (snapshot: FDataSnapshot?) -> Void in
-//            self.processChildAddedAndChanged(snapshot)
-//        }
-//        
-//        ref.observeEventType(FEventType.ChildChanged) { (snapshot: FDataSnapshot?) -> Void in
-//            self.processChildAddedAndChanged(snapshot)
-//        }
-//    }
+    func listenForLocationUpdates(userId: String, block: (location: CLLocation) -> Void) {
+        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("locations").childByAppendingPath(userId)
+        let geoFire = GeoFire(firebaseRef: ref)
+        
+        ref.observeEventType(.ChildAdded, withBlock: { snapshot in
+            self.processChildAddedAndChanged(geoFire, block: block)
+        })
+        
+        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
+            self.processChildAddedAndChanged(geoFire, block: block)
+        })
+    }
     
-//    private func processChildAddedAndChanged(snapshot: FDataSnapshot?) {
+    private func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
+        geoFire.getLocationForKey("location", withCallback: { (location, error) in
+            if (error != nil) {
+                print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+            } else if (location != nil) {
+                block(location: location)
+                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+            } else {
+                print("GeoFire does not contain a location for \"firebase-hq\"")
+            }
+        })
+    }
+    
+//    private func processChildAddedAndChanged(userId:String, snapshot: FDataSnapshot?) {
 //        if let snapshot = snapshot {
 //            if !(snapshot.value is NSNull) {
-//                if snapshot.key != self.currentUserData!.uid {
+//                if snapshot.key != userId {
 //                    let geoRef = self.getUserLocationRef(snapshot.key)
 //                    let geofire = GeoFire(firebaseRef: geoRef)
-//                    geofire.getLocationForKey("loc") { (location: CLLocation?, error: NSError?) -> Void in
+//                    geofire.getLocationForKey("location") { (location: CLLocation?, error: NSError?) -> Void in
 //                        if let location = location {
 //                            let uid = snapshot.key
 //                            if let user = self.getUserWithUID(uid) {
@@ -140,18 +155,14 @@ class NetManager {
 //        }
 //    }
     
-    func stopListeningForLocationUpdates() {
-        
-    }
-    
     func updateCurrentLocation(currentLocation: CLLocation) {
         if let ref = self.getCurrentUserLocationRef() {
             let geofire = GeoFire(firebaseRef: ref)
-            geofire.setLocation(currentLocation, forKey: "loc") { (error: NSError?) -> Void in
-                if let error = error {
-//                    self.delegate?.didSetLocation(error)
+            geofire.setLocation(currentLocation, forKey: "location") { (error: NSError?) -> Void in
+                if (error != nil) {
+                    print("An error occured: \(error)")
                 } else {
-//                    self.delegate?.didSetLocation(nil)
+                    print("Saved location successfully!")
                 }
             }
         } else {
@@ -206,6 +217,7 @@ class NetManager {
                     })
             }
         })
+        self.currentUserData?.currentSquad = squad1Ref.key
         for(inviteeName, inviteeId) in invites{
             sendSquadRequest(inviteeId, squadId: squad1Ref.key, squadName: name)
         }
@@ -216,7 +228,7 @@ class NetManager {
     
     func getSquad(squadId: String, block: (squad: Squad) -> Void) {
         
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
+        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(self.currentUserData?.currentSquad)
         
         squadRef.observeEventType(.Value, withBlock: { snapshot in
             var squadName = snapshot.value.valueForKey("name") as! String
@@ -259,6 +271,7 @@ class NetManager {
         squadRef.updateChildValues([(self.currentUserData?.uid)!: (self.currentUserData?.username)!]) { (error: NSError?, firebase: Firebase!) -> Void in
             completionBlock(error: error)
         }
+        self.currentUserData?.currentSquad = squadId
     }
     
     //Add a new message to a chat
