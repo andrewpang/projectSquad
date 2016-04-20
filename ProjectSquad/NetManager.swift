@@ -55,6 +55,10 @@ class NetManager {
         })
     }
     
+    func setCurrentUser(user: User){
+        self.currentUserData = user;
+    }
+    
     func addFriend(friendID: String, friendUsername: String) {
         let friendsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(currentUserData!.uid).childByAppendingPath("friends")
         friendsRef.updateChildValues([friendID: friendUsername],
@@ -255,8 +259,10 @@ class NetManager {
         
         requestsRef.observeEventType(.Value, withBlock: { snapshot in
             var resultDictionary: [String: String] = [:]
-            for(title, id) in snapshot.value as! NSDictionary{
-                resultDictionary[title as! String] = id as? String
+            if let snapVal = snapshot.value as? NSDictionary{
+                for(title, id) in snapVal{
+                    resultDictionary[title as! String] = id as? String
+                }
             }
             block(resultDict: resultDictionary)
             }, withCancelBlock: { error in

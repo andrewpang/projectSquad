@@ -31,12 +31,28 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-//        if (FBSDKAccessToken.currentAccessToken() != nil)
-//        {
-//            // User is already logged in, do work such as go to next view controller.
-//            print("User already logged in!")
-//            self.performSegueWithIdentifier("loggedInSegue", sender: nil)
-//        }
+        if (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
+            print("User already logged in!")
+            let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture"], tokenString: FBSDKAccessToken.currentAccessToken().tokenString, version: nil, HTTPMethod: "GET")
+            req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
+                if(error == nil)
+                {
+                    print("result \(result)")
+                    let resultDict = result as! [String: AnyObject]
+                    let user = User(uid: resultDict["id"] as! String, provider: "FB", displayName: resultDict["name"] as! String, email: resultDict["email"] as! String, picURL: resultDict["picture"]!["data"]!!["url"] as! String)
+                    NetManager.sharedManager.setCurrentUser(user);
+                    self.performSegueWithIdentifier("loggedInSegue", sender: nil)
+                }
+                else
+                {
+                    print("error \(error)")
+                }
+            })
+            
+            
+        }
 
     }
 
