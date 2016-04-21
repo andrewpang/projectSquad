@@ -14,8 +14,11 @@ class RequestCell: UITableViewCell{
     @IBOutlet weak var leaderNameLabel: UILabel!
     @IBOutlet weak var squadGoalsLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    var squadId: String = ""
+    var delegate:CustomCellDelegator!
     
-    func loadItem(squadName: String, name: String, squadGoals: String, time: String) {
+    func loadItem(squadId:String, squadName: String, name: String, squadGoals: String, time: String) {
+        self.squadId = squadId
         squadNameLabel?.text = squadName
         leaderNameLabel?.text = name
         squadGoalsLabel?.text = squadGoals
@@ -24,6 +27,9 @@ class RequestCell: UITableViewCell{
     }
     
     @IBAction func acceptRequest(sender: AnyObject) {
+        if(self.delegate != nil){ 
+            self.delegate.callSegueFromCell(squadId)
+        }
     }
     
     

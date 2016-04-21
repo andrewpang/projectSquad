@@ -204,8 +204,9 @@ class NetManager {
         let leadername = self.currentUserData!.displayName
         let leader = [self.currentUserData!.displayName : self.currentUserData!.uid]
 //        let leader = ["Andrew Pang":"facebook:10153631255636387"]
+        let squadId = squad1Ref.key
         
-        self.currentSquadData = Squad(name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leaderId, leaderUsername: leadername)
+        self.currentSquadData = Squad(id:squadId, name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leaderId, leaderUsername: leadername)
         
         
         squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
@@ -221,9 +222,9 @@ class NetManager {
                     })
             }
         })
-        self.currentUserData?.currentSquad = squad1Ref.key
+        self.currentUserData?.currentSquad = squadId
         for(inviteeName, inviteeId) in invites{
-            sendSquadRequest(inviteeId, squadId: squad1Ref.key, squadName: name)
+            sendSquadRequest(inviteeId, squadId: squadId, squadName: name)
         }
 
         
@@ -231,8 +232,8 @@ class NetManager {
     
     
     func getSquad(squadId: String, block: (squad: Squad) -> Void) {
-        
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(self.currentUserData?.currentSquad)
+        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
+        self.currentUserData!.currentSquad = squadId
         
         squadRef.observeEventType(.Value, withBlock: { snapshot in
             var squadName = snapshot.value.valueForKey("name") as! String
@@ -245,7 +246,7 @@ class NetManager {
             var startDate = NSDate(timeIntervalSince1970: Double(startTime)!)
             var endDate = NSDate(timeIntervalSince1970: Double(endTime)!)
             
-            var squad = Squad(name: squadName, startTime: startDate, endTime: endDate, description: description, leaderId: leaderId, leaderUsername: leaderUsername)
+            var squad = Squad(id: squadId, name: squadName, startTime: startDate, endTime: endDate, description: description, leaderId: leaderId, leaderUsername: leaderUsername)
             
             block(squad: squad)
             }, withCancelBlock: { error in
@@ -274,8 +275,9 @@ class NetManager {
     func joinSquad(squadId: String, completionBlock: (error: NSError?) -> Void) {
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
         
-        squadRef.updateChildValues([(self.currentUserData?.uid)!: (self.currentUserData?.username)!]) { (error: NSError?, firebase: Firebase!) -> Void in
+        squadRef.updateChildValues([(self.currentUserData?.uid)!: ("joined")]) { (error: NSError?, firebase: Firebase!) -> Void in
             completionBlock(error: error)
+            //TODO: Delete request
         }
         self.currentUserData?.currentSquad = squadId
     }

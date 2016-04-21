@@ -301,6 +301,7 @@
                                     <outlet property="squadGoalsLabel" destination="dyJ-2A-eTh" id="XIW-rJ-TFW"/>
                                     <outlet property="squadNameLabel" destination="h8B-Rg-OgC" id="q2S-Mb-IZi"/>
                                     <outlet property="timeLabel" destination="c3H-d3-UmQ" id="hCe-YL-u26"/>
+                                    <segue destination="bHH-bg-23o" kind="presentation" identifier="joinedSquadSegue" id="x6J-C1-b8T"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -693,5 +694,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Ubv-iq-Aj8"/>
+        <segue reference="x6J-C1-b8T"/>
     </inferredMetricsTieBreakers>
 </document>
