@@ -28,9 +28,6 @@ class ChatViewController: JSQMessagesViewController {
         //
         self.senderDisplayName = "Someone"
         self.senderId = "2"
-        
-        self.tabBarController?.tabBar.hidden = true
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
 
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -52,13 +49,16 @@ class ChatViewController: JSQMessagesViewController {
         containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
         //containerView.userInteractionEnabled = true
         
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(Map.toSquadOverview))
+        let backTap = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.backToMap))
         
         containerView.addSubview(titleLabel)
         
+        self.tabBarController?.tabBar.hidden = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ChatViewController.backToMap))
+        
         self.navigationItem.titleView = containerView
         self.navigationItem.titleView?.userInteractionEnabled = true
-//        self.navigationItem.titleView?.addGestureRecognizer(tap)
+        self.navigationItem.titleView?.addGestureRecognizer(backTap)
 
         
         currentUserAvatar = UIImageView()
@@ -68,6 +68,10 @@ class ChatViewController: JSQMessagesViewController {
                 self.reloadMessagesView()
         })
         
+    }
+    
+    func backToMap(){
+        self.performSegueWithIdentifier("backToMapSegue", sender: self)
     }
     
     override func viewDidAppear(animated: Bool) {

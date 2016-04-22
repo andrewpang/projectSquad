@@ -19,7 +19,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     var leaderNames: [String] = []
     var squadGoals: [String] = []
     var times: [String] = []
-    var currentSquad: Squad?
+    var squads: [Squad] = []
     
 //    var squadName: String!
 //    var squadGoal: String!
@@ -46,7 +46,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
                     self.squadGoals.append(squadResult.description)
                     self.leaderNames.append(squadResult.leader)
                     self.times.append("hardcode")
-                    self.currentSquad = squadResult
+                    self.squads.append(squadResult)
                     dispatch_async(dispatch_get_main_queue()) {
                         self.tableView.reloadData()
                     }
@@ -78,8 +78,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
         cell.delegate = self
         
         let row = indexPath.row
-
-        cell.loadItem(currentSquad!)
+        cell.loadItem(squads[row])
         
         return cell
     }

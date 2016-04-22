@@ -85,13 +85,11 @@ class Map: UIViewController, CLLocationManagerDelegate {
         NetManager.sharedManager.updateCurrentLocation(locationObj)
         
         
-        let center = CLLocationCoordinate2D(latitude: locationObj.coordinate.latitude, longitude: locationObj.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        let center = CLLocationCoordinate2D(latitude: locationObj.coordinate.latitude, longitude: locationObj.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        
+//        self.map.setRegion(region, animated: true)
         
-        self.map.setRegion(region, animated: true)
-        
-//        var coord = locationObj.coordinate
-//        print(coord.latitude)
     }
     
     override func didReceiveMemoryWarning() {
