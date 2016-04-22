@@ -17,7 +17,7 @@ class ChatViewController: JSQMessagesViewController {
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.lightGrayColor())
     var messages = [JSQMessage]()
     //
-    var groupId = "hardcoded"
+    var groupId = NetManager.sharedManager.currentSquadData!.id
     
     var image: UIImage?
     var currentUserAvatar: UIImageView?
@@ -32,6 +32,9 @@ class ChatViewController: JSQMessagesViewController {
         self.tabBarController?.tabBar.hidden = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: nil)
 
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
         
 //        // No avatars
 //        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
@@ -164,5 +167,11 @@ class ChatViewController: JSQMessagesViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 }

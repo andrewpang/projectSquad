@@ -17,7 +17,7 @@ class NetManager {
     static let sharedManager = NetManager()
     private let firebaseRefURL = "https://squad-development.firebaseio.com/"
     private var currentUserData: User?
-    private var currentSquadData: Squad?
+    var currentSquadData: Squad?
     
     func loginWithToken(token: FBSDKAccessToken, completionBlock: (success: Bool, hasUsername: Bool) -> Void) {
         let ref = Firebase(url: self.firebaseRefURL)
@@ -233,20 +233,19 @@ class NetManager {
     
     func getSquad(squadId: String, block: (squad: Squad) -> Void) {
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
-        self.currentUserData!.currentSquad = squadId
-        
+ 
         squadRef.observeEventType(.Value, withBlock: { snapshot in
-            var squadName = snapshot.value.valueForKey("name") as! String
-            var description = snapshot.value.valueForKey("description") as! String
-            var startTime = snapshot.value.valueForKey("startTime") as! String
-            var endTime = snapshot.value.valueForKey("endTime") as! String
-            var leaderId = snapshot.value.valueForKey("leader") as! String
-            var leaderUsername = "username"
+            let squadName = snapshot.value.valueForKey("name") as! String
+            let description = snapshot.value.valueForKey("description") as! String
+            let startTime = snapshot.value.valueForKey("startTime") as! String
+            let endTime = snapshot.value.valueForKey("endTime") as! String
+            let leaderId = snapshot.value.valueForKey("leader") as! String
+            let leaderUsername = "username"
             
-            var startDate = NSDate(timeIntervalSince1970: Double(startTime)!)
-            var endDate = NSDate(timeIntervalSince1970: Double(endTime)!)
+            let startDate = NSDate(timeIntervalSince1970: Double(startTime)!)
+            let endDate = NSDate(timeIntervalSince1970: Double(endTime)!)
             
-            var squad = Squad(id: squadId, name: squadName, startTime: startDate, endTime: endDate, description: description, leaderId: leaderId, leaderUsername: leaderUsername)
+            let squad = Squad(id: squadId, name: squadName, startTime: startDate, endTime: endDate, description: description, leaderId: leaderId, leaderUsername: leaderUsername)
             
             block(squad: squad)
             }, withCancelBlock: { error in
@@ -272,14 +271,16 @@ class NetManager {
     }
     
     //Add current user to a squad
-    func joinSquad(squadId: String, completionBlock: (error: NSError?) -> Void) {
+    func joinSquad(currentSquad: Squad, completionBlock: (error: NSError?) -> Void) {
+        let squadId = currentSquad.id
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
         
         squadRef.updateChildValues([(self.currentUserData?.uid)!: ("joined")]) { (error: NSError?, firebase: Firebase!) -> Void in
             completionBlock(error: error)
             //TODO: Delete request
         }
-        self.currentUserData?.currentSquad = squadId
+        self.currentUserData!.currentSquad = squadId
+        self.currentSquadData = currentSquad
     }
     
     //Add a new message to a chat

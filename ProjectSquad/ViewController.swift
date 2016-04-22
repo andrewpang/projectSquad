@@ -39,7 +39,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
                 if(error == nil)
                 {
-                    print("result \(result)")
+                    //print("result \(result)")
                     let resultDict = result as! [String: AnyObject]
                     var uid = "facebook:"
                     uid += resultDict["id"] as! String

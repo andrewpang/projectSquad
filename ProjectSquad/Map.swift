@@ -14,7 +14,9 @@ class Map: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var map: MKMapView!
     var locationManager: CLLocationManager!
-    var squadId: String = "-KFp1qT2nHW1pWSwqzz4"
+    var squadId: String =  NetManager.sharedManager.currentSquadData!.id
+    //"-KFp1qT2nHW1pWSwqzz4"
+    var squadName: String = NetManager.sharedManager.currentSquadData!.name
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class Map: UIViewController, CLLocationManagerDelegate {
         arrow.contentMode = .ScaleAspectFit
         let titleLabel = UILabel()
         titleLabel.font = Themes.Fonts.bigBold
-        titleLabel.attributedText = NSAttributedString(string: "SQUAD NAME")
+        titleLabel.attributedText = NSAttributedString(string: squadName)
         titleLabel.kern(Themes.Fonts.kerning)
         titleLabel.textColor = Themes.Colors.light
         titleLabel.sizeToFit()
@@ -81,6 +83,12 @@ class Map: UIViewController, CLLocationManagerDelegate {
         var locationArray = locations as NSArray
         var locationObj = locationArray.lastObject as! CLLocation
         NetManager.sharedManager.updateCurrentLocation(locationObj)
+        
+        
+        let center = CLLocationCoordinate2D(latitude: locationObj.coordinate.latitude, longitude: locationObj.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        self.map.setRegion(region, animated: true)
         
 //        var coord = locationObj.coordinate
 //        print(coord.latitude)

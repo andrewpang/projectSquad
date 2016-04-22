@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CustomCellDelegator {
-    func callSegueFromCell(squadId: String)
+    func callSegueFromCell(squad: Squad)
 }
 
 class RequestViewController: UITableViewController, CustomCellDelegator {
@@ -19,7 +19,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     var leaderNames: [String] = []
     var squadGoals: [String] = []
     var times: [String] = []
-    
+    var currentSquad: Squad?
     
 //    var squadName: String!
 //    var squadGoal: String!
@@ -46,6 +46,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
                     self.squadGoals.append(squadResult.description)
                     self.leaderNames.append(squadResult.leader)
                     self.times.append("hardcode")
+                    self.currentSquad = squadResult
                     dispatch_async(dispatch_get_main_queue()) {
                         self.tableView.reloadData()
                     }
@@ -78,7 +79,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
         
         let row = indexPath.row
 
-        cell.loadItem(squadId[row], squadName: squadNames[row], name: leaderNames[row], squadGoals: squadGoals[row], time: times[row])
+        cell.loadItem(currentSquad!)
         
         return cell
     }
@@ -89,8 +90,8 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
         let row = indexPath.row
     }
     
-    func callSegueFromCell(squadId: String){
-        NetManager.sharedManager.joinSquad(squadId, completionBlock: {snapshot in
+    func callSegueFromCell(squad: Squad){
+        NetManager.sharedManager.joinSquad(squad, completionBlock: {snapshot in
             self.performSegueWithIdentifier("joinedSquadSegue", sender: nil)
         })
     }
