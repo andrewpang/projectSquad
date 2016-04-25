@@ -16,6 +16,7 @@ class User{
     var email: String
     var picURL: String
     var friends: [String]?
+    var currentSquad: String?
     
     init(uid: String, provider: String, displayName: String, email: String, picURL: String){
         self.uid = uid

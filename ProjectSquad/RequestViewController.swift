@@ -8,12 +8,18 @@
 
 import Foundation
 
-class RequestViewController: UITableViewController {
+protocol CustomCellDelegator {
+    func callSegueFromCell(squad: Squad)
+}
+
+class RequestViewController: UITableViewController, CustomCellDelegator {
     
-    var squadNames = ["hi"]
-    var leaderNames = ["yo"]
-    var squadGoals = ["hi"]
-    var times = ["1-3"]
+    var squadId: [String] = []
+    var squadNames: [String] = []
+    var leaderNames: [String] = []
+    var squadGoals: [String] = []
+    var times: [String] = []
+    var squads: [Squad] = []
     
 //    var squadName: String!
 //    var squadGoal: String!
@@ -33,11 +39,14 @@ class RequestViewController: UITableViewController {
         super.viewDidLoad()
         NetManager.sharedManager.getSquadRequests({result in
             for(id, name) in result{
-                NetManager.sharedManager.getSquad(id as! String, block: {squadResult in
+                let squadId = id as! String
+                NetManager.sharedManager.getSquad(squadId, block: {squadResult in
+                    self.squadId.append(squadId)
                     self.squadNames.append(squadResult.name)
                     self.squadGoals.append(squadResult.description)
                     self.leaderNames.append(squadResult.leader)
                     self.times.append("hardcode")
+                    self.squads.append(squadResult)
                     dispatch_async(dispatch_get_main_queue()) {
                         self.tableView.reloadData()
                     }
@@ -66,11 +75,10 @@ class RequestViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestCell", forIndexPath: indexPath) as! RequestCell
-        
+        cell.delegate = self
         
         let row = indexPath.row
-
-        cell.loadItem(squadNames[row], name: leaderNames[row], squadGoals: squadGoals[row], time: times[row])
+        cell.loadItem(squads[row])
         
         return cell
     }
@@ -79,6 +87,12 @@ class RequestViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let row = indexPath.row
+    }
+    
+    func callSegueFromCell(squad: Squad){
+        NetManager.sharedManager.joinSquad(squad, completionBlock: {snapshot in
+            self.performSegueWithIdentifier("joinedSquadSegue", sender: nil)
+        })
     }
     
 }

@@ -14,14 +14,15 @@ import CoreLocation
 class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var testImageView: UIImageView!
- 
     @IBOutlet weak var imageView: UIImageView!
+
     
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
         
         let loginView : FBSDKLoginButton = FBSDKLoginButton()
         self.view.addSubview(loginView)
@@ -29,19 +30,6 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationMana
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
         
-        
-        
-        // Ask for Authorisation from the User.
-        self.locationManager.requestAlwaysAuthorization()
-        
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -51,12 +39,30 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationMana
 
     
     override func viewDidAppear(animated: Bool) {
-//        if (FBSDKAccessToken.currentAccessToken() != nil)
-//        {
-//            // User is already logged in, do work such as go to next view controller.
-//            print("User already logged in!")
-//            self.performSegueWithIdentifier("loggedInSegue", sender: nil)
-//        }
+        if (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
+            print("User already logged in!")
+            let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture"], tokenString: FBSDKAccessToken.currentAccessToken().tokenString, version: nil, HTTPMethod: "GET")
+            req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
+                if(error == nil)
+                {
+                    //print("result \(result)")
+                    let resultDict = result as! [String: AnyObject]
+                    var uid = "facebook:"
+                    uid += resultDict["id"] as! String
+                    let user = User(uid: uid, provider: "FB", displayName: resultDict["name"] as! String, email: resultDict["email"] as! String, picURL: resultDict["picture"]!["data"]!!["url"] as! String)
+                    NetManager.sharedManager.setCurrentUser(user);
+                    self.performSegueWithIdentifier("loggedInSegue", sender: nil)
+                }
+                else
+                {
+                    print("error \(error)")
+                }
+            })
+            
+            
+        }
 
     }
 
