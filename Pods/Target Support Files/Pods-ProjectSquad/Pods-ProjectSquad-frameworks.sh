@@ -88,6 +88,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-ProjectSquad/GeoFire.framework"
   install_framework "Pods-ProjectSquad/JSQMessagesViewController.framework"
   install_framework "Pods-ProjectSquad/JSQSystemSoundPlayer.framework"
+  install_framework "Pods-ProjectSquad/Kingfisher.framework"
   install_framework "Pods-ProjectSquad/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -95,5 +96,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-ProjectSquad/GeoFire.framework"
   install_framework "Pods-ProjectSquad/JSQMessagesViewController.framework"
   install_framework "Pods-ProjectSquad/JSQSystemSoundPlayer.framework"
+  install_framework "Pods-ProjectSquad/Kingfisher.framework"
   install_framework "Pods-ProjectSquad/SwiftyJSON.framework"
 fi

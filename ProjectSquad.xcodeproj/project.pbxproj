@@ -11,9 +11,17 @@
 		470F719F1C5D759B00112448 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */; };
 		470F71A01C5D759B00112448 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */; };
 		470F71A31C5D8A9700112448 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F71A21C5D8A9700112448 /* User.swift */; };
+		471C6FDD1CC4850E00915E57 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 471C6FDC1CC4850E00915E57 /* CoreLocation.framework */; };
 		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
+		475A238E1CBD5803004C1A5D /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A238D1CBD5803004C1A5D /* MenuController.swift */; };
 		47966B861CA26B4C00883F81 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47966B851CA26B4C00883F81 /* Message.swift */; };
+		47AE25961CAB4276005E14C0 /* CreateSquadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */; };
+		47B591B41CAD1F020011E366 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B591B31CAD1F020011E366 /* AddFriendViewController.swift */; };
+		47B591B81CAD279A0011E366 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B591B71CAD279A0011E366 /* UserCell.swift */; };
 		47EC9BB81CA35D5B00356BBD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */; };
+		47F8EAB71CC0BD7500AB1CD5 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8EAB61CC0BD7500AB1CD5 /* RequestViewController.swift */; };
+		47F8EAB91CC0C3A300AB1CD5 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8EAB81CC0C3A300AB1CD5 /* RequestCell.swift */; };
+		491BB3181CC7E0FE0007900E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491BB3171CC7E0FE0007900E /* CoreLocation.framework */; };
 		9C1571BF1C7A67670092F992 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571BE1C7A67670092F992 /* Themes.swift */; };
 		9C1571C11C7A688C0092F992 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C01C7A688C0092F992 /* Map.swift */; };
 		9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1571C21C7A6ABF0092F992 /* Extensions.swift */; };
@@ -44,9 +52,17 @@
 		470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectSquad-Bridging-Header.h"; sourceTree = "<group>"; };
 		470F71A21C5D8A9700112448 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		471C6FDC1CC4850E00915E57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		475A238D1CBD5803004C1A5D /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		47966B851CA26B4C00883F81 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSquadViewController.swift; sourceTree = "<group>"; };
+		47B591B31CAD1F020011E366 /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		47B591B71CAD279A0011E366 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		47F8EAB61CC0BD7500AB1CD5 /* RequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
+		47F8EAB81CC0C3A300AB1CD5 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
+		491BB3171CC7E0FE0007900E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		73579391B9C03C64C2F8B412 /* Pods-ProjectSquad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectSquad.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectSquad/Pods-ProjectSquad.release.xcconfig"; sourceTree = "<group>"; };
 		9C1571BE1C7A67670092F992 /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		9C1571C01C7A688C0092F992 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -78,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				491BB3181CC7E0FE0007900E /* CoreLocation.framework in Frameworks */,
 				A4152C881CAB2C7500A48876 /* MapKit.framework in Frameworks */,
 				A418A6151C5D719F00FCFB40 /* SystemConfiguration.framework in Frameworks */,
 				A418A6181C5D724900FCFB40 /* Firebase.framework in Frameworks */,
@@ -113,6 +130,12 @@
 				9C1571C41C7A73FB0092F992 /* SquadOverview.swift */,
 				A4AC5C721C5ABC4900FEF25E /* ViewController.swift */,
 				47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */,
+				47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */,
+				47B591B31CAD1F020011E366 /* AddFriendViewController.swift */,
+				47B591B71CAD279A0011E366 /* UserCell.swift */,
+				47F8EAB81CC0C3A300AB1CD5 /* RequestCell.swift */,
+				475A238D1CBD5803004C1A5D /* MenuController.swift */,
+				47F8EAB61CC0BD7500AB1CD5 /* RequestViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -148,6 +171,7 @@
 		A418A6161C5D723900FCFB40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				491BB3171CC7E0FE0007900E /* CoreLocation.framework */,
 				A4152C871CAB2C7500A48876 /* MapKit.framework */,
 				470F719B1C5D759B00112448 /* FBSDKCoreKit.framework */,
 				470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */,
@@ -233,7 +257,7 @@
 				TargetAttributes = {
 					A4AC5C6C1C5ABC4900FEF25E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 87BS3AB9U7;
+						DevelopmentTeam = 2PEMTWNRBN;
 					};
 				};
 			};
@@ -325,15 +349,21 @@
 				9C1571C51C7A73FB0092F992 /* SquadOverview.swift in Sources */,
 				9C1571BF1C7A67670092F992 /* Themes.swift in Sources */,
 				A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */,
+				47B591B81CAD279A0011E366 /* UserCell.swift in Sources */,
 				9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */,
 				9C1571C11C7A688C0092F992 /* Map.swift in Sources */,
 				A4FB4B3B1C7A6441006696C4 /* Squad.swift in Sources */,
+				47F8EAB71CC0BD7500AB1CD5 /* RequestViewController.swift in Sources */,
 				A4AC5C791C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld in Sources */,
+				47B591B41CAD1F020011E366 /* AddFriendViewController.swift in Sources */,
+				475A238E1CBD5803004C1A5D /* MenuController.swift in Sources */,
 				471D15421C7A6C2F000EA967 /* Test.swift in Sources */,
 				470F71A31C5D8A9700112448 /* User.swift in Sources */,
 				47EC9BB81CA35D5B00356BBD /* ChatViewController.swift in Sources */,
 				A4FB4B3D1C7A6E12006696C4 /* SetUsernameViewController.swift in Sources */,
 				A4AC5C711C5ABC4900FEF25E /* AppDelegate.swift in Sources */,
+				47F8EAB91CC0C3A300AB1CD5 /* RequestCell.swift in Sources */,
+				47AE25961CAB4276005E14C0 /* CreateSquadViewController.swift in Sources */,
 				47966B861CA26B4C00883F81 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O1M-R7-pGv">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Chat View Controller-->
+        <!--Chat-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ChatViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
@@ -14,18 +14,102 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Chat" id="Yy6-pn-LFz"/>
+                    <navigationItem key="navigationItem" id="Kav-h8-Ttc"/>
+                    <connections>
+                        <segue destination="bHH-bg-23o" kind="presentation" identifier="backToMapSegue" id="wLk-gH-7oE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1476" y="1602"/>
         </scene>
-        <!--Test-->
+        <!--Chat-->
+        <scene sceneID="2Pa-DP-6Vs">
+            <objects>
+                <navigationController id="krb-Mn-PRc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Chat" id="tV6-M9-Xol"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="AtV-Y2-gMb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.90588235294117647" green="0.44705882352941179" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="80O-dW-KFB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Vv-tK-rsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="814" y="1602"/>
+        </scene>
+        <!--Menu Controller-->
+        <scene sceneID="4gr-Fs-7NF">
+            <objects>
+                <viewController id="7C6-dn-h7t" customClass="MenuController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xry-4J-gQ7"/>
+                        <viewControllerLayoutGuide type="bottom" id="QJ5-Cv-FRM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aVi-lX-qmU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xer-ZP-ftT">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Create Squad"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="153" y="432" width="94" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="createSquad:" destination="7C6-dn-h7t" eventType="touchUpInside" id="Cej-bV-yxV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hU-iV-IRD">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Request"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="172" y="225" width="57" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="goToRequests:" destination="7C6-dn-h7t" eventType="touchUpInside" id="hfh-qd-G2f"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Xer-ZP-ftT"/>
+                                <exclude reference="9hU-iV-IRD"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Xer-ZP-ftT"/>
+                                <include reference="9hU-iV-IRD"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="xuD-D5-UFK"/>
+                    <connections>
+                        <segue destination="qmp-Or-pwB" kind="show" identifier="createSquadSegue" id="Mp6-Qq-D9G"/>
+                        <segue destination="mKb-dS-oTE" kind="show" identifier="goToRequestsSegue" id="Jbw-sC-QK0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aTB-tY-Dwe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1309.5" y="756"/>
+        </scene>
+        <!--Create Squad View Controller-->
         <scene sceneID="FDE-re-K3c">
             <objects>
-                <viewController id="qmp-Or-pwB" customClass="Test" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qmp-Or-pwB" customClass="CreateSquadViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dh2-ir-kSg"/>
                         <viewControllerLayoutGuide type="bottom" id="KHR-Go-lE3"/>
@@ -39,144 +123,479 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="172" y="48" width="176" height="30"/>
+                                    <rect key="frame" x="28" y="119" width="344" height="30"/>
                                 </variation>
                             </textField>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="R9z-Uo-qvf">
-                                <rect key="frame" x="-160" y="-108" width="320" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="475893995.53303599">
-                                    <!--2016-01-31 00:46:35 +0000-->
-                                </date>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="128" width="400" height="75"/>
-                                </variation>
-                            </datePicker>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="DsP-v2-PXM">
-                                <rect key="frame" x="-160" y="-108" width="320" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="475894016.22840798">
-                                    <!--2016-01-31 00:46:56 +0000-->
-                                </date>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="255" width="400" height="75"/>
-                                </variation>
-                            </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Squad Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcA-tq-Txo">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="48" width="99" height="21"/>
-                                </variation>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Begin Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39g-CT-UHm">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="94" width="86" height="21"/>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9s-G4-A5M">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="28" y="226" width="72" height="21"/>
+                                    <rect key="frame" x="33" y="352" width="72" height="21"/>
                                 </variation>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aHW-ou-84X">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFQ-Ch-jYP">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Next"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="116" y="533" width="169" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="goToInvite:" destination="qmp-Or-pwB" eventType="touchUpInside" id="BAg-DQ-8mp"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter a description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OtV-Uu-hTh">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Y2L-kP-xiN">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2L-kP-xiN" id="mnE-ig-SUX">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend's Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wS7-oJ-Rfs">
-                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="widthClass=compact" fixedFrame="YES">
-                                                        <rect key="frame" x="22" y="11" width="112" height="21"/>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
-                                            <variation key="default">
-                                                <mask key="subviews">
-                                                    <exclude reference="wS7-oJ-Rfs"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="widthClass=compact">
-                                                <mask key="subviews">
-                                                    <include reference="wS7-oJ-Rfs"/>
-                                                </mask>
-                                            </variation>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="376" width="400" height="128"/>
+                                    <rect key="frame" x="28" y="212" width="352" height="138"/>
                                 </variation>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Members:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eju-ce-3Kv">
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#squadgoals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RK-nE-n4J">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="33" y="347" width="77" height="21"/>
+                                    <rect key="frame" x="28" y="170" width="129" height="21"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFQ-Ch-jYP">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Invite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Squad Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcA-tq-Txo">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="116" y="533" width="169" height="30"/>
+                                    <rect key="frame" x="28" y="90" width="99" height="21"/>
+                                </variation>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="DsP-v2-PXM">
+                                <rect key="frame" x="-160" y="-108" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="475894016.22840798">
+                                    <!--2016-01-31 00:46:56 +0000-->
+                                </date>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="395" width="400" height="130"/>
+                                </variation>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="WpC-DV-El5"/>
+                                <exclude reference="y9s-G4-A5M"/>
+                                <exclude reference="tFQ-Ch-jYP"/>
+                                <exclude reference="OtV-Uu-hTh"/>
+                                <exclude reference="0RK-nE-n4J"/>
+                                <exclude reference="CcA-tq-Txo"/>
+                                <exclude reference="DsP-v2-PXM"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="WpC-DV-El5"/>
+                                <include reference="y9s-G4-A5M"/>
+                                <include reference="tFQ-Ch-jYP"/>
+                                <include reference="OtV-Uu-hTh"/>
+                                <include reference="0RK-nE-n4J"/>
+                                <include reference="CcA-tq-Txo"/>
+                                <include reference="DsP-v2-PXM"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="FdX-rC-6cp"/>
+                    <connections>
+                        <outlet property="endTimeDatePicker" destination="DsP-v2-PXM" id="x7o-Wa-VcJ"/>
+                        <outlet property="squadGoalTextView" destination="OtV-Uu-hTh" id="Mbn-RG-K53"/>
+                        <outlet property="squadNameTextField" destination="WpC-DV-El5" id="rjB-6u-cmL"/>
+                        <segue destination="8DG-8W-z5Q" kind="show" identifier="inviteSegue" id="OwQ-JA-E8N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KUH-4h-1sn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-640.5" y="756"/>
+        </scene>
+        <!--Request View Controller-->
+        <scene sceneID="Qht-C1-NCu">
+            <objects>
+                <tableViewController id="mKb-dS-oTE" customClass="RequestViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" id="LSE-YH-D3g">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestCell" rowHeight="133" id="1Ii-rS-dlp" customClass="RequestCell" customModule="ProjectSquad" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="133"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Ii-rS-dlp" id="TGy-BE-JT2">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="132"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Squad name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8B-Rg-OgC">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="43" y="8" width="96" height="21"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Times" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3H-d3-UmQ">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="43" y="91" width="47" height="21"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Squad goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyJ-2A-eTh">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="43" y="49" width="95" height="21"/>
+                                            </variation>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAu-27-fXN">
+                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="341" y="90" width="22" height="22"/>
+                                            </variation>
+                                            <connections>
+                                                <action selector="acceptRequest:" destination="1Ii-rS-dlp" eventType="touchUpInside" id="woX-5s-9yN"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leader name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFD-V4-lkI">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="187" y="8" width="106" height="21"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="h8B-Rg-OgC"/>
+                                            <exclude reference="c3H-d3-UmQ"/>
+                                            <exclude reference="dyJ-2A-eTh"/>
+                                            <exclude reference="fAu-27-fXN"/>
+                                            <exclude reference="wFD-V4-lkI"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="h8B-Rg-OgC"/>
+                                            <include reference="c3H-d3-UmQ"/>
+                                            <include reference="dyJ-2A-eTh"/>
+                                            <include reference="fAu-27-fXN"/>
+                                            <include reference="wFD-V4-lkI"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="leaderNameLabel" destination="wFD-V4-lkI" id="8sM-bF-siw"/>
+                                    <outlet property="squadGoalsLabel" destination="dyJ-2A-eTh" id="XIW-rJ-TFW"/>
+                                    <outlet property="squadNameLabel" destination="h8B-Rg-OgC" id="q2S-Mb-IZi"/>
+                                    <outlet property="timeLabel" destination="c3H-d3-UmQ" id="hCe-YL-u26"/>
+                                    <segue destination="bHH-bg-23o" kind="presentation" identifier="joinedSquadSegue" id="x6J-C1-b8T"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="mKb-dS-oTE" id="WfE-d4-PT0"/>
+                            <outlet property="delegate" destination="mKb-dS-oTE" id="Vd7-Vp-Yvu"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zvc-vl-u8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-508.5" y="1469"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="61s-9L-70v">
+            <objects>
+                <navigationController id="htr-Ow-TLC" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EUc-hK-E3u">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="7C6-dn-h7t" kind="relationship" relationship="rootViewController" id="Q2z-4Q-e1l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TWv-mN-SSw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1975.5" y="756"/>
+        </scene>
+        <!--Add Friend View Controller-->
+        <scene sceneID="d8i-Af-KDB">
+            <objects>
+                <viewController id="8DG-8W-z5Q" customClass="AddFriendViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XGT-Me-iFx"/>
+                        <viewControllerLayoutGuide type="bottom" id="nnY-yC-k3b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ESC-Kh-bHz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="8NQ-YF-Rwv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
+                                </variation>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UbR-fe-HIX">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserCell" id="3BU-Ag-BBM" customClass="UserCell" customModule="ProjectSquad" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3BU-Ag-BBM" id="abX-zD-xYb">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jie-jg-LNz">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="36" y="11" width="298" height="21"/>
+                                                    </variation>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4f-Yf-w1A">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <variation key="widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="351" y="8" width="22" height="22"/>
+                                                    </variation>
+                                                    <connections>
+                                                        <action selector="addFriend:" destination="3BU-Ag-BBM" eventType="touchUpInside" id="m2C-yg-Sqk"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="Jie-jg-LNz"/>
+                                                    <exclude reference="d4f-Yf-w1A"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="Jie-jg-LNz"/>
+                                                    <include reference="d4f-Yf-w1A"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addButton" destination="d4f-Yf-w1A" id="DLb-A1-YX8"/>
+                                            <outlet property="nameLabel" destination="Jie-jg-LNz" id="0gm-eq-zMs"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="105" width="400" height="451"/>
+                                </variation>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAS-ae-wF3">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Create Squad"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="153" y="557" width="94" height="30"/>
                                 </variation>
                                 <connections>
-                                    <action selector="test" destination="qmp-Or-pwB" eventType="touchUpInside" id="D0T-FT-8vL"/>
+                                    <action selector="createSquad:" destination="8DG-8W-z5Q" eventType="touchUpInside" id="x9X-31-0sg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jv-w4-RnF">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="156" y="72" width="89" height="21"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="8NQ-YF-Rwv"/>
+                                <exclude reference="UbR-fe-HIX"/>
+                                <exclude reference="iAS-ae-wF3"/>
+                                <exclude reference="0jv-w4-RnF"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="8NQ-YF-Rwv"/>
+                                <include reference="UbR-fe-HIX"/>
+                                <include reference="iAS-ae-wF3"/>
+                                <include reference="0jv-w4-RnF"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="UbR-fe-HIX" id="rJb-Dq-9N9"/>
+                        <segue destination="bHH-bg-23o" kind="presentation" identifier="createdSquadSegue" id="dxx-CY-rmT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uPj-d4-AvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="42" y="764"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="gne-y7-UpQ">
+            <objects>
+                <tabBarController id="bHH-bg-23o" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="0de-oC-04i">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="kXc-9E-74e" kind="relationship" relationship="viewControllers" id="KdG-2z-tIa"/>
+                        <segue destination="krb-Mn-PRc" kind="relationship" relationship="viewControllers" id="sbT-Eo-iMM"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tRY-UC-XYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="742.5" y="748"/>
+        </scene>
+        <!--Set Username View Controller-->
+        <scene sceneID="fn2-bu-foj">
+            <objects>
+                <viewController id="xMH-XL-SJ3" customClass="SetUsernameViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="smG-B1-hSf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cmr-0M-NBu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bFt-C9-FWZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JA-ea-vnu">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="120" y="166" width="160" height="21"/>
+                                </variation>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P0h-kX-BwP">
+                                <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="39" y="233" width="322" height="30"/>
+                                </variation>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJo-fi-Szt">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Submit"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="401" width="49" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="setUsername:" destination="xMH-XL-SJ3" eventType="touchUpInside" id="pCZ-Ug-8Hl"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="WpC-DV-El5"/>
-                                <exclude reference="R9z-Uo-qvf"/>
-                                <exclude reference="DsP-v2-PXM"/>
-                                <exclude reference="CcA-tq-Txo"/>
-                                <exclude reference="39g-CT-UHm"/>
-                                <exclude reference="y9s-G4-A5M"/>
-                                <exclude reference="aHW-ou-84X"/>
-                                <exclude reference="eju-ce-3Kv"/>
-                                <exclude reference="tFQ-Ch-jYP"/>
+                                <exclude reference="8JA-ea-vnu"/>
+                                <exclude reference="P0h-kX-BwP"/>
+                                <exclude reference="yJo-fi-Szt"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
-                                <include reference="WpC-DV-El5"/>
-                                <include reference="R9z-Uo-qvf"/>
-                                <include reference="DsP-v2-PXM"/>
-                                <include reference="CcA-tq-Txo"/>
-                                <include reference="39g-CT-UHm"/>
-                                <include reference="y9s-G4-A5M"/>
-                                <include reference="aHW-ou-84X"/>
-                                <include reference="eju-ce-3Kv"/>
-                                <include reference="tFQ-Ch-jYP"/>
+                                <include reference="8JA-ea-vnu"/>
+                                <include reference="P0h-kX-BwP"/>
+                                <include reference="yJo-fi-Szt"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="usernameTextField" destination="P0h-kX-BwP" id="Xz4-Ob-MdH"/>
+                        <segue destination="htr-Ow-TLC" kind="presentation" identifier="usernameSetSegue" id="Pqo-e5-pAL"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KUH-4h-1sn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyP-nf-ByM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1011" y="201"/>
+            <point key="canvasLocation" x="-2016" y="-30"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="zAR-GO-xUL">
+            <objects>
+                <viewController id="O1M-R7-pGv" customClass="ViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EYS-K9-MRM"/>
+                        <viewControllerLayoutGuide type="bottom" id="Izd-Ej-rc2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YvC-Cv-b4D">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZq-6e-vWN">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="177" y="453" width="46" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="test" destination="O1M-R7-pGv" eventType="touchUpInside" id="mjA-m3-cQx"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="emV-aS-jNR">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="28" y="72" width="240" height="128"/>
+                                </variation>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3cc-TZ-0Fy">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="140" y="478" width="240" height="128"/>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="mZq-6e-vWN"/>
+                                <exclude reference="emV-aS-jNR"/>
+                                <exclude reference="3cc-TZ-0Fy"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="mZq-6e-vWN"/>
+                                <include reference="emV-aS-jNR"/>
+                                <include reference="3cc-TZ-0Fy"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="emV-aS-jNR" id="dbV-qo-fPY"/>
+                        <outlet property="testImageView" destination="3cc-TZ-0Fy" id="bMe-oK-bE3"/>
+                        <segue destination="xMH-XL-SJ3" kind="presentation" identifier="setUsernameSegue" id="od7-yw-OoU"/>
+                        <segue destination="htr-Ow-TLC" kind="presentation" identifier="loggedInSegue" id="Ubv-iq-Aj8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oEO-P6-Xuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2773.5" y="756"/>
         </scene>
         <!--Map-->
         <scene sceneID="zdT-a2-Vyp">
@@ -187,7 +606,7 @@
                         <viewControllerLayoutGuide type="bottom" id="5PZ-wV-ZDV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bI-Rv-97t">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wai-4j-O2j">
@@ -232,7 +651,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJ5-RP-Zm5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2931" y="196"/>
+            <point key="canvasLocation" x="2172" y="772"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Now-It-gtr">
@@ -243,19 +662,20 @@
                         <viewControllerLayoutGuide type="bottom" id="tV4-3y-3DU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OPa-eV-wpj">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJo-gK-QPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3828" y="196"/>
+            <point key="canvasLocation" x="2829" y="772"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Map-->
         <scene sceneID="z0K-YN-XFZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kXc-9E-74e" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" id="4lv-fZ-3pt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="9cT-Rc-jsL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -272,7 +692,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xID-uk-AOB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2118" y="196"/>
+            <point key="canvasLocation" x="1464" y="772"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="wLk-gH-7oE"/>
+        <segue reference="Ubv-iq-Aj8"/>
+    </inferredMetricsTieBreakers>
 </document>

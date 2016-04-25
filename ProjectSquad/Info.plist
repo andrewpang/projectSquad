@@ -76,7 +76,11 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+        <string>location-services</string>
+        <string>gps</string>
 	</array>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app requires using location</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>

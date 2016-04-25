@@ -8,26 +8,62 @@
 
 import UIKit
 import Firebase
+import Kingfisher
+import CoreLocation
 
-class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationManagerDelegate {
 
+    @IBOutlet weak var testImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
+
+    
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        if (FBSDKAccessToken.currentAccessToken() != nil)
-//        {
-//            // User is already logged in, do work such as go to next view controller.
-//        }
-//        else
-//        {
-//           
-//        }
+
         
         let loginView : FBSDKLoginButton = FBSDKLoginButton()
         self.view.addSubview(loginView)
         loginView.center = self.view.center
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
+        
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+
+    
+    override func viewDidAppear(animated: Bool) {
+        if (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
+            print("User already logged in!")
+            let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture"], tokenString: FBSDKAccessToken.currentAccessToken().tokenString, version: nil, HTTPMethod: "GET")
+            req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
+                if(error == nil)
+                {
+                    //print("result \(result)")
+                    let resultDict = result as! [String: AnyObject]
+                    var uid = "facebook:"
+                    uid += resultDict["id"] as! String
+                    let user = User(uid: uid, provider: "FB", displayName: resultDict["name"] as! String, email: resultDict["email"] as! String, picURL: resultDict["picture"]!["data"]!!["url"] as! String)
+                    NetManager.sharedManager.setCurrentUser(user);
+                    self.performSegueWithIdentifier("loggedInSegue", sender: nil)
+                }
+                else
+                {
+                    print("error \(error)")
+                }
+            })
+            
+            
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,9 +78,10 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
             NetManager.sharedManager.loginWithToken(token, completionBlock: { (success: Bool, hasUsername: Bool) -> Void in
                 if success && hasUsername {
                     print("User logged in successfully!")
+                    self.performSegueWithIdentifier("loggedInSegue", sender: nil)
                 } else if !hasUsername {
                     print("User doesn't have a username!")
-                    self.performSegueWithIdentifier("username", sender: nil)
+                    self.performSegueWithIdentifier("setUsernameSegue", sender: nil)
                 } else {
                     print("Error logging in!")
                 }
@@ -61,5 +98,23 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
         return true
     }
+    
+    
+    @IBAction func test(){
+        NetManager.sharedManager.getFacebookFriends({result in
+            if let friendObjects = result["data"] as? [NSDictionary] {
+                for friendObject in friendObjects {
+                    print(friendObject["id"] as! NSString)
+                    print(friendObject["name"] as! NSString)
+                }
+            }
+        })
+    }
+    
+
+    
+    
+    
+    
 }
 

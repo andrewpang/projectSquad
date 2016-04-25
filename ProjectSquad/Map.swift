@@ -8,20 +8,31 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class Map: UIViewController {
+class Map: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var map: MKMapView!
+    var locationManager: CLLocationManager!
+    var squadId: String =  NetManager.sharedManager.currentSquadData!.id
+    //"-KFp1qT2nHW1pWSwqzz4"
+    var squadName: String = NetManager.sharedManager.currentSquadData!.name
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
         
         let containerView = UIView()
         let arrow = UIImageView(image: UIImage(named: "ForwardArrow"))
         arrow.contentMode = .ScaleAspectFit
         let titleLabel = UILabel()
         titleLabel.font = Themes.Fonts.bigBold
-        titleLabel.attributedText = NSAttributedString(string: "SQUAD NAME")
+        titleLabel.attributedText = NSAttributedString(string: squadName)
         titleLabel.kern(Themes.Fonts.kerning)
         titleLabel.textColor = Themes.Colors.light
         titleLabel.sizeToFit()
@@ -40,9 +51,47 @@ class Map: UIViewController {
         self.navigationItem.titleView?.userInteractionEnabled = true
         self.navigationItem.titleView?.addGestureRecognizer(tap)
 
-        // Do any additional setup after loading the view.
+        NetManager.sharedManager.getSquad(squadId, block: {squad in
+            for(memberId, memberName) in squad.members{
+                NetManager.sharedManager.listenForLocationUpdates(memberId, block: { location in
+                                let dropPin = MKPointAnnotation()
+                                dropPin.coordinate = location.coordinate
+                                dropPin.title = "New York City"
+                                self.map.addAnnotation(dropPin)
+                })
+            }
+        })
     }
-
+    
+    override func viewDidAppear(animated: Bool) {
+        
+//        NetManager.sharedManager.listenForLocationUpdates("facebook:10153631255636387", block: {snapshot in
+//            print(snapshot.coordinate.latitude)
+//            
+//            let dropPin = MKPointAnnotation()
+//            dropPin.coordinate = snapshot.coordinate
+//            dropPin.title = "New York City"
+//            self.map.addAnnotation(dropPin)
+//        })
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        map.showsUserLocation = (status == .AuthorizedAlways)
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        var locationArray = locations as NSArray
+        var locationObj = locationArray.lastObject as! CLLocation
+        NetManager.sharedManager.updateCurrentLocation(locationObj)
+        
+        
+//        let center = CLLocationCoordinate2D(latitude: locationObj.coordinate.latitude, longitude: locationObj.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        
+//        self.map.setRegion(region, animated: true)
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

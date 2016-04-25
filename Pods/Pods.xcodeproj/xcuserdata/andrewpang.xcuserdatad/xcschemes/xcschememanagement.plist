@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GeoFire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JSQMessagesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -19,7 +24,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Kingfisher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-ProjectSquad.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,7 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>60E45F8A8061B702251748BC571DFDB6</key>
+		<key>32126A82A32F66EA48869F550F371095</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>41CE0E548650F701461EAB35CAFC17B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6CA81A399C9E815E92B6698E48ECF648</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -37,12 +62,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B398ADCA540F7E740CFA7566B7A69617</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B7AC9326D819482593FE118E915409D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C7E1E4B57685C7B53ABA0EE4BEA285E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EDA125ADA52355B7CA6DF7BA96918357</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F91226101ECE8FCFD221A3EC54481F82</key>
 		<dict>
 			<key>primary</key>
 			<true/>

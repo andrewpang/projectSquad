@@ -9,6 +9,7 @@
 import UIKit
 import JSQMessagesViewController
 import Firebase
+import Kingfisher
 
 class ChatViewController: JSQMessagesViewController {
     
@@ -16,7 +17,10 @@ class ChatViewController: JSQMessagesViewController {
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.lightGrayColor())
     var messages = [JSQMessage]()
     //
-    var groupId = "hardcoded"
+    var groupId = NetManager.sharedManager.currentSquadData!.id
+    
+    var image: UIImage?
+    var currentUserAvatar: UIImageView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +28,56 @@ class ChatViewController: JSQMessagesViewController {
         //
         self.senderDisplayName = "Someone"
         self.senderId = "2"
+
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
         
-        // No avatars
-        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
-        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+//        // No avatars
+//        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
+//        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        
+        let containerView = UIView()
+        let titleLabel = UILabel()
+        titleLabel.font = Themes.Fonts.bigBold
+        titleLabel.attributedText = NSAttributedString(string: self.title!)
+        titleLabel.kern(Themes.Fonts.kerning)
+        titleLabel.textColor = Themes.Colors.light
+        titleLabel.sizeToFit()
+        
+        containerView.frame.size.height = titleLabel.frame.size.height
+        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
+        //containerView.userInteractionEnabled = true
+        
+        let backTap = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.backToMap))
+        
+        containerView.addSubview(titleLabel)
+        
+        self.tabBarController?.tabBar.hidden = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ChatViewController.backToMap))
+        
+        self.navigationItem.titleView = containerView
+        self.navigationItem.titleView?.userInteractionEnabled = true
+        self.navigationItem.titleView?.addGestureRecognizer(backTap)
+
+        
+        currentUserAvatar = UIImageView()
+        
+        currentUserAvatar!.kf_setImageWithURL(NSURL(string: "https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6")!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
+                self.image = image
+                self.reloadMessagesView()
+        })
+        
+    }
+    
+    func backToMap(){
+        self.performSegueWithIdentifier("backToMapSegue", sender: self)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+
         
         //Gets existing chat from Firebase
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
@@ -45,6 +91,7 @@ class ChatViewController: JSQMessagesViewController {
             let dateInterval = snapshot.value["date"] as? NSTimeInterval
             let date = NSDate(timeIntervalSince1970: dateInterval!)
             
+            
             let message = JSQMessage(senderId: id, senderDisplayName: name, date: date, text: text)
             self.messages.append(message)
             self.finishReceivingMessage()
@@ -55,6 +102,7 @@ class ChatViewController: JSQMessagesViewController {
     func reloadMessagesView() {
         self.collectionView?.reloadData()
     }
+    
     
 //    func addDemoMessages() {
 //        for i in 1...10 {
@@ -95,8 +143,12 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+        self.image = self.currentUserAvatar!.image
+        if(self.image != nil){
+            return JSQMessagesAvatarImage(avatarImage: self.image, highlightedImage: self.image, placeholderImage: self.image)}
         return nil
     }
+
     
     func addMessage(id: String, name:String, text: String) -> JSQMessage {
         let message = JSQMessage(senderId: id, displayName: name, text: text)
@@ -119,5 +171,11 @@ class ChatViewController: JSQMessagesViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 }

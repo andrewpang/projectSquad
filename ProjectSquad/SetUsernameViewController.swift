@@ -9,9 +9,10 @@
 import UIKit
 
 class SetUsernameViewController: UIViewController {
-    
-    @IBOutlet weak var usernameTextField: UITextField!
 
+    @IBOutlet weak var usernameTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,12 +28,13 @@ class SetUsernameViewController: UIViewController {
         NetManager.sharedManager.setUsername(self.usernameTextField.text!) { (error: NSError?) -> Void in
             if error == nil {
                 print("Successfully set username!")
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.performSegueWithIdentifier("usernameSetSegue", sender: nil)
             } else {
-                print("Couln't set username!")
+                print("Couldn't set username!")
             }
         }
     }
+
 
     /*
     // MARK: - Navigation
