@@ -86,7 +86,8 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let row = indexPath.row
+        //let row = indexPath.row
+        
     }
     
     func callSegueFromCell(squad: Squad){

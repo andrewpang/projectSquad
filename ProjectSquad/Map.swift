@@ -21,7 +21,8 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var squadId: String =  NetManager.sharedManager.currentSquadData!.id
     //"-KFp1qT2nHW1pWSwqzz4"
     var squadName: String = NetManager.sharedManager.currentSquadData!.name
-
+    var annotationDict: [String: CustomPointAnnotation] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,10 +61,14 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         NetManager.sharedManager.getSquad(squadId, block: {squad in
             for(memberName, memberId) in squad.members{
                 NetManager.sharedManager.listenForLocationUpdates(memberId, block: { location in
+                        if let val = self.annotationDict[memberId]{
+                            self.map.removeAnnotation(val)
+                        }
                                 let dropPin = CustomPointAnnotation()
                                 dropPin.coordinate = location.coordinate
                                 dropPin.title = memberName
                                 dropPin.imageName = "blueCircle"
+                                self.annotationDict[memberId] = dropPin
                                 self.map.addAnnotation(dropPin)
                 })
             }
