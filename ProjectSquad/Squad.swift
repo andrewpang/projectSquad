@@ -18,14 +18,13 @@ class Squad {
     var leader: String
     var members: [String: String]
     
-    init(id:String, name: String, startTime: NSDate, endTime: NSDate, description: String, leaderId:String, leaderUsername:String) {
+    init(id:String, name: String, startTime: NSDate, endTime: NSDate, description: String, leaderId:String, members:[String: String]) {
         self.id = id 
         self.name = name
         self.startTime = startTime
         self.endTime = endTime
         self.description = description
         self.leader = leaderId
-        let members = [leaderId : leaderUsername]
         self.members = members
     }
     

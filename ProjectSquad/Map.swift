@@ -10,7 +10,11 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class Map: UIViewController, CLLocationManagerDelegate {
+class CustomPointAnnotation: MKPointAnnotation {
+    var imageName: String!
+}
+
+class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var map: MKMapView!
     var locationManager: CLLocationManager!
@@ -20,6 +24,8 @@ class Map: UIViewController, CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        map.delegate = self
         
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -52,11 +58,12 @@ class Map: UIViewController, CLLocationManagerDelegate {
         self.navigationItem.titleView?.addGestureRecognizer(tap)
 
         NetManager.sharedManager.getSquad(squadId, block: {squad in
-            for(memberId, memberName) in squad.members{
+            for(memberName, memberId) in squad.members{
                 NetManager.sharedManager.listenForLocationUpdates(memberId, block: { location in
-                                let dropPin = MKPointAnnotation()
+                                let dropPin = CustomPointAnnotation()
                                 dropPin.coordinate = location.coordinate
-                                dropPin.title = "New York City"
+                                dropPin.title = memberName
+                                dropPin.imageName = "blueCircle"
                                 self.map.addAnnotation(dropPin)
                 })
             }
@@ -65,14 +72,6 @@ class Map: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidAppear(animated: Bool) {
         
-//        NetManager.sharedManager.listenForLocationUpdates("facebook:10153631255636387", block: {snapshot in
-//            print(snapshot.coordinate.latitude)
-//            
-//            let dropPin = MKPointAnnotation()
-//            dropPin.coordinate = snapshot.coordinate
-//            dropPin.title = "New York City"
-//            self.map.addAnnotation(dropPin)
-//        })
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -90,6 +89,31 @@ class Map: UIViewController, CLLocationManagerDelegate {
 //        
 //        self.map.setRegion(region, animated: true)
         
+    }
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if !(annotation is CustomPointAnnotation) {
+            return nil
+        }
+        
+        let reuseId = "test"
+        
+        var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+        if anView == nil {
+            anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            anView!.canShowCallout = true
+        }
+        else {
+            anView!.annotation = annotation
+        }
+        
+        //Set annotation-specific properties **AFTER**
+        //the view is dequeued or created...
+        
+        let cpa = annotation as! CustomPointAnnotation
+        anView!.image = UIImage(named:cpa.imageName)
+        
+        return anView
     }
     
     override func didReceiveMemoryWarning() {
