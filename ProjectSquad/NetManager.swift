@@ -16,7 +16,7 @@ class NetManager {
     
     static let sharedManager = NetManager()
     private let firebaseRefURL = "https://squad-development.firebaseio.com/"
-    private var currentUserData: User?
+    var currentUserData: User?
     var currentSquadData: Squad?
     
     //Login to facebook, set currentUserData
@@ -185,6 +185,24 @@ class NetManager {
                 print("\(snapshot.key) is \(username) and \(snapshot.childSnapshotForPath("email"))")
             }
         })
+    }
+    
+    func getUserByUID(uid: String, block: (user: User) -> Void){
+        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(uid)
+        requestsRef.observeEventType(.Value, withBlock: { snapshot in
+            print(snapshot)
+            let id = uid
+            let displayName = snapshot.value.valueForKey("displayName") as! String
+            let email = snapshot.value.valueForKey("email") as! String
+            let picURL = snapshot.value.valueForKey("picURL") as! String
+            let provider = snapshot.value.valueForKey("provider") as! String
+            let username = snapshot.value.valueForKey("username") as! String
+            let returnedUser = User(uid: id, provider: provider, displayName: displayName, email: email, picURL: picURL)
+            returnedUser.username = username
+            block(user: returnedUser)
+        })
+        
+
     }
     
     //Send a squad invite request

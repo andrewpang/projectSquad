@@ -13,24 +13,25 @@ import Kingfisher
 
 class ChatViewController: JSQMessagesViewController {
     
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor(red: 10/255, green: 180/255, blue: 230/255, alpha: 1.0))
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.lightGrayColor())
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.lightGrayColor())
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(red: 10/255, green: 180/255, blue: 230/255, alpha: 1.0))
     var messages = [JSQMessage]()
     //
     var groupId = NetManager.sharedManager.currentSquadData!.id
     
     var image: UIImage?
-    var currentUserAvatar: UIImageView?
+    var imageDict: [String: UIImageView] = [:]
+    var userAvatar: UIImageView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Squad Chat"
         //
-        self.senderDisplayName = "Someone"
-        self.senderId = "2"
+        self.senderDisplayName = NetManager.sharedManager.currentUserData!.displayName
+        self.senderId = NetManager.sharedManager.currentUserData!.uid
 
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
 //        // No avatars
@@ -59,14 +60,27 @@ class ChatViewController: JSQMessagesViewController {
         self.navigationItem.titleView = containerView
         self.navigationItem.titleView?.userInteractionEnabled = true
         self.navigationItem.titleView?.addGestureRecognizer(backTap)
-
         
-        currentUserAvatar = UIImageView()
-        
-        currentUserAvatar!.kf_setImageWithURL(NSURL(string: "https://scontent.xx.fbcdn.net/hprofile-xlf1/v/t1.0-1/p100x100/12743778_10153667545016387_7753665671545921054_n.jpg?oh=d0d4a8b3935b302e362e15daee44e8a2&oe=578077E6")!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
-                self.image = image
-                self.reloadMessagesView()
+        NetManager.sharedManager.getSquad(NetManager.sharedManager.currentSquadData!.id, block: {
+            squad in
+            for(name, id) in squad.members{
+                NetManager.sharedManager.getUserByUID(id, block: {
+                    user in
+                    self.imageDict[user.uid] = UIImageView()
+                    self.imageDict[user.uid]!.kf_setImageWithURL(NSURL(string: user.picURL)!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
+                        self.image = image
+                        self.reloadMessagesView()
+                    })
+                })
+            }
         })
+        
+//        let currentUserPicUrl = NetManager.sharedManager.currentUserData?.picURL
+//        currentUserAvatar = UIImageView()
+//        currentUserAvatar!.kf_setImageWithURL(NSURL(string: currentUserPicUrl!)!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
+//                self.image = image
+//                self.reloadMessagesView()
+//        })
         
     }
     
@@ -143,7 +157,9 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
-        self.image = self.currentUserAvatar!.image
+        let senderId = self.messages[indexPath.row].senderId
+        print(senderId)
+        self.image = self.imageDict[senderId]!.image!
         if(self.image != nil){
             return JSQMessagesAvatarImage(avatarImage: self.image, highlightedImage: self.image, placeholderImage: self.image)}
         return nil
