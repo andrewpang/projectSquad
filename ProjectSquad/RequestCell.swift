@@ -18,12 +18,14 @@ class RequestCell: UITableViewCell{
     var delegate:CustomCellDelegator!
     var currentSquad: Squad?
     
-    func loadItem(squad: Squad) {
+    func loadItem(squad: Squad, leaderName: String) {
         self.squadId = squad.id
         squadNameLabel?.text = squad.name
-        leaderNameLabel?.text = squad.leader
+        leaderNameLabel?.text = leaderName
         squadGoalsLabel?.text = squad.description
-        timeLabel?.text = "hardcode"
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy hh:mm"
+        timeLabel?.text = dateFormatter.stringFromDate(squad.endTime)
         currentSquad = squad
     }
     

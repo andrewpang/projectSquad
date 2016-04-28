@@ -11,7 +11,6 @@
 		470F719F1C5D759B00112448 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */; };
 		470F71A01C5D759B00112448 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */; };
 		470F71A31C5D8A9700112448 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F71A21C5D8A9700112448 /* User.swift */; };
-		471C6FDD1CC4850E00915E57 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 471C6FDC1CC4850E00915E57 /* CoreLocation.framework */; };
 		471D15421C7A6C2F000EA967 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D15411C7A6C2F000EA967 /* Test.swift */; };
 		475A238E1CBD5803004C1A5D /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A238D1CBD5803004C1A5D /* MenuController.swift */; };
 		47966B861CA26B4C00883F81 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47966B851CA26B4C00883F81 /* Message.swift */; };
@@ -52,7 +51,6 @@
 		470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectSquad-Bridging-Header.h"; sourceTree = "<group>"; };
 		470F71A21C5D8A9700112448 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		471C6FDC1CC4850E00915E57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		471D15411C7A6C2F000EA967 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		475A238D1CBD5803004C1A5D /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		47966B851CA26B4C00883F81 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };

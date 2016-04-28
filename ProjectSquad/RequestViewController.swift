@@ -18,7 +18,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     var squadNames: [String] = []
     var leaderNames: [String] = []
     var squadGoals: [String] = []
-    var times: [String] = []
+    var endTimes: [NSDate] = []
     var squads: [Squad] = []
     
 //    var squadName: String!
@@ -41,15 +41,17 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
             for(id, name) in result{
                 let squadId = id as! String
                 NetManager.sharedManager.getSquad(squadId, block: {squadResult in
-                    self.squadId.append(squadId)
-                    self.squadNames.append(squadResult.name)
-                    self.squadGoals.append(squadResult.description)
-                    self.leaderNames.append(squadResult.leader)
-                    self.times.append("hardcode")
-                    self.squads.append(squadResult)
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.tableView.reloadData()
-                    }
+                    NetManager.sharedManager.getUserByUID(squadResult.leader, block: {user in
+                        self.squadId.append(squadId)
+                        self.squadNames.append(squadResult.name)
+                        self.squadGoals.append(squadResult.description)
+                        self.endTimes.append(squadResult.endTime)
+                        self.leaderNames.append(user.displayName)
+                        self.squads.append(squadResult)
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.tableView.reloadData()
+                        }
+                    })
                 })
             }
 
@@ -78,7 +80,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
         cell.delegate = self
         
         let row = indexPath.row
-        cell.loadItem(squads[row])
+        cell.loadItem(squads[row], leaderName: leaderNames[row])
         
         return cell
     }

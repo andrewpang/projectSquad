@@ -13,11 +13,12 @@ class CreateSquadViewController: UIViewController{
     @IBOutlet weak var squadNameTextField: UITextField!
     @IBOutlet weak var startTimeDatePicker: UIDatePicker!
     @IBOutlet weak var endTimeDatePicker: UIDatePicker!
-    @IBOutlet weak var squadGoalTextView: UITextView!
+    @IBOutlet weak var squadGoalTextField: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        datePicker.setValue(UIColor.whiteColor(), forKeyPath: "textColor")
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
@@ -41,7 +42,7 @@ class CreateSquadViewController: UIViewController{
             addFriendViewController.squadName = self.squadNameTextField.text!
             addFriendViewController.startTime = NSDate()
             addFriendViewController.endTime = self.endTimeDatePicker.date
-            addFriendViewController.squadGoal = self.squadGoalTextView.text!
+            addFriendViewController.squadGoal = self.squadGoalTextField.text!
         }
     }
     
