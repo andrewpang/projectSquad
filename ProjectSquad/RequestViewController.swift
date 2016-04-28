@@ -38,6 +38,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Invites"
         NetManager.sharedManager.getSquadRequests({result in
             self.squadId.removeAll()
             self.squadNames.removeAll()

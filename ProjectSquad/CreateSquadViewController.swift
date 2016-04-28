@@ -18,10 +18,33 @@ class CreateSquadViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        datePicker.setValue(UIColor.whiteColor(), forKeyPath: "textColor")
+        title = "Create Squad"
+//        datePicker.setValue(UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0), forKeyPath: "textColor")
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+        
+        let containerView = UIView()
+        let titleLabel = UILabel()
+        titleLabel.font = Themes.Fonts.bigBold
+        titleLabel.attributedText = NSAttributedString(string: self.title!)
+        titleLabel.kern(Themes.Fonts.kerning)
+        titleLabel.textColor = Themes.Colors.light
+        titleLabel.sizeToFit()
+        
+        containerView.frame.size.height = titleLabel.frame.size.height
+        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
+//        //containerView.userInteractionEnabled = true
+//        
+//        let backTap = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.backToMap))
+        
+        containerView.addSubview(titleLabel)
+        
+        self.tabBarController?.tabBar.hidden = true
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ChatViewController.backToMap))
+        
+        self.navigationItem.titleView = containerView
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
     }
 
@@ -51,7 +74,5 @@ class CreateSquadViewController: UIViewController{
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-
-
 
 }

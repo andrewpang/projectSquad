@@ -62,7 +62,7 @@ class ChatViewController: JSQMessagesViewController {
         self.navigationItem.titleView = containerView
         self.navigationItem.titleView?.userInteractionEnabled = true
         self.navigationItem.titleView?.addGestureRecognizer(backTap)
-        
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         NetManager.sharedManager.getSquad(NetManager.sharedManager.currentSquadData!.id, block: {
             squad in
             for(name, id) in squad.members{
