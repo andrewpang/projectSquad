@@ -223,11 +223,14 @@ class NetManager {
         let squad1Ref = squadRef.childByAutoId()
         let membersRef = squad1Ref.childByAppendingPath("members")
         
+        
+        
         let leaderId = self.currentUserData!.uid
         //let leadername = self.currentUserData!.displayName
         let leader = [self.currentUserData!.displayName : self.currentUserData!.uid]
         let squadId = squad1Ref.key
         
+        let leaderRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(leaderId).childByAppendingPath("currentSquad")
         
         self.currentSquadData = Squad(id:squadId, name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leaderId, members: leader)
         
@@ -239,6 +242,7 @@ class NetManager {
                     //If no error with setting squad, set members of squad
                     membersRef.setValue(leader ,
                         withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                            leaderRef.setValue(squadId)
                         if let error = error {
                             print("Error sending profile info! \(error)")
                         }
@@ -307,15 +311,32 @@ class NetManager {
     func joinSquad(thisSquad: Squad, completionBlock: (error: NSError?) -> Void) {
         let squadId = thisSquad.id
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId).childByAppendingPath("members")
-        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("requests").childByAppendingPath(squadId)
+        let usersRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid)
+        let requestsRef = usersRef.childByAppendingPath("requests").childByAppendingPath(squadId)
+        let currentSquadRef = usersRef.childByAppendingPath("currentSquad")
         
         squadRef.updateChildValues([(self.currentUserData?.displayName)!: (self.currentUserData?.uid)!]) { (error: NSError?, firebase: Firebase!) -> Void in
             requestsRef.removeValue()
+            currentSquadRef.setValue(squadId)
             completionBlock(error: error)
             //TODO: Delete request
         }
         self.currentUserData!.currentSquad = squadId
         self.currentSquadData = thisSquad
+    }
+    
+    //Delete squad request
+    func deleteSquadRequest(thisSquad: Squad, completionBlock: (error: NSError?) -> Void) {
+        let squadId = thisSquad.id
+        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("requests").childByAppendingPath(squadId)
+        
+        requestsRef.removeValueWithCompletionBlock({
+                (error: NSError?, firebase: Firebase!) -> Void in
+                completionBlock(error: error)
+            })
+
+        self.currentUserData!.currentSquad = nil
+        self.currentSquadData = nil
     }
     
     //Add chat message to Firebase

@@ -37,6 +37,8 @@ class ChatViewController: JSQMessagesViewController {
 //        // No avatars
 //        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
 //        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        //No attachment
+        self.inputToolbar.contentView.leftBarButtonItem = nil
         
         let containerView = UIView()
         let titleLabel = UILabel()

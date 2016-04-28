@@ -10,6 +10,7 @@ import Foundation
 
 protocol CustomCellDelegator {
     func callSegueFromCell(squad: Squad)
+    func deleteRequestFromCell(squad: Squad)
 }
 
 class RequestViewController: UITableViewController, CustomCellDelegator {
@@ -38,10 +39,17 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     override func viewDidLoad() {
         super.viewDidLoad()
         NetManager.sharedManager.getSquadRequests({result in
+            self.squadId.removeAll()
+            self.squadNames.removeAll()
+            self.leaderNames.removeAll()
+            self.squadGoals.removeAll()
+            self.endTimes.removeAll()
+            self.squads.removeAll()
             for(id, name) in result{
                 let squadId = id as! String
                 NetManager.sharedManager.getSquad(squadId, block: {squadResult in
                     NetManager.sharedManager.getUserByUID(squadResult.leader, block: {user in
+                        
                         self.squadId.append(squadId)
                         self.squadNames.append(squadResult.name)
                         self.squadGoals.append(squadResult.description)
@@ -89,6 +97,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         //let row = indexPath.row
+        print("Pressed")
         
     }
     
@@ -98,4 +107,10 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
         })
     }
     
+    func deleteRequestFromCell(squad: Squad){
+        NetManager.sharedManager.deleteSquadRequest(squad, completionBlock: {snapshot in
+            self.tableView.reloadData()
+        })
+    }
+
 }

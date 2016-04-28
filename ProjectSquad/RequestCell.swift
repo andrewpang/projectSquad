@@ -24,7 +24,9 @@ class RequestCell: UITableViewCell{
         leaderNameLabel?.text = leaderName
         squadGoalsLabel?.text = squad.description
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy hh:mm"
+        dateFormatter.dateFormat = "h:mm a 'on' MM-dd-yyyy"
+        dateFormatter.AMSymbol = "AM"
+        dateFormatter.PMSymbol = "PM"
         timeLabel?.text = dateFormatter.stringFromDate(squad.endTime)
         currentSquad = squad
     }
@@ -35,6 +37,11 @@ class RequestCell: UITableViewCell{
         }
     }
     
+    @IBAction func deleteRequest(sender: AnyObject) {
+        if(self.delegate != nil){
+            self.delegate.deleteRequestFromCell(currentSquad!)
+        }
+    }
     
     
 }

@@ -53,6 +53,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationMana
                     uid += resultDict["id"] as! String
                     let user = User(uid: uid, provider: "FB", displayName: resultDict["name"] as! String, email: resultDict["email"] as! String, picURL: resultDict["picture"]!["data"]!!["url"] as! String)
                     NetManager.sharedManager.setCurrentUser(user);
+                    //See if user has a current squad and if that squad is valid
                     self.performSegueWithIdentifier("loggedInSegue", sender: nil)
                 }
                 else
