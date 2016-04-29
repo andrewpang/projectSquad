@@ -19,7 +19,6 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var map: MKMapView!
     var locationManager: CLLocationManager!
     var squadId: String =  NetManager.sharedManager.currentSquadData!.id
-    //"-KFp1qT2nHW1pWSwqzz4"
     var squadName: String = NetManager.sharedManager.currentSquadData!.name
     var annotationDict: [String: CustomPointAnnotation] = [:]
     

@@ -14,7 +14,8 @@ import Kingfisher
 class ChatViewController: JSQMessagesViewController {
     
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.lightGrayColor())
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(red: 10/255, green: 180/255, blue: 230/255, alpha: 1.0))
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(red:1.00, green:0.55, blue:0.60, alpha:1.0))
+        //UIColor(red: 10/255, green: 180/255, blue: 230/255, alpha: 1.0))
     var messages = [JSQMessage]()
     //
     var groupId = NetManager.sharedManager.currentSquadData!.id
@@ -160,8 +161,9 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         let senderId = self.messages[indexPath.row].senderId
-        print(senderId)
-        self.image = self.imageDict[senderId]!.image!
+        if((self.imageDict[senderId]) != nil){
+            self.image = self.imageDict[senderId]?.image
+        }
         if(self.image != nil){
             return JSQMessagesAvatarImage(avatarImage: self.image, highlightedImage: self.image, placeholderImage: self.image)}
         return nil

@@ -682,6 +682,7 @@
                         <outlet property="testImageView" destination="3cc-TZ-0Fy" id="bMe-oK-bE3"/>
                         <segue destination="xMH-XL-SJ3" kind="presentation" identifier="setUsernameSegue" id="od7-yw-OoU"/>
                         <segue destination="htr-Ow-TLC" kind="presentation" identifier="loggedInSegue" id="Ubv-iq-Aj8"/>
+                        <segue destination="bHH-bg-23o" kind="presentation" identifier="hasSquadSegue" id="xGh-tP-eez"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oEO-P6-Xuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -787,7 +788,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dxx-CY-rmT"/>
+        <segue reference="xGh-tP-eez"/>
         <segue reference="Ubv-iq-Aj8"/>
     </inferredMetricsTieBreakers>
 </document>
