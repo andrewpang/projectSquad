@@ -245,6 +245,7 @@ class NetManager {
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
  
         squadRef.observeEventType(.Value, withBlock: { snapshot in
+            print(snapshot)
             let squadName = snapshot.value.valueForKey("name") as! String
             let description = snapshot.value.valueForKey("description") as! String
             let startTime = snapshot.value.valueForKey("startTime") as! String
@@ -321,6 +322,18 @@ class NetManager {
 
         self.currentUserData!.currentSquad = nil
         self.currentSquadData = nil
+    }
+    
+    func leaveSquad(){
+        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(self.currentSquadData!.id).childByAppendingPath("members").childByAppendingPath(currentUserData!.displayName)
+        let currentSquadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("currentSquad")
+        
+        squadRef.removeValue()
+        currentSquadRef.removeValue()
+        
+        self.currentSquadData = nil
+        self.currentUserData!.currentSquad = nil
+        
     }
     
     //Add chat message to Firebase

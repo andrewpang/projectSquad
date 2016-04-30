@@ -22,7 +22,7 @@ class RequestCell: UITableViewCell{
         self.squadId = squad.id
         squadNameLabel?.text = squad.name
         leaderNameLabel?.text = leaderName
-        squadGoalsLabel?.text = squad.description
+        squadGoalsLabel?.text = "\"" + squad.description + "\""
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a 'on' MM-dd-yyyy"
         dateFormatter.AMSymbol = "AM"
