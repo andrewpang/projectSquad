@@ -30,6 +30,7 @@ class ChatViewController: JSQMessagesViewController {
         //
         self.senderDisplayName = NetManager.sharedManager.currentUserData!.displayName
         self.senderId = NetManager.sharedManager.currentUserData!.uid
+        print(NetManager.sharedManager.currentSquadData!.name)
 
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.dismissKeyboard))

@@ -18,14 +18,16 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var map: MKMapView!
     var locationManager: CLLocationManager!
-    var squadId: String =  NetManager.sharedManager.currentSquadData!.id
-    var squadName: String = NetManager.sharedManager.currentSquadData!.name
+    var squadId: String =  ""
+    var squadName: String = ""
     var annotationDict: [String: CustomPointAnnotation] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         map.delegate = self
+        
+        self.squadId = NetManager.sharedManager.currentSquadData!.id
+        self.squadName = NetManager.sharedManager.currentSquadData!.name
         
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -56,26 +58,49 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         self.navigationItem.titleView = containerView
         self.navigationItem.titleView?.userInteractionEnabled = true
         self.navigationItem.titleView?.addGestureRecognizer(tap)
-
-        NetManager.sharedManager.getSquad(squadId, block: {squad in
-            for(memberName, memberId) in squad.members{
-                NetManager.sharedManager.listenForLocationUpdates(memberId, block: { location in
-                        if let val = self.annotationDict[memberId]{
-                            self.map.removeAnnotation(val)
-                        }
-                                let dropPin = CustomPointAnnotation()
-                                dropPin.coordinate = location.coordinate
-                                dropPin.title = memberName
-                                dropPin.imageName = "blueCircle"
-                                self.annotationDict[memberId] = dropPin
-                                self.map.addAnnotation(dropPin)
-                })
-            }
-        })
+    
     }
     
     override func viewDidAppear(animated: Bool) {
+        NetManager.sharedManager.getSquad(squadId, block: {squad in
+            for(memberName, memberId) in squad.members{
+                let myname = NetManager.sharedManager.currentUserData?.displayName
+                let name = NetManager.sharedManager.currentSquadData?.name
+                print(name)
+
+                NetManager.sharedManager.listenForLocationUpdates(memberId, block: { location in
+                    let myname = NetManager.sharedManager.currentUserData?.displayName
+                    let name = NetManager.sharedManager.currentSquadData?.name
+                    print(name)
+                    if let val = self.annotationDict[memberId]{
+                        self.map.removeAnnotation(val)
+                    }
+                    let dropPin = CustomPointAnnotation()
+                    dropPin.coordinate = location.coordinate
+                    dropPin.title = memberName
+                    dropPin.imageName = "blueCircle"
+                    self.annotationDict[memberId] = dropPin
+                    self.map.addAnnotation(dropPin)
+                })
+            }
+        })
         
+        
+        
+        let now = NSDate()
+        let myname = NetManager.sharedManager.currentUserData?.displayName
+        let name = NetManager.sharedManager.currentSquadData?.name
+        print(name)
+//        if let squad = NetManager.sharedManager.currentSquadData{
+//            if(squad.endTime.compare(now) == .OrderedAscending){
+//                NetManager.sharedManager.leaveSquad({
+//                    block in
+//                    self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
+//                })
+//            }
+//        }else{
+//            self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
+//        }
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

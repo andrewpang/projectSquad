@@ -15,7 +15,7 @@ class SquadOverview: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.font = Themes.Fonts.bigBold
-        titleLabel.attributedText = NSAttributedString(string: "SQUAD NAME")
+        titleLabel.attributedText = NSAttributedString(string: (NetManager.sharedManager.currentSquadData?.name)!)
         titleLabel.kern(Themes.Fonts.kerning)
         titleLabel.textColor = Themes.Colors.light
         titleLabel.sizeToFit()

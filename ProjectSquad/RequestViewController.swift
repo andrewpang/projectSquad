@@ -49,18 +49,21 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
             for(id, name) in result{
                 let squadId = id as! String
                 NetManager.sharedManager.getSquad(squadId, block: {squadResult in
-                    NetManager.sharedManager.getUserByUID(squadResult.leader, block: {user in
-                        
-                        self.squadId.append(squadId)
-                        self.squadNames.append(squadResult.name)
-                        self.squadGoals.append(squadResult.description)
-                        self.endTimes.append(squadResult.endTime)
-                        self.leaderNames.append(user.displayName)
-                        self.squads.append(squadResult)
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.tableView.reloadData()
-                        }
-                    })
+                    let now = NSDate()
+                    if(squadResult.endTime.compare(now) == .OrderedDescending){
+                        NetManager.sharedManager.getUserByUID(squadResult.leader, block: {user in
+                            self.squadId.append(squadId)
+                            self.squadNames.append(squadResult.name)
+                            self.squadGoals.append(squadResult.description)
+                            self.endTimes.append(squadResult.endTime)
+                            self.leaderNames.append(user.displayName)
+                            self.squads.append(squadResult)
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.tableView.reloadData()
+                            }
+                        })
+                    }
+
                 })
             }
 

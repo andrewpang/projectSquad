@@ -146,7 +146,7 @@
                                     <rect key="frame" x="34" y="320" width="288" height="24"/>
                                 </variation>
                             </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="DsP-v2-PXM">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="DsP-v2-PXM">
                                 <rect key="frame" x="-160" y="-108" width="320" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="475894016.22840798">
                                     <!--2016-01-31 00:46:56 +0000-->
@@ -224,7 +224,7 @@
                                     <action selector="goToInvite:" destination="qmp-Or-pwB" eventType="touchUpInside" id="BAg-DQ-8mp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expires at:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFx-NJ-36N">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFx-NJ-36N">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.5450980392" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -280,6 +280,7 @@
                         <outlet property="datePicker" destination="DsP-v2-PXM" id="3qn-px-dTj"/>
                         <outlet property="endTimeDatePicker" destination="DsP-v2-PXM" id="x7o-Wa-VcJ"/>
                         <outlet property="expirationTime" destination="seL-Cv-K43" id="DbU-Ul-XnR"/>
+                        <outlet property="expiresLabel" destination="qFx-NJ-36N" id="bgB-wH-xpi"/>
                         <outlet property="squadGoalTextField" destination="2nR-8V-Ohr" id="3nn-tu-ttf"/>
                         <outlet property="squadNameTextField" destination="WpC-DV-El5" id="rjB-6u-cmL"/>
                         <segue destination="8DG-8W-z5Q" kind="show" identifier="inviteSegue" id="OwQ-JA-E8N"/>
@@ -582,7 +583,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tRY-UC-XYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="742.5" y="748"/>
+            <point key="canvasLocation" x="760.5" y="756"/>
         </scene>
         <!--Set Username View Controller-->
         <scene sceneID="fn2-bu-foj">
@@ -649,10 +650,10 @@
             </objects>
             <point key="canvasLocation" x="-2016" y="-30"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="zAR-GO-xUL">
             <objects>
-                <viewController id="O1M-R7-pGv" customClass="ViewController" customModule="ProjectSquad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="O1M-R7-pGv" customClass="LoginViewController" customModule="ProjectSquad" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EYS-K9-MRM"/>
                         <viewControllerLayoutGuide type="bottom" id="Izd-Ej-rc2"/>
@@ -762,6 +763,7 @@
                     <connections>
                         <outlet property="map" destination="wai-4j-O2j" id="hPK-mb-JTN"/>
                         <segue destination="wT0-7Q-2da" kind="show" identifier="showSquadOverview" id="ZBn-eX-Gw1"/>
+                        <segue destination="7C6-dn-h7t" kind="presentation" identifier="squadExpiredSegue" id="5r6-Pv-CoY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJ5-RP-Zm5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -836,7 +838,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xID-uk-AOB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1464" y="772"/>
+            <point key="canvasLocation" x="1476" y="764"/>
         </scene>
     </scenes>
     <resources>
@@ -844,8 +846,8 @@
         <image name="Map Marker-50" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xGh-tP-eez"/>
         <segue reference="Ubv-iq-Aj8"/>
-        <segue reference="btv-7E-NzZ"/>
-        <segue reference="MRK-qw-gKp"/>
+        <segue reference="Q2z-4Q-e1l"/>
     </inferredMetricsTieBreakers>
 </document>

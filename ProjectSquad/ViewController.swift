@@ -11,13 +11,13 @@ import Firebase
 import Kingfisher
 import CoreLocation
 
-class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationManagerDelegate {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     @IBOutlet weak var testImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
 
     
-    let locationManager = CLLocationManager()
+//    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +32,10 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationMana
         
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-    }
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+//        print("locations = \(locValue.latitude) \(locValue.longitude)")
+//    }
 
     
     override func viewDidAppear(animated: Bool) {
@@ -60,8 +60,19 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationMana
                             NetManager.sharedManager.getSquad(squadId, block: {
                                 squad in
                                 NetManager.sharedManager.currentSquadData = squad
-                                self.performSegueWithIdentifier("hasSquadSegue", sender: nil)
-                                })
+                                let now = NSDate()
+                                if(squad.endTime.compare(now) == .OrderedAscending){
+                                    NetManager.sharedManager.leaveSquad({
+                                        block in
+//                                        let menuController = UIViewController(nibName: "MenuController", bundle: nil)
+//                                        self.presentViewController(menuController, animated: true, completion: nil)
+//
+                                        self.performSegueWithIdentifier("loggedInSegue", sender: nil)
+                                    })
+                                }else{
+                                    self.performSegueWithIdentifier("hasSquadSegue", sender: nil)
+                                }
+                            })
                         }else{
                             self.performSegueWithIdentifier("loggedInSegue", sender: nil)
                         }
@@ -113,16 +124,16 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationMana
     }
     
     
-    @IBAction func test(){
-        NetManager.sharedManager.getFacebookFriends({result in
-            if let friendObjects = result["data"] as? [NSDictionary] {
-                for friendObject in friendObjects {
-                    print(friendObject["id"] as! NSString)
-                    print(friendObject["name"] as! NSString)
-                }
-            }
-        })
-    }
+//    @IBAction func test(){
+//        NetManager.sharedManager.getFacebookFriends({result in
+//            if let friendObjects = result["data"] as? [NSDictionary] {
+//                for friendObject in friendObjects {
+//                    print(friendObject["id"] as! NSString)
+//                    print(friendObject["name"] as! NSString)
+//                }
+//            }
+//        })
+//    }
     
 
     

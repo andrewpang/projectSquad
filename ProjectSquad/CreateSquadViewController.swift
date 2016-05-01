@@ -16,6 +16,8 @@ class CreateSquadViewController: UIViewController{
     @IBOutlet weak var squadGoalTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var expirationTime: UILabel!
+    @IBOutlet weak var expiresLabel: UILabel!
+    var datePicked: NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +30,10 @@ class CreateSquadViewController: UIViewController{
         let defaultDate = dateFormatter.dateFromString(strDate)
         datePicker.setDate(defaultDate!, animated: true)
         datePicker.setValue(UIColor(red:1.00, green:0.55, blue:0.60, alpha:1.0), forKeyPath: "textColor")
+        datePicked = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:
+            "dismissKeyboard")
         view.addGestureRecognizer(tap)
         
         let containerView = UIView()
@@ -57,12 +61,13 @@ class CreateSquadViewController: UIViewController{
     }
     
     func datePickerChanged(datePicker:UIDatePicker) {
-        let date = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
+        datePicked = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a 'on' MM-dd-yyyy"
         dateFormatter.AMSymbol = "AM"
         dateFormatter.PMSymbol = "PM"
-        expirationTime.text = dateFormatter.stringFromDate(date)
+        expirationTime.text = dateFormatter.stringFromDate(datePicked!)
+        expiresLabel.text = "Expires at: "
     }
 
     @IBAction func goToInvite(sender: AnyObject) {
@@ -91,7 +96,7 @@ class CreateSquadViewController: UIViewController{
             let addFriendViewController = (segue.destinationViewController as! AddFriendViewController)
             addFriendViewController.squadName = self.squadNameTextField.text!
             addFriendViewController.startTime = NSDate()
-            addFriendViewController.endTime = self.endTimeDatePicker.date
+            addFriendViewController.endTime = self.datePicked!
             addFriendViewController.squadGoal = self.squadGoalTextField.text!
         }
     }

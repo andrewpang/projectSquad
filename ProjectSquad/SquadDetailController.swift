@@ -11,8 +11,14 @@ import Foundation
 class SquadDetailController: UIViewController {
     
     @IBAction func leaveSquad(sender: AnyObject) {
-        NetManager.sharedManager.leaveSquad()
-        self.performSegueWithIdentifier("leaveSquadSegue", sender: nil)
+        let myname = NetManager.sharedManager.currentUserData?.displayName
+        let name = NetManager.sharedManager.currentSquadData?.name
+        print(name)
+        NetManager.sharedManager.leaveSquad({
+            block in
+            self.performSegueWithIdentifier("leaveSquadSegue", sender: nil)
+        })
+        
     }
     
 }

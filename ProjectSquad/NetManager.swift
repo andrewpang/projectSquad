@@ -129,17 +129,24 @@ class NetManager {
         })
         
         ref.observeEventType(.ChildChanged, withBlock: { snapshot in
+            let squad = NetManager.sharedManager.currentSquadData?.name
+            print(squad)
             self.processChildAddedAndChanged(geoFire, block: block)
         })
     }
     
-    private func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
+    func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
+        let squad = NetManager.sharedManager.currentSquadData?.name
+        print(squad)
         geoFire.getLocationForKey("location", withCallback: { (location, error) in
+            let squad = NetManager.sharedManager.currentSquadData?.name
+            print(squad)
             if (error != nil) {
                 print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
             } else if (location != nil) {
+            
                 block(location: location)
-                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+//                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
             } else {
                 print("GeoFire does not contain a location for \"firebase-hq\"")
             }
@@ -153,7 +160,7 @@ class NetManager {
                 if (error != nil) {
                     print("An error occured: \(error)")
                 } else {
-                    print("Saved location successfully!")
+//                    print("Saved location successfully!")
                 }
             }
         } else {
@@ -324,16 +331,19 @@ class NetManager {
         self.currentSquadData = nil
     }
     
-    func leaveSquad(){
+    func leaveSquad(completionBlock: (error: NSError?) -> Void) {
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(self.currentSquadData!.id).childByAppendingPath("members").childByAppendingPath(currentUserData!.displayName)
         let currentSquadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("currentSquad")
         
-        squadRef.removeValue()
-        currentSquadRef.removeValue()
-        
-        self.currentSquadData = nil
-        self.currentUserData!.currentSquad = nil
-        
+        squadRef.removeValueWithCompletionBlock({
+             (error: NSError?, firebase: Firebase!) -> Void in
+            currentSquadRef.removeValueWithCompletionBlock({(error: NSError?, firebase: Firebase!) -> Void in
+//                self.currentSquadData = nil
+//                self.currentUserData!.currentSquad = nil
+                completionBlock(error: error)
+                
+            })
+        })
     }
     
     //Add chat message to Firebase
