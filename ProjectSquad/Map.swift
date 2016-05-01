@@ -94,7 +94,7 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                     let dropPin = CustomPointAnnotation()
                     dropPin.coordinate = location.coordinate
                     dropPin.title = memberName
-                    dropPin.imageName = "blueCircle"
+                    dropPin.imageName = "LocationDotPink"
                     self.annotationDict[memberId] = dropPin
                     self.map.addAnnotation(dropPin)
                 })
@@ -114,6 +114,7 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        //
         map.showsUserLocation = (status == .AuthorizedAlways)
     }
     
