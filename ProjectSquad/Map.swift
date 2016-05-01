@@ -26,6 +26,9 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         super.viewDidLoad()
         map.delegate = self
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(Map.checkIfExpired), name:
+            UIApplicationWillEnterForegroundNotification, object: nil)
+        
         self.squadId = NetManager.sharedManager.currentSquadData!.id
         self.squadName = NetManager.sharedManager.currentSquadData!.name
         
@@ -61,6 +64,19 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     }
     
+    func checkIfExpired(){
+        let now = NSDate()
+        if(NetManager.sharedManager.currentSquadData!.endTime.compare(now) == .OrderedAscending){
+            NetManager.sharedManager.leaveSquad({
+                block in
+                //                                        let menuController = UIViewController(nibName: "MenuController", bundle: nil)
+                //                                        self.presentViewController(menuController, animated: true, completion: nil)
+                //
+                self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
+            })
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         NetManager.sharedManager.getSquad(squadId, block: {squad in
             for(memberName, memberId) in squad.members{
@@ -85,12 +101,6 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             }
         })
         
-        
-        
-        let now = NSDate()
-        let myname = NetManager.sharedManager.currentUserData?.displayName
-        let name = NetManager.sharedManager.currentSquadData?.name
-        print(name)
 //        if let squad = NetManager.sharedManager.currentSquadData{
 //            if(squad.endTime.compare(now) == .OrderedAscending){
 //                NetManager.sharedManager.leaveSquad({

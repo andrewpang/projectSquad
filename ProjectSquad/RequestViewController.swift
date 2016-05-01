@@ -22,12 +22,6 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     var endTimes: [NSDate] = []
     var squads: [Squad] = []
     
-//    var squadName: String!
-//    var squadGoal: String!
-//    var startTime: NSDate!
-//    var endTime: NSDate!
-//    
-//    
     @IBOutlet weak var squadNameLabel: UILabel!
     
     @IBOutlet weak var squadGoalsLabel: UILabel!
@@ -38,7 +32,23 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Invites"
+        let containerView = UIView()
+        let titleLabel = UILabel()
+        titleLabel.font = Themes.Fonts.bigBold
+        titleLabel.attributedText = NSAttributedString(string: self.title!)
+        titleLabel.kern(Themes.Fonts.kerning)
+        titleLabel.textColor = Themes.Colors.light
+        titleLabel.sizeToFit()
+        
+        containerView.frame.size.height = titleLabel.frame.size.height
+        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
+        containerView.addSubview(titleLabel)
+        self.tabBarController?.tabBar.hidden = true
+        self.navigationItem.titleView = containerView
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
         NetManager.sharedManager.getSquadRequests({result in
             self.squadId.removeAll()
             self.squadNames.removeAll()

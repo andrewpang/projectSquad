@@ -53,8 +53,6 @@ class CreateSquadViewController: UIViewController{
         containerView.addSubview(titleLabel)
         
         self.tabBarController?.tabBar.hidden = true
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ChatViewController.backToMap))
-        
         self.navigationItem.titleView = containerView
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         

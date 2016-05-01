@@ -13,20 +13,13 @@ import CoreLocation
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
-    @IBOutlet weak var testImageView: UIImageView!
-    @IBOutlet weak var imageView: UIImageView!
-
-    
-//    let locationManager = CLLocationManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        
         let loginView : FBSDKLoginButton = FBSDKLoginButton()
         self.view.addSubview(loginView)
-        loginView.center = self.view.center
+        loginView.center = CGPointMake(300, 500)
         loginView.readPermissions = ["public_profile", "email", "user_friends"]
         loginView.delegate = self
         
@@ -60,18 +53,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             NetManager.sharedManager.getSquad(squadId, block: {
                                 squad in
                                 NetManager.sharedManager.currentSquadData = squad
-                                let now = NSDate()
-                                if(squad.endTime.compare(now) == .OrderedAscending){
-                                    NetManager.sharedManager.leaveSquad({
-                                        block in
-//                                        let menuController = UIViewController(nibName: "MenuController", bundle: nil)
-//                                        self.presentViewController(menuController, animated: true, completion: nil)
-//
-                                        self.performSegueWithIdentifier("loggedInSegue", sender: nil)
-                                    })
-                                }else{
+//                                let now = NSDate()
+//                                if(squad.endTime.compare(now) == .OrderedAscending){
+//                                    NetManager.sharedManager.leaveSquad({
+//                                        block in
+////                                        let menuController = UIViewController(nibName: "MenuController", bundle: nil)
+////                                        self.presentViewController(menuController, animated: true, completion: nil)
+////
+//                                        self.performSegueWithIdentifier("loggedInSegue", sender: nil)
+//                                    })
+//                                }else{
                                     self.performSegueWithIdentifier("hasSquadSegue", sender: nil)
-                                }
+//                                }
                             })
                         }else{
                             self.performSegueWithIdentifier("loggedInSegue", sender: nil)

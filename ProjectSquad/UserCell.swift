@@ -27,9 +27,12 @@ class UserCell: UITableViewCell{
     }
     
     @IBAction func addFriend(sender: AnyObject) {
-        addButton.hidden = true
+        if(addButton.tintColor == UIColor.greenColor()){
+            addButton.tintColor = UIColor(red:1.00, green:0.55, blue:0.60, alpha:1.0)
+        }else{
+            addButton.tintColor = UIColor.greenColor()
+        }
         delegate?.cellButtonTapped(self)
-//        NetManager.sharedManager.addFriend(self.friendId, friendUsername: nameLabel.text!)
     }
 
     
