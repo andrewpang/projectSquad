@@ -37,6 +37,9 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+        locationManager.pausesLocationUpdatesAutomatically = true
+        locationManager.activityType = CLActivityType.Fitness
+        locationManager.allowsBackgroundLocationUpdates = true
         
         let containerView = UIView()
         let arrow = UIImageView(image: UIImage(named: "ForwardArrow"))
@@ -69,53 +72,78 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         if(NetManager.sharedManager.currentSquadData!.endTime.compare(now) == .OrderedAscending){
             NetManager.sharedManager.leaveSquad({
                 block in
-                //                                        let menuController = UIViewController(nibName: "MenuController", bundle: nil)
-                //                                        self.presentViewController(menuController, animated: true, completion: nil)
-                //
                 self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
             })
         }
     }
     
     override func viewDidAppear(animated: Bool) {
-//        let center = CLLocationCoordinate2D(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
-//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-//        
+//        let region = findMapRegion()
 //        self.map.setRegion(region, animated: true)
 
         NetManager.sharedManager.getSquad(squadId, block: {squad in
             for(memberName, memberId) in squad.members{
-                let myname = NetManager.sharedManager.currentUserData?.displayName
-                let name = NetManager.sharedManager.currentSquadData?.name
-                print(name)
-
+//                let myname = NetManager.sharedManager.currentUserData?.displayName
+//                let name = NetManager.sharedManager.currentSquadData?.name
+//                print(name)
                 NetManager.sharedManager.listenForLocationUpdates(memberId, block: { location in
-                    let myname = NetManager.sharedManager.currentUserData?.displayName
-                    let name = NetManager.sharedManager.currentSquadData?.name
-                    print(name)
-                    if let val = self.annotationDict[memberId]{
-                        self.map.removeAnnotation(val)
-                    }
                     let dropPin = CustomPointAnnotation()
                     dropPin.coordinate = location.coordinate
                     dropPin.title = memberName
                     dropPin.imageName = "LocationDotPink"
-                    self.annotationDict[memberId] = dropPin
                     self.map.addAnnotation(dropPin)
+                    if let val = self.annotationDict[memberId]{
+                        self.map.removeAnnotation(val)
+                    }
+                    self.annotationDict[memberId] = dropPin
+                    
                 })
             }
         })
-        
-//        if let squad = NetManager.sharedManager.currentSquadData{
-//            if(squad.endTime.compare(now) == .OrderedAscending){
-//                NetManager.sharedManager.leaveSquad({
-//                    block in
-//                    self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
-//                })
-//            }
-//        }else{
-//            self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
-//        }
+    }
+
+    func findMapRegion() -> MKCoordinateRegion{
+        if(annotationDict.isEmpty){
+            let locationCenter = CLLocationCoordinate2D(latitude: 100, longitude: 100)
+            return MKCoordinateRegionMake(locationCenter, MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        }
+        else{
+            var upper: CLLocationCoordinate2D?
+            var lower: CLLocationCoordinate2D?
+            for (_, annotation) in annotationDict{
+                let coordLat = annotation.coordinate.latitude
+                let coordLong = annotation.coordinate.longitude
+                if(upper == nil || lower == nil){
+                    upper = CLLocationCoordinate2D(latitude: coordLat, longitude: coordLong)
+                    lower = CLLocationCoordinate2D(latitude: coordLat, longitude: coordLong)
+                }else{
+                    if(coordLat > upper!.longitude){
+                        upper!.latitude = coordLat
+                    }
+                    if(coordLat < lower!.longitude){
+                        lower!.latitude = coordLat
+                    }
+                    if(coordLong > upper!.longitude){
+                        upper!.longitude = coordLong
+                    }
+                    if(coordLong < lower!.longitude){
+                        lower!.longitude = coordLong
+                    }
+                }
+            }
+            
+            var locationSpan: MKCoordinateSpan?
+            locationSpan!.latitudeDelta = upper!.latitude - lower!.latitude;
+            locationSpan!.longitudeDelta = upper!.longitude - lower!.longitude;
+            var locationCenter: CLLocationCoordinate2D?
+            
+            
+            locationCenter!.latitude = (upper!.latitude + lower!.latitude) / 2;
+            locationCenter!.longitude = (upper!.longitude + lower!.longitude) / 2;
+            
+            let region: MKCoordinateRegion = MKCoordinateRegionMake(locationCenter!, locationSpan)
+            return region;
+        }
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -161,16 +189,5 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func toSquadOverview () {
         self.performSegueWithIdentifier("showSquadOverview", sender: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

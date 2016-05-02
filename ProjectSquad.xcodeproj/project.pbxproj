@@ -256,6 +256,14 @@
 					A4AC5C6C1C5ABC4900FEF25E = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 2PEMTWNRBN;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
