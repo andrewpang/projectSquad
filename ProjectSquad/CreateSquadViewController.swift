@@ -33,7 +33,7 @@ class CreateSquadViewController: UIViewController{
         datePicked = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:
-            "dismissKeyboard")
+            #selector(CreateSquadViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         let containerView = UIView()
@@ -61,7 +61,7 @@ class CreateSquadViewController: UIViewController{
     func datePickerChanged(datePicker:UIDatePicker) {
         datePicked = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "h:mm a 'on' MM-dd-yyyy"
+        dateFormatter.dateFormat = "h:mm a 'on' MMM d, yyyy"
         dateFormatter.AMSymbol = "AM"
         dateFormatter.PMSymbol = "PM"
         expirationTime.text = dateFormatter.stringFromDate(datePicked!)

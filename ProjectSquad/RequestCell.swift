@@ -24,7 +24,7 @@ class RequestCell: UITableViewCell{
         leaderNameLabel?.text = leaderName
         squadGoalsLabel?.text = "\"" + squad.description + "\""
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "h:mm a 'on' MM-dd-yyyy"
+        dateFormatter.dateFormat = "h:mm a 'on' MMM d, yyyy"
         dateFormatter.AMSymbol = "AM"
         dateFormatter.PMSymbol = "PM"
         timeLabel?.text = dateFormatter.stringFromDate(squad.endTime)

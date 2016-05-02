@@ -14,6 +14,13 @@ class MenuController: UIViewController{
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        NetManager.sharedManager.userHasUsername({
+            hasUsername in
+            if(!hasUsername){
+                self.performSegueWithIdentifier("setUsernameSegue", sender: nil)
+            }
+        })
+        
     }
     
     override func didReceiveMemoryWarning() {

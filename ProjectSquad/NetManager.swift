@@ -59,6 +59,18 @@ class NetManager {
     func setCurrentUser(user: User){
         self.currentUserData = user;
     }
+    
+    func userHasUsername(block: (hasUsername: Bool) -> Void){
+        let userRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid).childByAppendingPath("username")
+        userRef.observeEventType(.Value, withBlock: { snapshot in
+            if snapshot.exists() {
+                block(hasUsername: true)
+            }
+            else{
+                block(hasUsername: false)
+            }
+        })
+    }
 
     func addFriend(friendID: String, friendUsername: String) {
         let friendsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(currentUserData!.uid).childByAppendingPath("friends")

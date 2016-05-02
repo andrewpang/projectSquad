@@ -18,7 +18,7 @@ class ChatViewController: JSQMessagesViewController {
         //UIColor(red: 10/255, green: 180/255, blue: 230/255, alpha: 1.0))
     var messages = [JSQMessage]()
     //
-    var groupId = NetManager.sharedManager.currentSquadData!.id
+    var groupId: String?
     
     var image: UIImage?
     var imageDict: [String: UIImageView] = [:]
@@ -30,7 +30,8 @@ class ChatViewController: JSQMessagesViewController {
         //
         self.senderDisplayName = NetManager.sharedManager.currentUserData!.displayName
         self.senderId = NetManager.sharedManager.currentUserData!.uid
-        print(NetManager.sharedManager.currentSquadData!.name)
+        
+        groupId = NetManager.sharedManager.currentSquadData!.id
 
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.dismissKeyboard))
@@ -79,13 +80,6 @@ class ChatViewController: JSQMessagesViewController {
             }
         })
         
-//        let currentUserPicUrl = NetManager.sharedManager.currentUserData?.picURL
-//        currentUserAvatar = UIImageView()
-//        currentUserAvatar!.kf_setImageWithURL(NSURL(string: currentUserPicUrl!)!, placeholderImage: nil, optionsInfo: nil, progressBlock: nil, completionHandler: { (image, error, imageURL, originalData) -> () in
-//                self.image = image
-//                self.reloadMessagesView()
-//        })
-        
     }
     
     func backToMap(){
@@ -94,9 +88,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-
-        
+    
         //Gets existing chat from Firebase
         let ref = Firebase(url: "https://squad-development.firebaseio.com/")
         let chatRef = ref.childByAppendingPath("chat")
@@ -180,7 +172,7 @@ class ChatViewController: JSQMessagesViewController {
         senderDisplayName: String!, date: NSDate!) {
             
             let message = addMessage(senderId, name: senderDisplayName, text: text)
-            NetManager.sharedManager.addChatMessage(message, groupId: self.groupId)
+            NetManager.sharedManager.addChatMessage(message, groupId: self.groupId!)
             
             // 4
             JSQSystemSoundPlayer.jsq_playMessageSentSound()

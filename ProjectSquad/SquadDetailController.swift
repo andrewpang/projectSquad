@@ -11,14 +11,23 @@ import Foundation
 class SquadDetailController: UIViewController {
     
     @IBAction func leaveSquad(sender: AnyObject) {
-        let myname = NetManager.sharedManager.currentUserData?.displayName
-        let name = NetManager.sharedManager.currentSquadData?.name
-        print(name)
-        NetManager.sharedManager.leaveSquad({
-            block in
-            self.performSegueWithIdentifier("leaveSquadSegue", sender: nil)
-        })
+        // create the alert
+        let alert = UIAlertController(title: "Confirm", message: "Are you sure you want to leave this squad?", preferredStyle: UIAlertControllerStyle.Alert)
         
+        // add the actions (buttons)
+        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: {
+            action in
+            NetManager.sharedManager.leaveSquad({
+                block in
+                self.performSegueWithIdentifier("leaveSquadSegue", sender: nil)
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        // show the alert
+        self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+
     
 }

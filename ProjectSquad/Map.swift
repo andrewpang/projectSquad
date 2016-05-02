@@ -78,6 +78,11 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
+//        let center = CLLocationCoordinate2D(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        
+//        self.map.setRegion(region, animated: true)
+
         NetManager.sharedManager.getSquad(squadId, block: {squad in
             for(memberName, memberId) in squad.members{
                 let myname = NetManager.sharedManager.currentUserData?.displayName
@@ -114,21 +119,13 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        //
-        map.showsUserLocation = (status == .AuthorizedAlways)
+        //map.showsUserLocation = (status == .AuthorizedAlways)
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         var locationArray = locations as NSArray
         var locationObj = locationArray.lastObject as! CLLocation
         NetManager.sharedManager.updateCurrentLocation(locationObj)
-        
-        
-//        let center = CLLocationCoordinate2D(latitude: locationObj.coordinate.latitude, longitude: locationObj.coordinate.longitude)
-//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-//        
-//        self.map.setRegion(region, animated: true)
-        
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {

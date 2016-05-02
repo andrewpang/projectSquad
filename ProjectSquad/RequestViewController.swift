@@ -116,15 +116,33 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     }
     
     func callSegueFromCell(squad: Squad){
-        NetManager.sharedManager.joinSquad(squad, completionBlock: {snapshot in
-            self.performSegueWithIdentifier("joinedSquadSegue", sender: nil)
-        })
+        let alert = UIAlertController(title: "Confirm", message: "Are you sure you would like to join this squad?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "Join", style: UIAlertActionStyle.Default, handler: {
+            action in
+            NetManager.sharedManager.joinSquad(squad, completionBlock: {snapshot in
+                self.performSegueWithIdentifier("joinedSquadSegue", sender: nil)
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func deleteRequestFromCell(squad: Squad){
-        NetManager.sharedManager.deleteSquadRequest(squad, completionBlock: {snapshot in
-            self.tableView.reloadData()
-        })
+        let alert = UIAlertController(title: "Confirm", message: "Are you sure you would delete this request?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: {
+            action in
+            NetManager.sharedManager.deleteSquadRequest(squad, completionBlock: {snapshot in
+                self.tableView.reloadData()
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        
     }
 
 }
