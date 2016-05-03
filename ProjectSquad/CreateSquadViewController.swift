@@ -10,13 +10,19 @@ import Foundation
 
 class CreateSquadViewController: UIViewController{
 
+    
     @IBOutlet weak var squadNameTextField: UITextField!
-    @IBOutlet weak var startTimeDatePicker: UIDatePicker!
-    @IBOutlet weak var endTimeDatePicker: UIDatePicker!
     @IBOutlet weak var squadGoalTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var expirationTime: UILabel!
     @IBOutlet weak var expiresLabel: UILabel!
+    
+//    @IBOutlet weak var squadNameTextField: UITextField!
+//    @IBOutlet weak var startTimeDatePicker: UIDatePicker!
+//    @IBOutlet weak var endTimeDatePicker: UIDatePicker!
+//    @IBOutlet weak var squadGoalTextField: UITextField!
+//    @IBOutlet weak var datePicker: UIDatePicker!
+//    @IBOutlet weak var expirationTime: UILabel!
+//    @IBOutlet weak var expiresLabel: UILabel!
     var datePicked: NSDate?
     
     override func viewDidLoad() {
@@ -64,8 +70,7 @@ class CreateSquadViewController: UIViewController{
         dateFormatter.dateFormat = "h:mm a 'on' MMM d, yyyy"
         dateFormatter.AMSymbol = "AM"
         dateFormatter.PMSymbol = "PM"
-        expirationTime.text = dateFormatter.stringFromDate(datePicked!)
-        expiresLabel.text = "Expires at: "
+        expiresLabel.text = "Expires at: " + dateFormatter.stringFromDate(datePicked!)
     }
 
     @IBAction func goToInvite(sender: AnyObject) {
