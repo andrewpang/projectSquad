@@ -86,7 +86,7 @@ class NetManager {
     func getFriends(uid: String) {
         let friendsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(uid).childByAppendingPath("friends")
         friendsRef.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot)
+            //print(snapshot)
             }, withCancelBlock: { error in
                 print(error.description)
         })
@@ -141,22 +141,15 @@ class NetManager {
         })
         
         ref.observeEventType(.ChildChanged, withBlock: { snapshot in
-            let squad = NetManager.sharedManager.currentSquadData?.name
-            print(squad)
             self.processChildAddedAndChanged(geoFire, block: block)
         })
     }
     
     func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
-        let squad = NetManager.sharedManager.currentSquadData?.name
-        print(squad)
         geoFire.getLocationForKey("location", withCallback: { (location, error) in
-            let squad = NetManager.sharedManager.currentSquadData?.name
-            print(squad)
             if (error != nil) {
                 print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
             } else if (location != nil) {
-            
                 block(location: location)
 //                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
             } else {
@@ -274,7 +267,7 @@ class NetManager {
             let endDate = NSDate(timeIntervalSince1970: Double(endTime)!)
             let memberRef = squadRef.childByAppendingPath("members")
             memberRef.observeEventType(.Value, withBlock: { snapshot in
-                print(snapshot)
+                //print(snapshot)
                 var membersDictionary: [String: String] = [:]
                 if let membersDictionary = snapshot.value as? NSDictionary{
                     let squad = Squad(id: squadId, name: squadName, startTime: startDate, endTime: endDate, description: description, leaderId: leaderId, members: membersDictionary as! [String : String])
@@ -282,12 +275,7 @@ class NetManager {
                 }
                 }, withCancelBlock: { error in
                     print(error.description)
-            })
-
-            
-            
-            
-            
+            })        
             }, withCancelBlock: { error in
                 print(error.description)
         })

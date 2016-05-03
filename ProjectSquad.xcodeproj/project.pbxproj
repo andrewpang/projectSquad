@@ -11,6 +11,7 @@
 		470F719F1C5D759B00112448 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719C1C5D759B00112448 /* FBSDKLoginKit.framework */; };
 		470F71A01C5D759B00112448 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */; };
 		470F71A31C5D8A9700112448 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F71A21C5D8A9700112448 /* User.swift */; };
+		473D3B741CD87B7200460B86 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D3B731CD87B7200460B86 /* MemberCell.swift */; };
 		475A238E1CBD5803004C1A5D /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A238D1CBD5803004C1A5D /* MenuController.swift */; };
 		47966B861CA26B4C00883F81 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47966B851CA26B4C00883F81 /* Message.swift */; };
 		47AE25961CAB4276005E14C0 /* CreateSquadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */; };
@@ -51,6 +52,7 @@
 		470F719D1C5D759B00112448 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectSquad-Bridging-Header.h"; sourceTree = "<group>"; };
 		470F71A21C5D8A9700112448 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		473D3B731CD87B7200460B86 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		475A238D1CBD5803004C1A5D /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		47966B851CA26B4C00883F81 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSquadViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */,
 				47B591B31CAD1F020011E366 /* AddFriendViewController.swift */,
 				47B591B71CAD279A0011E366 /* UserCell.swift */,
+				473D3B731CD87B7200460B86 /* MemberCell.swift */,
 				47F8EAB81CC0C3A300AB1CD5 /* RequestCell.swift */,
 				475A238D1CBD5803004C1A5D /* MenuController.swift */,
 				47F8EAB61CC0BD7500AB1CD5 /* RequestViewController.swift */,
@@ -355,6 +358,7 @@
 				9C1571C51C7A73FB0092F992 /* SquadOverview.swift in Sources */,
 				9C1571BF1C7A67670092F992 /* Themes.swift in Sources */,
 				A418A61A1C5D836000FCFB40 /* NetManager.swift in Sources */,
+				473D3B741CD87B7200460B86 /* MemberCell.swift in Sources */,
 				47B591B81CAD279A0011E366 /* UserCell.swift in Sources */,
 				9C1571C31C7A6ABF0092F992 /* Extensions.swift in Sources */,
 				9C1571C11C7A688C0092F992 /* Map.swift in Sources */,

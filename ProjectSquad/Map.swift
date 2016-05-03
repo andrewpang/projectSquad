@@ -83,9 +83,6 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         NetManager.sharedManager.getSquad(squadId, block: {squad in
             for(memberName, memberId) in squad.members{
-//                let myname = NetManager.sharedManager.currentUserData?.displayName
-//                let name = NetManager.sharedManager.currentSquadData?.name
-//                print(name)
                 NetManager.sharedManager.listenForLocationUpdates(memberId, block: { location in
                     let dropPin = CustomPointAnnotation()
                     dropPin.coordinate = location.coordinate

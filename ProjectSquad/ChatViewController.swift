@@ -165,6 +165,13 @@ class ChatViewController: JSQMessagesViewController {
     
     func addMessage(id: String, name:String, text: String) -> JSQMessage {
         let message = JSQMessage(senderId: id, displayName: name, text: text)
+//        let notification = UILocalNotification()
+//        notification.fireDate = NSDate(timeIntervalSinceNow: 5)
+//        notification.alertBody = text
+//        notification.alertAction = "open squad"
+//        notification.soundName = UILocalNotificationDefaultSoundName
+//        notification.userInfo = ["CustomField1": "w00t"]
+//        UIApplication.sharedApplication().scheduleLocalNotification(notification)
         return message
     }
     

@@ -16,12 +16,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
-        let loginView : FBSDKLoginButton = FBSDKLoginButton()
-        self.view.addSubview(loginView)
-        loginView.center = CGPointMake(200, 450)
-        loginView.readPermissions = ["public_profile", "email", "user_friends"]
-        loginView.delegate = self
+        let size: CGSize = self.view.frame.size;
+        let fbView : FBSDKLoginButton = FBSDKLoginButton()
+        fbView.center = CGPointMake(size.width/2, size.height/(1.3))
+        self.view.addSubview(fbView)
+        fbView.readPermissions = ["public_profile", "email", "user_friends"]
+        fbView.delegate = self
         
     }
     
