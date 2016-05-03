@@ -21,6 +21,7 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var squadId: String =  ""
     var squadName: String = ""
     var annotationDict: [String: CustomPointAnnotation] = [:]
+    var regionSet: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +79,8 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-//        let region = findMapRegion()
-//        self.map.setRegion(region, animated: true)
-
+        self.regionSet = false
+        
         NetManager.sharedManager.getSquad(squadId, block: {squad in
             for(memberName, memberId) in squad.members{
 //                let myname = NetManager.sharedManager.currentUserData?.displayName
@@ -96,7 +96,17 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                         self.map.removeAnnotation(val)
                     }
                     self.annotationDict[memberId] = dropPin
+                    //
+                    if(!self.regionSet){
+                        if let val = self.annotationDict[NetManager.sharedManager.currentUserData!.uid]{
+                            self.regionSet = true;
+                            let region = self.findMapRegion()
+                            self.map.setRegion(region, animated: true)
+                        }
+                    }
+
                     
+
                 })
             }
         })
@@ -104,8 +114,8 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     func findMapRegion() -> MKCoordinateRegion{
         if(annotationDict.isEmpty){
-            let locationCenter = CLLocationCoordinate2D(latitude: 100, longitude: 100)
-            return MKCoordinateRegionMake(locationCenter, MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            let locationCenter = CLLocationCoordinate2D(latitude: 34.4133, longitude: -119.861)
+            return MKCoordinateRegionMake(locationCenter, MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
         }
         else{
             var upper: CLLocationCoordinate2D?
@@ -132,16 +142,19 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                 }
             }
             
-            var locationSpan: MKCoordinateSpan?
-            locationSpan!.latitudeDelta = upper!.latitude - lower!.latitude;
-            locationSpan!.longitudeDelta = upper!.longitude - lower!.longitude;
-            var locationCenter: CLLocationCoordinate2D?
+            var locationSpan: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
+            let latDelta = upper!.latitude - lower!.latitude
+            let lonDelta = upper!.longitude - lower!.longitude
+            if(latDelta != 0.0){
+                locationSpan.latitudeDelta = latDelta + 0.01
+            }
+            if(lonDelta != 0.0){
+                locationSpan.longitudeDelta = lonDelta + 0.01
+            }
             
+            let locationCenter: CLLocationCoordinate2D = CLLocationCoordinate2DMake(((upper!.latitude + lower!.latitude) / 2), ((upper!.longitude + lower!.longitude) / 2))
             
-            locationCenter!.latitude = (upper!.latitude + lower!.latitude) / 2;
-            locationCenter!.longitude = (upper!.longitude + lower!.longitude) / 2;
-            
-            let region: MKCoordinateRegion = MKCoordinateRegionMake(locationCenter!, locationSpan)
+            let region: MKCoordinateRegion = MKCoordinateRegionMake(locationCenter, locationSpan)
             return region;
         }
     }
