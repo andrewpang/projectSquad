@@ -26,9 +26,9 @@ class NetManager {
         ref.authWithOAuthProvider("facebook", token: token.tokenString, withCompletionBlock: { (error: NSError?, authData: FAuthData?) -> Void in
             if let error = error {
                 // TODO: Handle errors
-                print("Error logging in \(error)")
+                //print("Error logging in \(error)")
             } else if let authData = authData {
-                print("Login successful! \(authData)")
+                //print("Login successful! \(authData)")
                 
                 let provider = authData.provider
                 let uid = authData.uid
@@ -77,7 +77,7 @@ class NetManager {
         friendsRef.updateChildValues([friendID: friendUsername],
             withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
             if let error = error {
-                print("Error sending profile info! \(error)")
+                //print("Error sending profile info! \(error)")
             }
         })
     }
@@ -88,7 +88,7 @@ class NetManager {
         friendsRef.observeEventType(.Value, withBlock: { snapshot in
             //print(snapshot)
             }, withCancelBlock: { error in
-                print(error.description)
+                //print(error.description)
         })
     }
     
@@ -103,7 +103,7 @@ class NetManager {
                 resultDictionary = result as! [String: AnyObject]
                 block(resultDict: resultDictionary)
             } else {
-                print("Error Getting Friends \(error)");
+                //print("Error Getting Friends \(error)");
             }
         }
     }
@@ -148,12 +148,12 @@ class NetManager {
     func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
         geoFire.getLocationForKey("location", withCallback: { (location, error) in
             if (error != nil) {
-                print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+                //print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
             } else if (location != nil) {
                 block(location: location)
 //                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
             } else {
-                print("GeoFire does not contain a location for \"firebase-hq\"")
+                //print("GeoFire does not contain a location for \"firebase-hq\"")
             }
         })
     }
@@ -163,13 +163,13 @@ class NetManager {
             let geofire = GeoFire(firebaseRef: ref)
             geofire.setLocation(currentLocation, forKey: "location") { (error: NSError?) -> Void in
                 if (error != nil) {
-                    print("An error occured: \(error)")
+                    //print("An error occured: \(error)")
                 } else {
 //                    print("Saved location successfully!")
                 }
             }
         } else {
-            print("Could NOT update location. User not authenticated.")
+            //print("Could NOT update location. User not authenticated.")
         }
     }
 
@@ -178,7 +178,7 @@ class NetManager {
     func getUserByUsername(username: String) {
         let ref = Firebase(url:self.firebaseRefURL).queryOrderedByChild("username").observeEventType(.ChildAdded, withBlock: { snapshot in
             if let username = snapshot.value["username"] as? String {
-                print("\(snapshot.key) is \(username) and \(snapshot.childSnapshotForPath("email"))")
+                //print("\(snapshot.key) is \(username) and \(snapshot.childSnapshotForPath("email"))")
             }
         })
     }
@@ -186,7 +186,7 @@ class NetManager {
     func getUserByUID(uid: String, block: (user: User) -> Void){
         let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(uid)
         requestsRef.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot)
+            //print(snapshot)
             let id = uid
             let displayName = snapshot.value.valueForKey("displayName") as! String
             let email = snapshot.value.valueForKey("email") as! String
@@ -208,7 +208,7 @@ class NetManager {
         requestRef.updateChildValues([squadId: squadName],
             withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                 if let error = error {
-                    print("Error sending profile info! \(error)")
+                    //print("Error sending profile info! \(error)")
                 }
             })
     }
@@ -233,14 +233,14 @@ class NetManager {
         
         squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                 if let error = error {
-                    print("Error sending profile info! \(error)")
+                    //print("Error sending profile info! \(error)")
                 } else{
                     //If no error with setting squad, set members of squad
                     membersRef.setValue(leader ,
                         withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                             leaderRef.setValue(squadId)
                         if let error = error {
-                            print("Error sending profile info! \(error)")
+                            //print("Error sending profile info! \(error)")
                         }
                     })
             }
@@ -257,7 +257,7 @@ class NetManager {
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
  
         squadRef.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot)
+            //print(snapshot)
             let squadName = snapshot.value.valueForKey("name") as! String
             let description = snapshot.value.valueForKey("description") as! String
             let startTime = snapshot.value.valueForKey("startTime") as! String
@@ -274,10 +274,10 @@ class NetManager {
                     block(squad: squad)
                 }
                 }, withCancelBlock: { error in
-                    print(error.description)
+                    //print(error.description)
             })        
             }, withCancelBlock: { error in
-                print(error.description)
+                //print(error.description)
         })
     }
     
@@ -295,7 +295,7 @@ class NetManager {
             }
             block(resultDict: resultDictionary)
             }, withCancelBlock: { error in
-                print(error.description)
+                //print(error.description)
         })
     }
     
@@ -359,7 +359,7 @@ class NetManager {
                 "date": FirebaseServerValue.timestamp()
             ], withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
                 if let error = error {
-                    print("Error adding chat message! \(error)")
+                    //print("Error adding chat message! \(error)")
                 }
         })
         
