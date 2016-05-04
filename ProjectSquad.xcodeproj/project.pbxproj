@@ -486,8 +486,8 @@
 			baseConfigurationReference = 10979A2B3C2897E14F9C3798 /* Pods-ProjectSquad.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Pang (2PEMTWNRBN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Andrew Pang (2PEMTWNRBN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -496,7 +496,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7bef3dc4-9a39-4aec-881f-42777827f127";
 				SWIFT_OBJC_BRIDGING_HEADER = "ProjectSquad/ProjectSquad-Bridging-Header.h";
 			};
 			name = Debug;
@@ -506,8 +506,8 @@
 			baseConfigurationReference = 73579391B9C03C64C2F8B412 /* Pods-ProjectSquad.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Pang (2PEMTWNRBN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Andrew Pang (2PEMTWNRBN)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -516,7 +516,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7bef3dc4-9a39-4aec-881f-42777827f127";
 				SWIFT_OBJC_BRIDGING_HEADER = "ProjectSquad/ProjectSquad-Bridging-Header.h";
 			};
 			name = Release;
