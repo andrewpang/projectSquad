@@ -53,16 +53,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             NetManager.sharedManager.getSquad(squadId, block: {
                                 squad in
                                 NetManager.sharedManager.currentSquadData = squad
-//                                let now = NSDate()
-//                                if(squad.endTime.compare(now) == .OrderedAscending){
-//                                    NetManager.sharedManager.leaveSquad({
-//                                        block in
-////                                        let menuController = UIViewController(nibName: "MenuController", bundle: nil)
-////                                        self.presentViewController(menuController, animated: true, completion: nil)
-////
-//                                        self.performSegueWithIdentifier("loggedInSegue", sender: nil)
-//                                    })
-//                                }else{
                                     self.performSegueWithIdentifier("hasSquadSegue", sender: nil)
 //                                }
                             })

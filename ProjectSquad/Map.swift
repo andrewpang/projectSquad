@@ -25,8 +25,10 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkIfExpired()
         map.delegate = self
         
+        //Call checkIfExpired when app comes back to foreground
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(Map.checkIfExpired), name:
             UIApplicationWillEnterForegroundNotification, object: nil)
         
@@ -68,16 +70,6 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     }
     
-    func checkIfExpired(){
-        let now = NSDate()
-        if(NetManager.sharedManager.currentSquadData!.endTime.compare(now) == .OrderedAscending){
-            NetManager.sharedManager.leaveSquad({
-                block in
-                self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
-            })
-        }
-    }
-    
     override func viewDidAppear(animated: Bool) {
         self.regionSet = false
         
@@ -108,6 +100,16 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             }
         })
     }
+    
+    func checkIfExpired(){
+        let now = NSDate()
+        if(NetManager.sharedManager.currentSquadData!.endTime.compare(now) == .OrderedAscending){
+            NetManager.sharedManager.leaveSquad({
+                block in
+                self.performSegueWithIdentifier("squadExpiredSegue", sender: nil)
+            })
+        }
+    }
 
     func findMapRegion() -> MKCoordinateRegion{
         if(annotationDict.isEmpty){
@@ -124,10 +126,10 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                     upper = CLLocationCoordinate2D(latitude: coordLat, longitude: coordLong)
                     lower = CLLocationCoordinate2D(latitude: coordLat, longitude: coordLong)
                 }else{
-                    if(coordLat > upper!.longitude){
+                    if(coordLat > upper!.latitude){
                         upper!.latitude = coordLat
                     }
-                    if(coordLat < lower!.longitude){
+                    if(coordLat < lower!.latitude){
                         lower!.latitude = coordLat
                     }
                     if(coordLong > upper!.longitude){
@@ -161,12 +163,12 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var locationArray = locations as NSArray
-        var locationObj = locationArray.lastObject as! CLLocation
+        let locationArray = locations as NSArray
+        let locationObj = locationArray.lastObject as! CLLocation
         NetManager.sharedManager.updateCurrentLocation(locationObj)
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if !(annotation is CustomPointAnnotation) {
             return nil
         }

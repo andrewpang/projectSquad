@@ -94,7 +94,19 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return squadNames.count
+        if squadNames.count == 0{
+            let size: CGSize = self.tableView.frame.size;
+            var emptyLabel = UILabel(frame: CGRectMake(0,0, size.width, size.height))
+            emptyLabel.textColor = UIColor(red:1.00, green:0.55, blue:0.60, alpha:1.0)
+            emptyLabel.text = "You currently have no invites"
+            emptyLabel.textAlignment = NSTextAlignment.Center
+            
+            self.tableView.backgroundView = emptyLabel
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+            return 0
+        } else {
+            return squadNames.count
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

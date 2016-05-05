@@ -45,7 +45,20 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendNames.count
+        if friendNames.count == 0{
+            
+            let size: CGSize = self.tableView.frame.size;
+            let emptyLabel = UILabel(frame: CGRectMake(0,0, size.width, size.height))
+            emptyLabel.textColor = UIColor(red:1.00, green:0.55, blue:0.60, alpha:1.0)
+            emptyLabel.text = "None of your friends have Squad :("
+            emptyLabel.textAlignment = NSTextAlignment.Center
+            
+            self.tableView.backgroundView = emptyLabel
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+            return 0
+        } else {
+            return friendNames.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
