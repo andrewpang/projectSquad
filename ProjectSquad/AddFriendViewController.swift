@@ -57,6 +57,7 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
             self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
             return 0
         } else {
+            self.tableView.backgroundView = nil
             return friendNames.count
         }
     }

@@ -105,6 +105,7 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
             self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
             return 0
         } else {
+            self.tableView.backgroundView = nil
             return squadNames.count
         }
     }
