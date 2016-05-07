@@ -33,7 +33,10 @@ class NetManager {
                 let provider = authData.provider
                 let uid = authData.uid
                 let displayName = authData.providerData["displayName"] as! String
-                let email = authData.providerData["email"] as! String
+                var email = ""
+                if let emailData = authData.providerData["email"]{
+                    email = emailData as! String
+                }
                 let profPicURL = authData.providerData["profileImageURL"] as! String
                 
                 self.currentUserData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)

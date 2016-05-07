@@ -12,6 +12,9 @@ import Kingfisher
 import CoreLocation
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+    
+    let fbReadPermissions = ["public_profile", "email", "user_friends"]
+    var fbLoginManager : FBSDKLoginManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +23,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let fbView : FBSDKLoginButton = FBSDKLoginButton()
         fbView.center = CGPointMake(size.width/2, size.height/(1.3))
         self.view.addSubview(fbView)
-        fbView.readPermissions = ["public_profile", "email", "user_friends"]
+        fbView.readPermissions = fbReadPermissions
         fbView.delegate = self
+        fbLoginManager = FBSDKLoginManager()
         
     }
     
@@ -34,8 +38,50 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidAppear(animated: Bool) {
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
-            // User is already logged in, do work such as go to next view controller.
-            print("User already logged in!")
+            var allPermsGranted = true
+            
+            //result.grantedPermissions returns an array of _NSCFString pointers
+            let grantedPermissions = FBSDKAccessToken.currentAccessToken().permissions
+            for permission in self.fbReadPermissions {
+                if !(grantedPermissions.contains(permission)) {
+                    allPermsGranted = false
+                    break
+                }
+            }
+            if(!allPermsGranted){
+                let alert = UIAlertController(title: "Permissions", message: "Please allow Squad to access your friend list, in order to use the app", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {
+                    action in
+                    
+                    self.fbLoginManager?.logInWithReadPermissions(self.fbReadPermissions, fromViewController: self, handler: { (result, error) -> Void in
+                        if ((error) != nil){
+                            print("error")
+                        }else if(result.isCancelled){
+                            print("error")
+                        }
+                        else {
+                            var fbloginresult : FBSDKLoginManagerLoginResult = result
+                            if let token = fbloginresult.token{
+                                NetManager.sharedManager.loginWithToken(token, completionBlock: { (success: Bool, hasUsername: Bool) -> Void in
+                                    self.performSegueWithIdentifier("loggedInSegue", sender: nil)
+                                })
+                            }
+                        }
+                        
+                    })
+                    
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+                
+                
+            }
+            
+            else{
+            
+            
             let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture"], tokenString: FBSDKAccessToken.currentAccessToken().tokenString, version: nil, HTTPMethod: "GET")
             req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
                 if(error == nil)
@@ -44,7 +90,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     let resultDict = result as! [String: AnyObject]
                     var uid = "facebook:"
                     uid += resultDict["id"] as! String
-                    let user = User(uid: uid, provider: "FB", displayName: resultDict["name"] as! String, email: resultDict["email"] as! String, picURL: resultDict["picture"]!["data"]!!["url"] as! String)
+                    var email = ""
+                    if let emailData  = resultDict["email"]{
+                        email = emailData as! String
+                    }
+                    let user = User(uid: uid, provider: "FB", displayName: resultDict["name"] as! String, email: email, picURL: resultDict["picture"]!["data"]!!["url"] as! String)
                     NetManager.sharedManager.setCurrentUser(user)
                     //See if user has a current squad and if that squad is valid
                     NetManager.sharedManager.checkUserCurrentSquad({
@@ -68,7 +118,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
             })
             
-            
+            }
         }
 
     }
@@ -83,15 +133,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             print("Error logging in \(error)")
         } else if let result = result, token = result.token {
             NetManager.sharedManager.loginWithToken(token, completionBlock: { (success: Bool, hasUsername: Bool) -> Void in
-                if success && hasUsername {
-                    print("User logged in successfully!")
-                    self.performSegueWithIdentifier("loggedInSegue", sender: nil)
-                } else if !hasUsername {
-                    print("User doesn't have a username!")
-                    self.performSegueWithIdentifier("setUsernameSegue", sender: nil)
-                } else {
-                    print("Error logging in!")
-                }
             })
         } else {
             print("Not logged in!")
