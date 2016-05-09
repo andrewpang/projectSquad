@@ -12,6 +12,7 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
     
     var squadName: String?
     var members: [String] = []
+    var memberIds: [String] = []
     @IBOutlet weak var expirationLabel: UILabel!
     @IBOutlet weak var memberTableView: UITableView!
     
@@ -23,6 +24,7 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
         var squadMembers = NetManager.sharedManager.currentSquadData!.members
         for(name, id) in squadMembers{
             members.append(name)
+            memberIds.append(id)
         }
         
         let containerView = UIView()
@@ -70,6 +72,9 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
         let row = indexPath.row
     }
     
+    @IBAction func inviteFriends(sender: AnyObject) {
+        self.performSegueWithIdentifier("inviteMoreSegue", sender: nil)
+    }
     @IBAction func leaveSquad(sender: AnyObject) {
         // create the alert
         let alert = UIAlertController(title: "Confirm", message: "Are you sure you want to leave this squad?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -86,6 +91,15 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
         
         // show the alert
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "inviteMoreSegue" {
+            if let addViewController = segue.destinationViewController as? AddFriendViewController {
+                addViewController.isExistingSquad = true
+                addViewController.existingMembers = memberIds
+            }
+        }
     }
     
 

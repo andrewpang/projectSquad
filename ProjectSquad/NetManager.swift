@@ -255,6 +255,15 @@ class NetManager {
 
     }
     
+    func inviteMore(invites: [String: String]) {
+        let squadId = self.currentUserData?.currentSquad
+        let name = self.currentSquadData?.name
+        for(inviteeName, inviteeId) in invites{
+            sendSquadRequest(inviteeId, squadId: squadId!, squadName: name!)
+        }
+        
+    }
+    
     //Returns data about a squad from it's ID
     func getSquad(squadId: String, block: (squad: Squad) -> Void) {
         let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)

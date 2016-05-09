@@ -102,6 +102,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                         if(squadId != ""){
                             NetManager.sharedManager.getSquad(squadId, block: {
                                 squad in
+                                NetManager.sharedManager.currentUserData?.currentSquad = squad.id
                                 NetManager.sharedManager.currentSquadData = squad
                                     self.performSegueWithIdentifier("hasSquadSegue", sender: nil)
 //                                }

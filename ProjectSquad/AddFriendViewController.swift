@@ -19,12 +19,20 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     var endTime: NSDate!
     var squadGoal: String!
 
+    @IBOutlet weak var createSquadButton: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     let textCellIdentifier = "UserCell"
     
+    var isExistingSquad = false
+    var existingMembers: [String]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if(isExistingSquad){
+            createSquadButton.setTitle("Invite", forState: UIControlState.Normal)
+        }
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -32,6 +40,12 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
             if let friendObjects = result["data"] as? [NSDictionary] {
                 for friendObject in friendObjects {
                     let fbId = "facebook:" + (friendObject["id"] as! String)
+                    if(self.isExistingSquad){
+                        let members = self.existingMembers!
+                        if(members.contains(fbId)){
+                            continue
+                        }
+                    }
                     self.friendIds.append(fbId)
                     self.friendNames.append(friendObject["name"] as! String)
                 }
@@ -79,8 +93,15 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func createSquad(sender: AnyObject) {
-        NetManager.sharedManager.setSquad(squadName, startTime: startTime, endTime: endTime, description: squadGoal, invites: squadInvites)
-        self.performSegueWithIdentifier("createdSquadSegue", sender: nil)
+        if(isExistingSquad){
+            NetManager.sharedManager.inviteMore(squadInvites)
+            self.performSegueWithIdentifier("invitedMoreSegue", sender: nil)
+        }
+        else{
+        
+            NetManager.sharedManager.setSquad(squadName, startTime: startTime, endTime: endTime, description: squadGoal, invites: squadInvites)
+            self.performSegueWithIdentifier("createdSquadSegue", sender: nil)
+        }
     }
     
     func cellButtonTapped(cell: UserCell) {
