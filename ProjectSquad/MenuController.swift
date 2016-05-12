@@ -13,7 +13,24 @@ class MenuController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let oneSignal = appDelegate.oneSignal
+        oneSignal!.IdsAvailable({ (userId, pushToken) in
+            NSLog("UserId:%@", userId);
+            NetManager.sharedManager.setOneSignalId(userId, completionBlock: {_ in 
+                print("OneSignal Id set")
+            })
+//            if (pushToken != nil) {
+//                NSLog("Sending Test Notification to this device now");
+//            }
+        });
+        
+        //No updates if it comes here (leave squad, expired squad)
+        if NetManager.sharedManager.locationManager != nil{
+            NetManager.sharedManager.locationManager!.stopUpdatingLocation()
+        }
+        
+        //If user doesn't have username, make them set one
         NetManager.sharedManager.userHasUsername({
             hasUsername in
             if(!hasUsername){

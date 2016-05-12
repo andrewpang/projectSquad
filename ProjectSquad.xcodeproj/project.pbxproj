@@ -493,10 +493,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ProjectSquad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "59d5cfbd-a460-47bc-a7ed-b941fc1af206";
+				PROVISIONING_PROFILE = "de94e949-1bdf-4b38-adca-206d9c082691";
 				SWIFT_OBJC_BRIDGING_HEADER = "ProjectSquad/ProjectSquad-Bridging-Header.h";
 			};
 			name = Debug;
@@ -513,10 +514,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ProjectSquad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.squadupapp.ProjectSquad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "59d5cfbd-a460-47bc-a7ed-b941fc1af206";
+				PROVISIONING_PROFILE = "de94e949-1bdf-4b38-adca-206d9c082691";
 				SWIFT_OBJC_BRIDGING_HEADER = "ProjectSquad/ProjectSquad-Bridging-Header.h";
 			};
 			name = Release;

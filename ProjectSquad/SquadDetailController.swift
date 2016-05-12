@@ -21,7 +21,7 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
         
         self.squadName = NetManager.sharedManager.currentSquadData!.name
         let endTime = NetManager.sharedManager.currentSquadData!.endTime
-        var squadMembers = NetManager.sharedManager.currentSquadData!.members
+        let squadMembers = NetManager.sharedManager.currentSquadData!.members
         for(name, id) in squadMembers{
             members.append(name)
             memberIds.append(id)

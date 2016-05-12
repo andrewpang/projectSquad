@@ -7,6 +7,7 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - Kingfisher (2.2.0)
+  - OneSignal (1.13.2)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -14,6 +15,7 @@ DEPENDENCIES:
   - GeoFire (>= 1.1)
   - JSQMessagesViewController
   - Kingfisher (~> 2.2)
+  - OneSignal
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -31,6 +33,7 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   Kingfisher: 350869ed88d6451803b390475d977abdd9f0a357
+  OneSignal: 15b94fa760a6754908f11ef92da6ec945923fa2c
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

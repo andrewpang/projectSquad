@@ -26,12 +26,18 @@ class SetUsernameViewController: UIViewController {
     }
     
     @IBAction func setUsername(sender: AnyObject) {
-        NetManager.sharedManager.setUsername(self.usernameTextField.text!) { (error: NSError?) -> Void in
-            if error == nil {
-                print("Successfully set username!")
-                self.performSegueWithIdentifier("usernameSetSegue", sender: nil)
-            } else {
-                print("Couldn't set username!")
+        let whitespace = NSCharacterSet.whitespaceCharacterSet()
+        if(self.usernameTextField.text!.stringByTrimmingCharactersInSet(whitespace) == ""){
+            usernameTextField.attributedPlaceholder = NSAttributedString(string:"Please enter a username", attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+        }
+        else{
+            NetManager.sharedManager.setUsername(self.usernameTextField.text!) { (error: NSError?) -> Void in
+                if error == nil {
+                    print("Successfully set username!")
+                    self.performSegueWithIdentifier("usernameSetSegue", sender: nil)
+                } else {
+                    print("Couldn't set username!")
+                }
             }
         }
     }

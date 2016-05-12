@@ -34,14 +34,13 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         self.squadId = NetManager.sharedManager.currentSquadData!.id
         self.squadName = NetManager.sharedManager.currentSquadData!.name
-        
-        locationManager = CLLocationManager()
+        NetManager.sharedManager.locationManager = CLLocationManager()
+        locationManager = NetManager.sharedManager.locationManager
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
-        locationManager.pausesLocationUpdatesAutomatically = true
-        locationManager.activityType = CLActivityType.Fitness
+        locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.allowsBackgroundLocationUpdates = true
         
         let containerView = UIView()
@@ -166,7 +165,20 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let locationArray = locations as NSArray
         let locationObj = locationArray.lastObject as! CLLocation
         NetManager.sharedManager.updateCurrentLocation(locationObj)
+        
+        //Defer background updates
+        let distance: CLLocationDistance = 5
+        let time: NSTimeInterval = 15
+        locationManager.allowDeferredLocationUpdatesUntilTraveled(distance, timeout:time)
     }
+    
+    func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?) {
+        // Stop deferring updates
+//        self.deferringUpdates = false
+        
+        // Adjust for the next goal
+    }
+
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if !(annotation is CustomPointAnnotation) {

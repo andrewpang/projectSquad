@@ -18,6 +18,7 @@ class NetManager {
     private let firebaseRefURL = "https://squad-development.firebaseio.com/"
     var currentUserData: User?
     var currentSquadData: Squad?
+    var locationManager: CLLocationManager?
     
     //Login to facebook, set currentUserData
     func loginWithToken(token: FBSDKAccessToken, completionBlock: (success: Bool, hasUsername: Bool) -> Void) {
@@ -120,6 +121,15 @@ class NetManager {
         }
     }
     
+    //Set OneSignal push notification Id
+    func setOneSignalId(id: String, completionBlock: (error: NSError?) -> Void){
+        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid)
+        
+        ref.updateChildValues(["oneSignalId": id]) { (error: NSError?, firebase: Firebase!) -> Void in
+            completionBlock(error: error)
+        }
+    }
+    
     func checkUserCurrentSquad(completionBlock: (squadId: String) -> Void) {
         let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid).childByAppendingPath("currentSquad")
         
@@ -213,6 +223,21 @@ class NetManager {
                 if let error = error {
                     //print("Error sending profile info! \(error)")
                 }
+                
+                //Send push notification
+                let userRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(userId).childByAppendingPath("oneSignalId")
+                userRef.observeEventType(.Value, withBlock: { snapshot in
+                    if snapshot.exists() {
+                        let oneSignalId = snapshot.value as! String
+                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                        let oneSignal = appDelegate.oneSignal
+                        oneSignal!.postNotification(["contents": ["en": "You have a new Squad invite!"], "include_player_ids": [oneSignalId], "ios_badgeCount": "1", "ios_badgeType": "Increase"]);
+                    }
+                    else{
+                        print("No OneSignal Id")
+                    }
+                })
+                
             })
     }
     
@@ -410,16 +435,7 @@ class NetManager {
         return Firebase(url: self.firebaseRefURL).childByAppendingPath("messages")
     }
     
-//    private func getUserWithUID(uid: String) -> User? {
-//        for user in self.users {
-//            if user.uid == uid {
-//                return user
-//            }
-//        }
-//        
-//        return nil
-//    }
-    
+
     
     
     

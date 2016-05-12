@@ -12,6 +12,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <JSQMessagesViewController/JSQMessage.h> 
+#import <OneSignal/OneSignal.h>
 
 
 #endif /* ProjectSquad_Bridging_Header_h */

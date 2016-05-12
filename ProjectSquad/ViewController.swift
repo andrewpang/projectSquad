@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-import Kingfisher
-import CoreLocation
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
@@ -61,7 +59,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             print("error")
                         }
                         else {
-                            var fbloginresult : FBSDKLoginManagerLoginResult = result
+                            let fbloginresult : FBSDKLoginManagerLoginResult = result
                             if let token = fbloginresult.token{
                                 NetManager.sharedManager.loginWithToken(token, completionBlock: { (success: Bool, hasUsername: Bool) -> Void in
                                     self.performSegueWithIdentifier("loggedInSegue", sender: nil)

@@ -13,37 +13,36 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var oneSignal: OneSignal?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //registerForPushNotifications(application)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
+        oneSignal = OneSignal(launchOptions: launchOptions, appId: "1feb2290-e9e1-4ada-ac93-9f10b469f136", handleNotification: nil)
+        
+        OneSignal.defaultClient().enableInAppAlertNotification(true)
+        
+        //callback version
+        
+//        oneSignal = OneSignal(launchOptions: launchOptions, appId: "1feb2290-e9e1-4ada-ac93-9f10b469f136") { (message, additionalData, isActive) in
+//            NSLog("OneSignal Notification opened:\nMessage: %@", message)
+//            
+//            if additionalData != nil {
+//                NSLog("additionalData: %@", additionalData)
+//                // Check for and read any custom values you added to the notification
+//                // This done with the "Additonal Data" section the dashbaord.
+//                // OR setting the 'data' field on our REST API.
+//                if let customKey = additionalData["customKey"] as! String? {
+//                    NSLog("customKey: %@", customKey)
+//                }
+//            }
+//        }
+        
         return true
     }
     
-
-    
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        if notificationSettings.types != .None {
-            application.registerForRemoteNotifications()
-        }
-    }
-    
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
-        var tokenString = ""
-        
-        for i in 0..<deviceToken.length {
-            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
-        }
-        
-        print("Device Token:", tokenString)
-    }
-    
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print("Failed to register:", error)
-    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -99,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
 
-            dict[NSUnderlyingErrorKey] = error as NSError
+            dict[NSUnderlyingErrorKey] = error as! NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -145,11 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 annotation: annotation)
     }
 
-    func registerForPushNotifications(application: UIApplication) {
-        let notificationSettings = UIUserNotificationSettings(
-            forTypes: [.Badge, .Sound, .Alert], categories: nil)
-        application.registerUserNotificationSettings(notificationSettings)
-    }
+
     
 }
 

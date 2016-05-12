@@ -6,5 +6,6 @@ pod 'JSQMessagesViewController'
 pod 'GeoFire', '>= 1.1'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Kingfisher', '~> 2.2'
+pod 'OneSignal'
 end
 

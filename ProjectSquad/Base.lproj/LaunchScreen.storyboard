@@ -21,44 +21,41 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="SquadIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZUf-xB-guH">
                                 <rect key="frame" x="180" y="167" width="240" height="128"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="1vW-Mv-SPv"/>
-                                    <constraint firstAttribute="width" constant="250" id="i2y-0b-nln"/>
+                                    <constraint firstAttribute="height" constant="235" id="oLB-f8-DhK"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="1vW-Mv-SPv"/>
-                                        <exclude reference="i2y-0b-nln"/>
+                                        <exclude reference="oLB-f8-DhK"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="1vW-Mv-SPv"/>
-                                        <include reference="i2y-0b-nln"/>
+                                        <include reference="oLB-f8-DhK"/>
                                     </mask>
                                 </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ZUf-xB-guH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Juw-1X-lF5"/>
-                            <constraint firstItem="ZUf-xB-guH" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="139" id="YBd-a1-LOT"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="ZUf-xB-guH" secondAttribute="bottom" constant="206" id="gbN-pI-tbf"/>
-                            <constraint firstItem="ZUf-xB-guH" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="55" id="uFa-I2-dZf"/>
+                            <constraint firstItem="ZUf-xB-guH" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="55" id="695-qr-KtP"/>
+                            <constraint firstItem="ZUf-xB-guH" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="139" id="hEp-ZA-yw1"/>
+                            <constraint firstItem="ZUf-xB-guH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="jaq-qd-JNr"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="ZUf-xB-guH" secondAttribute="bottom" constant="206" id="wvI-Pi-58a"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Juw-1X-lF5"/>
-                                <exclude reference="YBd-a1-LOT"/>
-                                <exclude reference="uFa-I2-dZf"/>
-                                <exclude reference="gbN-pI-tbf"/>
+                                <exclude reference="695-qr-KtP"/>
+                                <exclude reference="hEp-ZA-yw1"/>
+                                <exclude reference="jaq-qd-JNr"/>
+                                <exclude reference="wvI-Pi-58a"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
-                                <include reference="Juw-1X-lF5"/>
-                                <include reference="YBd-a1-LOT"/>
-                                <include reference="uFa-I2-dZf"/>
-                                <include reference="gbN-pI-tbf"/>
+                                <include reference="695-qr-KtP"/>
+                                <include reference="hEp-ZA-yw1"/>
+                                <include reference="jaq-qd-JNr"/>
+                                <include reference="wvI-Pi-58a"/>
                             </mask>
                         </variation>
                     </view>
