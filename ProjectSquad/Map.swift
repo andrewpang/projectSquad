@@ -66,6 +66,12 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         self.navigationItem.titleView = containerView
         self.navigationItem.titleView?.userInteractionEnabled = true
         self.navigationItem.titleView?.addGestureRecognizer(tap)
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
+        let barButton = UIBarButtonItem()
+        barButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = barButton
     
     }
     

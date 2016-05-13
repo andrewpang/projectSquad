@@ -33,21 +33,21 @@ class RequestViewController: UITableViewController, CustomCellDelegator {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Invites"
-        let containerView = UIView()
+        title = "INVITES"
         let titleLabel = UILabel()
         titleLabel.font = Themes.Fonts.bigBold
         titleLabel.attributedText = NSAttributedString(string: self.title!)
         titleLabel.kern(Themes.Fonts.kerning)
         titleLabel.textColor = Themes.Colors.light
         titleLabel.sizeToFit()
-        
-        containerView.frame.size.height = titleLabel.frame.size.height
-        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
-        containerView.addSubview(titleLabel)
+
         self.tabBarController?.tabBar.hidden = true
-        self.navigationItem.titleView = containerView
+        self.navigationItem.titleView = titleLabel
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
+        let barButton = UIBarButtonItem()
+        barButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = barButton
         
         NetManager.sharedManager.getSquadRequests({result in
             self.squadId.removeAll()

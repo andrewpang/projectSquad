@@ -21,24 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         oneSignal = OneSignal(launchOptions: launchOptions, appId: "1feb2290-e9e1-4ada-ac93-9f10b469f136", handleNotification: nil)
-        
-        OneSignal.defaultClient().enableInAppAlertNotification(true)
-        
-        //callback version
-        
-//        oneSignal = OneSignal(launchOptions: launchOptions, appId: "1feb2290-e9e1-4ada-ac93-9f10b469f136") { (message, additionalData, isActive) in
-//            NSLog("OneSignal Notification opened:\nMessage: %@", message)
-//            
-//            if additionalData != nil {
-//                NSLog("additionalData: %@", additionalData)
-//                // Check for and read any custom values you added to the notification
-//                // This done with the "Additonal Data" section the dashbaord.
-//                // OR setting the 'data' field on our REST API.
-//                if let customKey = additionalData["customKey"] as! String? {
-//                    NSLog("customKey: %@", customKey)
-//                }
-//            }
-//        }
+        OneSignal.defaultClient().enableInAppAlertNotification(false)
         
         return true
     }

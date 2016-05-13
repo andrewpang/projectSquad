@@ -223,21 +223,7 @@ class NetManager {
                 if let error = error {
                     //print("Error sending profile info! \(error)")
                 }
-                
-                //Send push notification
-                let userRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(userId).childByAppendingPath("oneSignalId")
-                userRef.observeEventType(.Value, withBlock: { snapshot in
-                    if snapshot.exists() {
-                        let oneSignalId = snapshot.value as! String
-                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                        let oneSignal = appDelegate.oneSignal
-                        oneSignal!.postNotification(["contents": ["en": "You have a new Squad invite!"], "include_player_ids": [oneSignalId], "ios_badgeCount": "1", "ios_badgeType": "Increase"]);
-                    }
-                    else{
-                        print("No OneSignal Id")
-                    }
-                })
-                
+                self.sendPushNotification("You have a new Squad invite!", userId: userId)
             })
     }
     
@@ -400,6 +386,24 @@ class NetManager {
                 }
         })
         
+    }
+    
+    func sendPushNotification(message: String, userId: String){
+        //Send push notification
+        let userRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(userId).childByAppendingPath("oneSignalId")
+        userRef.observeEventType(.Value, withBlock: { snapshot in
+            if snapshot.exists() {
+                let oneSignalId = snapshot.value as! String
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let oneSignal = appDelegate.oneSignal
+                oneSignal!.postNotification(["contents": ["en": message], "include_player_ids": [oneSignalId], "ios_badgeCount": "1", "ios_badgeType": "Increase"]);
+            }
+            else{
+                print("No OneSignal Id")
+            }
+        })
+        
+
     }
     
     //MARK: - Helpers

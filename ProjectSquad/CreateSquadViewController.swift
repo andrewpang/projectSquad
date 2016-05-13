@@ -27,7 +27,7 @@ class CreateSquadViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Create Squad"
+        title = "CREATE SQUAD"
         
         datePicker.addTarget(self, action: #selector(CreateSquadViewController.datePickerChanged), forControlEvents: UIControlEvents.ValueChanged)
         let strDate = "2015-11-01T11:00:00Z" 
@@ -42,7 +42,6 @@ class CreateSquadViewController: UIViewController{
             #selector(CreateSquadViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        let containerView = UIView()
         let titleLabel = UILabel()
         titleLabel.font = Themes.Fonts.bigBold
         titleLabel.attributedText = NSAttributedString(string: self.title!)
@@ -50,17 +49,18 @@ class CreateSquadViewController: UIViewController{
         titleLabel.textColor = Themes.Colors.light
         titleLabel.sizeToFit()
         
-        containerView.frame.size.height = titleLabel.frame.size.height
-        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
-//        //containerView.userInteractionEnabled = true
 //        
 //        let backTap = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.backToMap))
         
-        containerView.addSubview(titleLabel)
+        //containerView.addSubview(titleLabel)
         
         self.tabBarController?.tabBar.hidden = true
-        self.navigationItem.titleView = containerView
+        self.navigationItem.titleView = titleLabel
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
+        let barButton = UIBarButtonItem()
+        barButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = barButton
         
     }
     

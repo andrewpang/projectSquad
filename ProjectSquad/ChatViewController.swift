@@ -15,18 +15,17 @@ class ChatViewController: JSQMessagesViewController {
     
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.lightGrayColor())
     let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(red:1.00, green:0.55, blue:0.60, alpha:1.0))
-        //UIColor(red: 10/255, green: 180/255, blue: 230/255, alpha: 1.0))
     var messages = [JSQMessage]()
-    //
     var groupId: String?
     
     var image: UIImage?
     var imageDict: [String: UIImageView] = [:]
     var userAvatar: UIImageView?
+    var members: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Squad Chat"
+        title = "SQUAD CHAT"
         //
         self.senderDisplayName = NetManager.sharedManager.currentUserData!.displayName
         self.senderId = NetManager.sharedManager.currentUserData!.uid
@@ -43,7 +42,6 @@ class ChatViewController: JSQMessagesViewController {
         //No attachment
         self.inputToolbar.contentView.leftBarButtonItem = nil
         
-        let containerView = UIView()
         let titleLabel = UILabel()
         titleLabel.font = Themes.Fonts.bigBold
         titleLabel.attributedText = NSAttributedString(string: self.title!)
@@ -51,24 +49,21 @@ class ChatViewController: JSQMessagesViewController {
         titleLabel.textColor = Themes.Colors.light
         titleLabel.sizeToFit()
         
-        containerView.frame.size.height = titleLabel.frame.size.height
-        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
         //containerView.userInteractionEnabled = true
         
         let backTap = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.backToMap))
         
-        containerView.addSubview(titleLabel)
-        
         self.tabBarController?.tabBar.hidden = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ChatViewController.backToMap))
         
-        self.navigationItem.titleView = containerView
+        self.navigationItem.titleView = titleLabel
         self.navigationItem.titleView?.userInteractionEnabled = true
         self.navigationItem.titleView?.addGestureRecognizer(backTap)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         NetManager.sharedManager.getSquad(NetManager.sharedManager.currentSquadData!.id, block: {
             squad in
             for(name, id) in squad.members{
+                self.members.append(id)
                 NetManager.sharedManager.getUserByUID(id, block: {
                     user in
                     self.imageDict[user.uid] = UIImageView()
@@ -113,17 +108,6 @@ class ChatViewController: JSQMessagesViewController {
         self.collectionView?.reloadData()
     }
     
-    
-//    func addDemoMessages() {
-//        for i in 1...10 {
-//            let sender = (i%2 == 0) ? "Server" : self.senderId
-//            let messageContent = "Message nr. \(i)"
-//            let message = JSQMessage(senderId: sender, displayName: sender, text: messageContent)
-//            self.messages += [message]
-//        }
-//        self.reloadMessagesView()
-//    }
-    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
     }
@@ -165,13 +149,6 @@ class ChatViewController: JSQMessagesViewController {
     
     func addMessage(id: String, name:String, text: String) -> JSQMessage {
         let message = JSQMessage(senderId: id, displayName: name, text: text)
-//        let notification = UILocalNotification()
-//        notification.fireDate = NSDate(timeIntervalSinceNow: 5)
-//        notification.alertBody = text
-//        notification.alertAction = "open squad"
-//        notification.soundName = UILocalNotificationDefaultSoundName
-//        notification.userInfo = ["CustomField1": "w00t"]
-//        UIApplication.sharedApplication().scheduleLocalNotification(notification)
         return message
     }
     
@@ -180,7 +157,13 @@ class ChatViewController: JSQMessagesViewController {
             
             let message = addMessage(senderId, name: senderDisplayName, text: text)
             NetManager.sharedManager.addChatMessage(message, groupId: self.groupId!)
-            
+        
+            for member in members{
+                if(member != NetManager.sharedManager.currentUserData!.uid){
+                    NetManager.sharedManager.sendPushNotification(text, userId: member)
+                }
+            }
+        
             // 4
             JSQSystemSoundPlayer.jsq_playMessageSentSound()
             

@@ -52,6 +52,22 @@ class AddFriendViewController: UIViewController, UITableViewDataSource, UITableV
                 self.tableView.reloadData()
             }
         })
+        
+        let titleLabel = UILabel()
+        titleLabel.font = Themes.Fonts.bigBold
+        titleLabel.attributedText = NSAttributedString(string: "ADD FRIENDS")
+        titleLabel.kern(Themes.Fonts.kerning)
+        titleLabel.textColor = Themes.Colors.light
+        titleLabel.sizeToFit()
+        
+        self.tabBarController?.tabBar.hidden = true
+        self.navigationItem.titleView = titleLabel
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
+        let barButton = UIBarButtonItem()
+        barButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = barButton
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

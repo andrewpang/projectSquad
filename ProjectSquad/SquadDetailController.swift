@@ -27,7 +27,6 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
             memberIds.append(id)
         }
         
-        let containerView = UIView()
         let titleLabel = UILabel()
         titleLabel.font = Themes.Fonts.bigBold
         titleLabel.attributedText = NSAttributedString(string: self.squadName!)
@@ -35,11 +34,7 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
         titleLabel.textColor = Themes.Colors.light
         titleLabel.sizeToFit()
         
-        containerView.frame.size.height = titleLabel.frame.size.height
-        containerView.frame.size.width = titleLabel.frame.size.width + titleLabel.frame.size.height
-        containerView.addSubview(titleLabel)
-        
-        self.navigationItem.titleView = containerView
+        self.navigationItem.titleView = titleLabel
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
         
