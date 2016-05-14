@@ -13,17 +13,26 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     let fbReadPermissions = ["public_profile", "email", "user_friends"]
     var fbLoginManager : FBSDKLoginManager?
+    var coverView: UIView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let size: CGSize = self.view.frame.size;
+        coverView = UIView(frame: self.view.frame)
+        coverView!.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
+        coverView!.layer.zPosition = 1
+        self.view.addSubview(coverView!)
+        
+        
         let fbView : FBSDKLoginButton = FBSDKLoginButton()
         fbView.center = CGPointMake(size.width/2, size.height/(1.3))
         self.view.addSubview(fbView)
         fbView.readPermissions = fbReadPermissions
         fbView.delegate = self
         fbLoginManager = FBSDKLoginManager()
+        
+        
         
     }
     
@@ -118,6 +127,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             })
             
             }
+        }else{
+            self.coverView?.removeFromSuperview()
         }
 
     }

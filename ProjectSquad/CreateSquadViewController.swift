@@ -65,6 +65,7 @@ class CreateSquadViewController: UIViewController{
     }
     
     func datePickerChanged(datePicker:UIDatePicker) {
+        dismissKeyboard()
         datePicked = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a 'on' MMM d, yyyy"
