@@ -75,7 +75,7 @@ class SquadDetailController: UIViewController, UITableViewDataSource, UITableVie
         let alert = UIAlertController(title: "Confirm", message: "Are you sure you want to leave this squad?", preferredStyle: UIAlertControllerStyle.Alert)
         
         // add the actions (buttons)
-        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: {
+        alert.addAction(UIAlertAction(title: "Leave", style: UIAlertActionStyle.Default, handler: {
             action in
             NetManager.sharedManager.leaveSquad({
                 block in

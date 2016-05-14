@@ -36,7 +36,13 @@ class CreateSquadViewController: UIViewController{
         let defaultDate = dateFormatter.dateFromString(strDate)
         datePicker.setDate(defaultDate!, animated: true)
         datePicker.setValue(UIColor(red:1.00, green:0.55, blue:0.60, alpha:1.0), forKeyPath: "textColor")
-        datePicked = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
+        datePicked = NSDate().dateByAddingTimeInterval(484887600)
+
+        dateFormatter.dateFormat = "h:mm a 'on' MMM d"
+        dateFormatter.AMSymbol = "AM"
+        dateFormatter.PMSymbol = "PM"
+        expiresLabel.text = "Expires at: " + dateFormatter.stringFromDate(datePicked!)
+        
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:
             #selector(CreateSquadViewController.dismissKeyboard))
@@ -68,7 +74,7 @@ class CreateSquadViewController: UIViewController{
         dismissKeyboard()
         datePicked = NSDate().dateByAddingTimeInterval(datePicker.countDownDuration)
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "h:mm a 'on' MMM d, yyyy"
+        dateFormatter.dateFormat = "h:mm a 'on' MMM d"
         dateFormatter.AMSymbol = "AM"
         dateFormatter.PMSymbol = "PM"
         expiresLabel.text = "Expires at: " + dateFormatter.stringFromDate(datePicked!)
@@ -76,14 +82,24 @@ class CreateSquadViewController: UIViewController{
 
     @IBAction func goToInvite(sender: AnyObject) {
         let whitespace = NSCharacterSet.whitespaceCharacterSet()
-        if(self.squadNameTextField.text!.stringByTrimmingCharactersInSet(whitespace) == ""){
-            squadNameTextField.attributedPlaceholder = NSAttributedString(string:"Please enter a squad name", attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
-        }
-        if(self.squadGoalTextField.text!.stringByTrimmingCharactersInSet(whitespace) == ""){
-            squadGoalTextField.attributedPlaceholder = NSAttributedString(string:"Please enter a description", attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
-        }
+//        if(self.squadNameTextField.text!.stringByTrimmingCharactersInSet(whitespace) == ""){
+//            squadNameTextField.attributedPlaceholder = NSAttributedString(string:"Please enter a squad name", attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+//        }
+//        if(self.squadGoalTextField.text!.stringByTrimmingCharactersInSet(whitespace) == ""){
+//            squadGoalTextField.attributedPlaceholder = NSAttributedString(string:"Please enter a description", attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+//        }
         if(self.squadNameTextField.text!.stringByTrimmingCharactersInSet(whitespace) != "" && self.squadGoalTextField.text!.stringByTrimmingCharactersInSet(whitespace) != ""){
             self.performSegueWithIdentifier("inviteSegue", sender: nil)
+        }else{
+            // create the alert
+            let alert = UIAlertController(title: "Please enter all fields", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            // add the actions (buttons)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            // show the alert
+            self.presentViewController(alert, animated: true, completion: nil)
+
         }
     }
     
