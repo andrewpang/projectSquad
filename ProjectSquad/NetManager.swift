@@ -98,7 +98,7 @@ class NetManager {
     
     //Get current user's facebook friends
     func getFacebookFriends(block: (resultDict: NSDictionary) -> Void) {
-        let fbRequest = FBSDKGraphRequest(graphPath:"/me/friends", parameters: ["fields": "id, name, location"]);
+        let fbRequest = FBSDKGraphRequest(graphPath:"/me/friends?limit=1000", parameters: ["fields": "id, name, location"]);
         fbRequest.startWithCompletionHandler { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
             
             var resultDictionary:NSDictionary!

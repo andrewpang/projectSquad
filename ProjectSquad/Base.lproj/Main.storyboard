@@ -149,15 +149,15 @@
                                 <exclude reference="s3X-ZM-EF7"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="TZg-iT-d7t"/>
+                                <exclude reference="VyK-7M-sOV"/>
+                                <exclude reference="HWu-kp-hvM"/>
+                                <exclude reference="tEj-dF-fxI"/>
                                 <exclude reference="VAJ-nL-oYC"/>
                                 <exclude reference="h1p-y2-D7z"/>
                                 <exclude reference="hOf-qB-HCx"/>
                                 <exclude reference="nyK-am-vEc"/>
                                 <exclude reference="vU3-0e-K8n"/>
-                                <exclude reference="HWu-kp-hvM"/>
-                                <exclude reference="tEj-dF-fxI"/>
-                                <exclude reference="VyK-7M-sOV"/>
-                                <exclude reference="TZg-iT-d7t"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -167,15 +167,15 @@
                                 <include reference="s3X-ZM-EF7"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="TZg-iT-d7t"/>
+                                <include reference="VyK-7M-sOV"/>
+                                <include reference="HWu-kp-hvM"/>
+                                <include reference="tEj-dF-fxI"/>
                                 <include reference="VAJ-nL-oYC"/>
                                 <include reference="h1p-y2-D7z"/>
                                 <include reference="hOf-qB-HCx"/>
                                 <include reference="nyK-am-vEc"/>
                                 <include reference="vU3-0e-K8n"/>
-                                <include reference="HWu-kp-hvM"/>
-                                <include reference="tEj-dF-fxI"/>
-                                <include reference="VyK-7M-sOV"/>
-                                <include reference="TZg-iT-d7t"/>
                             </mask>
                         </variation>
                     </view>
