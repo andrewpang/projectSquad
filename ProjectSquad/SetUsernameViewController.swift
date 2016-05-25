@@ -27,18 +27,58 @@ class SetUsernameViewController: UIViewController {
     
     @IBAction func setUsername(sender: AnyObject) {
         let whitespace = NSCharacterSet.whitespaceCharacterSet()
-        if(self.usernameTextField.text!.stringByTrimmingCharactersInSet(whitespace) == ""){
-            usernameTextField.attributedPlaceholder = NSAttributedString(string:"Please enter a username", attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+        let trimmed = self.usernameTextField.text!.stringByTrimmingCharactersInSet(whitespace)
+
+        let range = trimmed.rangeOfCharacterFromSet(whitespace)
+        //Check blank
+        if(trimmed == ""){
+            self.usernameTextField.text = ""
+            let alert = UIAlertController(title: "Please enter a valid username", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        //Check if username is too long
+        else if(trimmed.characters.count > 20){
+            self.usernameTextField.text = ""
+            let alert = UIAlertController(title: "Please enter a username with less than 20 characters", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        // range will be nil if no whitespace is found
+        else if let test = range {
+            self.usernameTextField.text = ""
+            let alert = UIAlertController(title: "Please enter valid username with no spaces", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         else{
-            NetManager.sharedManager.setUsername(self.usernameTextField.text!) { (error: NSError?) -> Void in
-                if error == nil {
-                    print("Successfully set username!")
-                    self.performSegueWithIdentifier("usernameSetSegue", sender: nil)
-                } else {
-                    print("Couldn't set username!")
-                }
-            }
+            NetManager.sharedManager.setUsername(trimmed) { (error: NSError?) -> Void in
+                                        if error == nil {
+                                            print("Successfully set username!")
+                                            self.performSegueWithIdentifier("usernameSetSegue", sender: nil)
+                                        } else {
+                                            print("Couldn't set username!")
+                                        }
+                                    }
+            //TODO:  Check if username exists already
+//            NetManager.sharedManager.checkUsername(trimmed, block: {
+//                result in
+//                if(result == true){
+//                    self.usernameTextField.text = ""
+//                    let alert = UIAlertController(title: "Username taken", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+//                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+//                    self.presentViewController(alert, animated: true, completion: nil)
+//                }else{
+//                    NetManager.sharedManager.setUsername(trimmed) { (error: NSError?) -> Void in
+//                        if error == nil {
+//                            print("Successfully set username!")
+//                            self.performSegueWithIdentifier("usernameSetSegue", sender: nil)
+//                        } else {
+//                            print("Couldn't set username!")
+//                        }
+//                    }
+//                }
+//            })
         }
     }
 

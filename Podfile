@@ -1,9 +1,10 @@
 platform :ios, "9.0"
 use_frameworks!
 target 'ProjectSquad' do
-pod 'Firebase'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
 pod 'JSQMessagesViewController'
-pod 'GeoFire', '>= 1.1'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Kingfisher', '~> 2.2'
 pod 'OneSignal'

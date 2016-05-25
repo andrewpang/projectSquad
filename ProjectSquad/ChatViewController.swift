@@ -85,15 +85,15 @@ class ChatViewController: JSQMessagesViewController {
         super.viewDidAppear(animated)
     
         //Gets existing chat from Firebase
-        let ref = Firebase(url: "https://squad-development.firebaseio.com/")
-        let chatRef = ref.childByAppendingPath("chat")
-        let groupChatRef = chatRef.childByAppendingPath(groupId)
+        var rootRef = FIRDatabase.database().reference()
+        let chatRef = rootRef.child("chat")
+        let groupChatRef = chatRef.child(groupId!)
         
-        groupChatRef.queryLimitedToLast(25).observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) in
-            let text = snapshot.value["text"] as? String
-            let id = snapshot.value["sender"] as? String
-            let name = snapshot.value["senderName"] as? String
-            let dateInterval = snapshot.value["date"] as? NSTimeInterval
+        groupChatRef.queryLimitedToLast(25).observeEventType(FIRDataEventType.ChildAdded, withBlock: { (snapshot) in
+            let text = snapshot.value!["text"] as? String
+            let id = snapshot.value!["sender"] as? String
+            let name = snapshot.value!["senderName"] as? String
+            let dateInterval = snapshot.value!["date"] as? NSTimeInterval
             let date = NSDate(timeIntervalSince1970: dateInterval!)
             
             

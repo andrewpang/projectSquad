@@ -10,11 +10,11 @@ import Foundation
 import Firebase
 import MapKit
 import JSQMessagesViewController
-import GeoFire
 
 class NetManager {
     
     static let sharedManager = NetManager()
+    var rootRef = FIRDatabase.database().reference()
     private let firebaseRefURL = "https://squad-development.firebaseio.com/"
     var currentUserData: User?
     var currentSquadData: Squad?
@@ -22,42 +22,43 @@ class NetManager {
     
     //Login to facebook, set currentUserData
     func loginWithToken(token: FBSDKAccessToken, completionBlock: (success: Bool, hasUsername: Bool) -> Void) {
-        let ref = Firebase(url: self.firebaseRefURL)
+        //Enabling disk persistence
+        FIRDatabase.database().persistenceEnabled = true
         
-        ref.authWithOAuthProvider("facebook", token: token.tokenString, withCompletionBlock: { (error: NSError?, authData: FAuthData?) -> Void in
-            if let error = error {
-                // TODO: Handle errors
-                //print("Error logging in \(error)")
-            } else if let authData = authData {
-                //print("Login successful! \(authData)")
-                
-                let provider = authData.provider
-                let uid = authData.uid
-                let displayName = authData.providerData["displayName"] as! String
+        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+        
+        FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+            if let error = error{
+               print("Error logging in \(error)")
+            }else{
+                let provider = user?.providerID
+                let uid = user?.uid
+                let displayName = user?.displayName
                 var email = ""
-                if let emailData = authData.providerData["email"]{
-                    email = emailData as! String
+                if let emailData = user?.email{
+                    email = emailData
                 }
-                let profPicURL = authData.providerData["profileImageURL"] as! String
+                let profPicURL = user?.photoURL!.absoluteString
                 
-                self.currentUserData = User(uid: uid, provider: provider, displayName: displayName, email: email, picURL: profPicURL)
+                self.currentUserData = User(uid: uid!, provider: provider!, displayName: displayName!, email: email, picURL: profPicURL!)
                 
-                let userRef = ref.childByAppendingPath("users").childByAppendingPath(uid)
-                userRef.updateChildValues(self.currentUserData!.returnFBUserDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase!) -> Void in
-                    if error == nil {
-                        firebase.observeSingleEventOfType(.Value, withBlock: { (snapshot: FDataSnapshot!) -> Void in
-                            if snapshot.value["username"]! == nil {
-                                completionBlock(success: true, hasUsername: false)
-                            } else {
-                                completionBlock(success: true, hasUsername: true)
-                            }
-                        })
-                    } else {
-                        completionBlock(success: false, hasUsername: false)
+                let userRef = self.rootRef.child("users").child(uid!)
+                userRef.updateChildValues(self.currentUserData!.returnFBUserDict(), withCompletionBlock:{
+                    error, ref in
+                    //TODO:CHECK error: completionBlock(success: false, hasUsername: false)
+                    ref.observeSingleEventOfType(.Value, withBlock: {
+                        snapshot in
+                        if snapshot.value!["username"]! == nil {
+                            completionBlock(success: true, hasUsername: false)
+                        } else {
+                        completionBlock(success: true, hasUsername: true)
+                        }
+                    })
                     }
-                })
+                )
             }
-        })
+        }
+        
     }
     
     func setCurrentUser(user: User){
@@ -65,7 +66,7 @@ class NetManager {
     }
     
     func userHasUsername(block: (hasUsername: Bool) -> Void){
-        let userRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid).childByAppendingPath("username")
+        let userRef = rootRef.child("users").child(self.currentUserData!.uid).child("username")
         userRef.observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 block(hasUsername: true)
@@ -77,9 +78,9 @@ class NetManager {
     }
 
     func addFriend(friendID: String, friendUsername: String) {
-        let friendsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(currentUserData!.uid).childByAppendingPath("friends")
+        let friendsRef = rootRef.child("users").child(currentUserData!.uid).child("friends")
         friendsRef.updateChildValues([friendID: friendUsername],
-            withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+            withCompletionBlock: { error, ref in
             if let error = error {
                 //print("Error sending profile info! \(error)")
             }
@@ -88,7 +89,7 @@ class NetManager {
     
     //Get current user's friends
     func getFriends(uid: String) {
-        let friendsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(uid).childByAppendingPath("friends")
+        let friendsRef = rootRef.child("users").child(uid).child("friends")
         friendsRef.observeEventType(.Value, withBlock: { snapshot in
             //print(snapshot)
             }, withCancelBlock: { error in
@@ -114,24 +115,26 @@ class NetManager {
     
     //Set current user's username
     func setUsername(username: String, completionBlock: (error: NSError?) -> Void) {
-        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid)
-
-        ref.updateChildValues(["username": username]) { (error: NSError?, firebase: Firebase!) -> Void in
-            completionBlock(error: error)
+        let ref = rootRef.child("users").child(self.currentUserData!.uid)
+        let usernameRef = rootRef.child("usernames")
+        ref.updateChildValues(["username": username]) { error, ref in
+            usernameRef.updateChildValues([username: self.currentUserData!.uid]) { error, ref in
+                completionBlock(error: error)
+            }
         }
     }
     
     //Set OneSignal push notification Id
     func setOneSignalId(id: String, completionBlock: (error: NSError?) -> Void){
-        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid)
+        let ref = rootRef.child("users").child(self.currentUserData!.uid)
         
-        ref.updateChildValues(["oneSignalId": id]) { (error: NSError?, firebase: Firebase!) -> Void in
+        ref.updateChildValues(["oneSignalId": id]) { error, ref in
             completionBlock(error: error)
         }
     }
     
     func checkUserCurrentSquad(completionBlock: (squadId: String) -> Void) {
-        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData!.uid).childByAppendingPath("currentSquad")
+        let ref = rootRef.child("users").child(self.currentUserData!.uid).child("currentSquad")
         
         ref.observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
@@ -146,66 +149,67 @@ class NetManager {
     
     //MARK: - Location
     func listenForLocationUpdates(userId: String, block: (location: CLLocation) -> Void) {
-        let ref = Firebase(url: self.firebaseRefURL).childByAppendingPath("locations").childByAppendingPath(userId)
-        let geoFire = GeoFire(firebaseRef: ref)
-        
-        ref.observeEventType(.ChildAdded, withBlock: { snapshot in
-            self.processChildAddedAndChanged(geoFire, block: block)
-        })
-        
-        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
-            self.processChildAddedAndChanged(geoFire, block: block)
-        })
+        let ref = rootRef.child("locations").child(userId)
+//        let geoFire = GeoFire(firebaseRef: ref)
+//        
+//        ref.observeEventType(.ChildAdded, withBlock: { snapshot in
+//            self.processChildAddedAndChanged(geoFire, block: block)
+//        })
+//        
+//        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
+//            self.processChildAddedAndChanged(geoFire, block: block)
+//        })
     }
     
-    func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
-        geoFire.getLocationForKey("location", withCallback: { (location, error) in
-            if (error != nil) {
-                //print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
-            } else if (location != nil) {
-                block(location: location)
-//                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
-            } else {
-                //print("GeoFire does not contain a location for \"firebase-hq\"")
-            }
-        })
-    }
+//    func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
+//        geoFire.getLocationForKey("location", withCallback: { (location, error) in
+//            if (error != nil) {
+//                //print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+//            } else if (location != nil) {
+//                block(location: location)
+////                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+//            } else {
+//                //print("GeoFire does not contain a location for \"firebase-hq\"")
+//            }
+//        })
+//    }
     
     func updateCurrentLocation(currentLocation: CLLocation) {
-        if let ref = self.getCurrentUserLocationRef() {
-            let geofire = GeoFire(firebaseRef: ref)
-            geofire.setLocation(currentLocation, forKey: "location") { (error: NSError?) -> Void in
-                if (error != nil) {
-                    //print("An error occured: \(error)")
-                } else {
-//                    print("Saved location successfully!")
-                }
-            }
-        } else {
-            //print("Could NOT update location. User not authenticated.")
-        }
+//        if let ref = self.getCurrentUserLocationRef() {
+//            let geofire = GeoFire(firebaseRef: ref)
+//            geofire.setLocation(currentLocation, forKey: "location") { (error: NSError?) -> Void in
+//                if (error != nil) {
+//                    //print("An error occured: \(error)")
+//                } else {
+////                    print("Saved location successfully!")
+//                }
+//            }
+//        } else {
+//            //print("Could NOT update location. User not authenticated.")
+//        }
     }
 
-
-    //Get a user from username
-    func getUserByUsername(username: String) {
-        let ref = Firebase(url:self.firebaseRefURL).queryOrderedByChild("username").observeEventType(.ChildAdded, withBlock: { snapshot in
-            if let username = snapshot.value["username"] as? String {
-                //print("\(snapshot.key) is \(username) and \(snapshot.childSnapshotForPath("email"))")
+    func checkUsername(username: String, block: (bool: Bool) -> Void){
+        let ref = self.rootRef.child("usernames").child(username)
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            if snapshot.exists() {
+                block(bool: true)
+            }else{
+                block(bool: false)
             }
         })
     }
     
     func getUserByUID(uid: String, block: (user: User) -> Void){
-        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(uid)
+        let requestsRef = rootRef.child("users").child(uid)
         requestsRef.observeEventType(.Value, withBlock: { snapshot in
             //print(snapshot)
             let id = uid
-            let displayName = snapshot.value.valueForKey("displayName") as! String
-            let email = snapshot.value.valueForKey("email") as! String
-            let picURL = snapshot.value.valueForKey("picURL") as! String
-            let provider = snapshot.value.valueForKey("provider") as! String
-            let username = snapshot.value.valueForKey("username") as! String
+            let displayName = snapshot.value!["displayName"] as! String
+            let email = snapshot.value!["email"] as! String
+            let picURL = snapshot.value!["picURL"] as! String
+            let provider = snapshot.value!["provider"] as! String
+            let username = snapshot.value!["username"] as! String
             let returnedUser = User(uid: id, provider: provider, displayName: displayName, email: email, picURL: picURL)
             returnedUser.username = username
             block(user: returnedUser)
@@ -216,12 +220,12 @@ class NetManager {
     
     //Send a squad invite request
     func sendSquadRequest(userId: String, squadId: String, squadName: String) {
-        let requestRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(userId).childByAppendingPath("requests")
+        let requestRef = rootRef.child("users").child(userId).child("requests")
         
         requestRef.updateChildValues([squadId: squadName],
-            withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+            withCompletionBlock: { error, ref in
                 if let error = error {
-                    //print("Error sending profile info! \(error)")
+                    print("Error sending profile info! \(error)")
                 }
                 self.sendPushNotification("You have a new Squad invite!", userId: userId)
             })
@@ -229,9 +233,9 @@ class NetManager {
     
     //Creates a squad and sends out invite requests
     func setSquad(name: String, startTime: NSDate, endTime: NSDate, description: String, invites: [String: String]) {
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads")
+        let squadRef = rootRef.child("squads")
         let squad1Ref = squadRef.childByAutoId()
-        let membersRef = squad1Ref.childByAppendingPath("members")
+        let membersRef = squad1Ref.child("members")
         
         
         
@@ -240,21 +244,21 @@ class NetManager {
         let leader = [self.currentUserData!.displayName : self.currentUserData!.uid]
         let squadId = squad1Ref.key
         
-        let leaderRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(leaderId).childByAppendingPath("currentSquad")
+        let leaderRef = rootRef.child("users").child(leaderId).child("currentSquad")
         
         self.currentSquadData = Squad(id:squadId, name: name, startTime: startTime, endTime: endTime, description: description, leaderId: leaderId, members: leader)
         
         
-        squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+        squad1Ref.setValue(self.currentSquadData?.returnSquadDict(), withCompletionBlock: { error, ref in
                 if let error = error {
-                    //print("Error sending profile info! \(error)")
+                    print("Error sending profile info! \(error)")
                 } else{
                     //If no error with setting squad, set members of squad
                     membersRef.setValue(leader ,
-                        withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                        withCompletionBlock: { error, ref in
                             leaderRef.setValue(squadId)
                         if let error = error {
-                            //print("Error sending profile info! \(error)")
+                            print("Error sending profile info! \(error)")
                         }
                     })
             }
@@ -277,18 +281,18 @@ class NetManager {
     
     //Returns data about a squad from it's ID
     func getSquad(squadId: String, block: (squad: Squad) -> Void) {
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId)
+        let squadRef = rootRef.child("squads").child(squadId)
  
         squadRef.observeEventType(.Value, withBlock: { snapshot in
             //print(snapshot)
-            let squadName = snapshot.value.valueForKey("name") as! String
-            let description = snapshot.value.valueForKey("description") as! String
-            let startTime = snapshot.value.valueForKey("startTime") as! String
-            let endTime = snapshot.value.valueForKey("endTime") as! String
-            let leaderId = snapshot.value.valueForKey("leader") as! String
+            let squadName = snapshot.value!["name"] as! String
+            let description = snapshot.value!["description"] as! String
+            let startTime = snapshot.value!["startTime"] as! String
+            let endTime = snapshot.value!["endTime"] as! String
+            let leaderId = snapshot.value!["leader"] as! String
             let startDate = NSDate(timeIntervalSince1970: Double(startTime)!)
             let endDate = NSDate(timeIntervalSince1970: Double(endTime)!)
-            let memberRef = squadRef.childByAppendingPath("members")
+            let memberRef = squadRef.child("members")
             memberRef.observeEventType(.Value, withBlock: { snapshot in
                 //print(snapshot)
                 var membersDictionary: [String: String] = [:]
@@ -306,7 +310,7 @@ class NetManager {
     
     //Return current user's squad requests
     func getSquadRequests(block: (resultDict: NSDictionary) -> Void) {
-        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("requests")
+        let requestsRef = rootRef.child("users").child((self.currentUserData?.uid)!).child("requests")
     
         
         requestsRef.observeEventType(.Value, withBlock: { snapshot in
@@ -325,12 +329,12 @@ class NetManager {
     //Add current user to a squad
     func joinSquad(thisSquad: Squad, completionBlock: (error: NSError?) -> Void) {
         let squadId = thisSquad.id
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(squadId).childByAppendingPath("members")
-        let usersRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid)
-        let requestsRef = usersRef.childByAppendingPath("requests").childByAppendingPath(squadId)
-        let currentSquadRef = usersRef.childByAppendingPath("currentSquad")
+        let squadRef = rootRef.child("squads").child(squadId).child("members")
+        let usersRef = rootRef.child("users").child((self.currentUserData?.uid)!)
+        let requestsRef = usersRef.child("requests").child(squadId)
+        let currentSquadRef = usersRef.child("currentSquad")
         
-        squadRef.updateChildValues([(self.currentUserData?.displayName)!: (self.currentUserData?.uid)!]) { (error: NSError?, firebase: Firebase!) -> Void in
+        squadRef.updateChildValues([(self.currentUserData?.displayName)!: (self.currentUserData?.uid)!]) { (error, ref) -> Void in
             requestsRef.removeValue()
             currentSquadRef.setValue(squadId)
             completionBlock(error: error)
@@ -343,10 +347,10 @@ class NetManager {
     //Delete squad request
     func deleteSquadRequest(thisSquad: Squad, completionBlock: (error: NSError?) -> Void) {
         let squadId = thisSquad.id
-        let requestsRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("requests").childByAppendingPath(squadId)
+        let requestsRef = rootRef.child("users").child((self.currentUserData?.uid)!).child("requests").child(squadId)
         
         requestsRef.removeValueWithCompletionBlock({
-                (error: NSError?, firebase: Firebase!) -> Void in
+                (error, ref) in
                 completionBlock(error: error)
             })
 
@@ -355,12 +359,12 @@ class NetManager {
     }
     
     func leaveSquad(completionBlock: (error: NSError?) -> Void) {
-        let squadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("squads").childByAppendingPath(self.currentSquadData!.id).childByAppendingPath("members").childByAppendingPath(currentUserData!.displayName)
-        let currentSquadRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(self.currentUserData?.uid).childByAppendingPath("currentSquad")
+        let squadRef = rootRef.child("squads").child(self.currentSquadData!.id).child("members").child(currentUserData!.displayName)
+        let currentSquadRef = rootRef.child("users").child((self.currentUserData?.uid)!).child("currentSquad")
         
         squadRef.removeValueWithCompletionBlock({
-             (error: NSError?, firebase: Firebase!) -> Void in
-            currentSquadRef.removeValueWithCompletionBlock({(error: NSError?, firebase: Firebase!) -> Void in
+             (error, ref) -> Void in
+            currentSquadRef.removeValueWithCompletionBlock({(error, ref) -> Void in
 //                self.currentSquadData = nil
 //                self.currentUserData!.currentSquad = nil
                 completionBlock(error: error)
@@ -371,16 +375,16 @@ class NetManager {
     
     //Add chat message to Firebase
     func addChatMessage(message: JSQMessage, groupId: String){
-        let chatRef = Firebase(url:self.firebaseRefURL).childByAppendingPath("chat")
-        let groupChatRef = chatRef.childByAppendingPath(groupId)
+        let chatRef = rootRef.child("chat")
+        let groupChatRef = chatRef.child(groupId)
         let messageRef = groupChatRef.childByAutoId()
         
         messageRef.setValue([
                 "text": message.text,
                 "sender": message.senderId,
                 "senderName": message.senderDisplayName,
-                "date": FirebaseServerValue.timestamp()
-            ], withCompletionBlock: { (error: NSError?, firebase: Firebase?) -> Void in
+                "date": FIRServerValue.timestamp()
+            ], withCompletionBlock: { (error, ref) -> Void in
                 if let error = error {
                     //print("Error adding chat message! \(error)")
                 }
@@ -390,7 +394,7 @@ class NetManager {
     
     func sendPushNotification(message: String, userId: String){
         //Send push notification
-        let userRef = Firebase(url: self.firebaseRefURL).childByAppendingPath("users").childByAppendingPath(userId).childByAppendingPath("oneSignalId")
+        let userRef = rootRef.child("users").child(userId).child("oneSignalId")
         userRef.observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 let oneSignalId = snapshot.value as! String
@@ -405,40 +409,40 @@ class NetManager {
         
 
     }
-    
-    //MARK: - Helpers
-    private func getFirebaseRef() -> Firebase {
-        return Firebase(url: self.firebaseRefURL)
-    }
-    
-    private func getFirebaseLocationsRef() -> Firebase {
-        return Firebase(url: self.firebaseRefURL).childByAppendingPath("locations")
-    }
-    
-    private func getCurrentUserRef() -> Firebase {
-//        if let currentUserUID = currentUserUID {
-            return Firebase(url: self.firebaseRefURL).childByAppendingPath(currentUserData!.uid)
-//        }
-        
-//        return nil
-    }
-    
-    private func getCurrentUserLocationRef() -> Firebase? {
-//        if let currentUserUID = currentUserUID {
-            return Firebase(url: self.firebaseRefURL).childByAppendingPath("locations").childByAppendingPath(currentUserData!.uid)
-//        }
-        
-//        return nil
-    }
-    
-    private func getUserLocationRef(uid: String) -> Firebase {
-        return Firebase(url: self.firebaseRefURL).childByAppendingPath("locations").childByAppendingPath(uid)
-    }
-    
-    private func getFirebaseMessagesRef() -> Firebase {
-        return Firebase(url: self.firebaseRefURL).childByAppendingPath("messages")
-    }
-    
+//    
+//    //MARK: - Helpers
+//    private func getFirebaseRef() -> Firebase {
+//        return Firebase(url: self.firebaseRefURL)
+//    }
+//    
+//    private func getFirebaseLocationsRef() -> Firebase {
+//        return Firebase(url: self.firebaseRefURL).child("locations")
+//    }
+//    
+//    private func getCurrentUserRef() -> Firebase {
+////        if let currentUserUID = currentUserUID {
+//            return Firebase(url: self.firebaseRefURL).child(currentUserData!.uid)
+////        }
+//        
+////        return nil
+//    }
+//    
+//    private func getCurrentUserLocationRef() -> Firebase? {
+////        if let currentUserUID = currentUserUID {
+//            return Firebase(url: self.firebaseRefURL).child("locations").child(currentUserData!.uid)
+////        }
+//        
+////        return nil
+//    }
+//    
+//    private func getUserLocationRef(uid: String) -> Firebase {
+//        return Firebase(url: self.firebaseRefURL).child("locations").child(uid)
+//    }
+//    
+//    private func getFirebaseMessagesRef() -> Firebase {
+//        return Firebase(url: self.firebaseRefURL).child("messages")
+//    }
+//    
 
     
     

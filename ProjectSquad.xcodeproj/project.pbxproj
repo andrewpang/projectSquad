@@ -15,6 +15,7 @@
 		475A238E1CBD5803004C1A5D /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475A238D1CBD5803004C1A5D /* MenuController.swift */; };
 		47966B861CA26B4C00883F81 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47966B851CA26B4C00883F81 /* Message.swift */; };
 		47AE25961CAB4276005E14C0 /* CreateSquadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */; };
+		47AF2F3E1CF54C980089C1D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47AF2F3D1CF54C980089C1D8 /* GoogleService-Info.plist */; };
 		47B591B41CAD1F020011E366 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B591B31CAD1F020011E366 /* AddFriendViewController.swift */; };
 		47B591B81CAD279A0011E366 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B591B71CAD279A0011E366 /* UserCell.swift */; };
 		47EC9BB81CA35D5B00356BBD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */; };
@@ -56,6 +57,7 @@
 		475A238D1CBD5803004C1A5D /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		47966B851CA26B4C00883F81 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		47AE25951CAB4276005E14C0 /* CreateSquadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSquadViewController.swift; sourceTree = "<group>"; };
+		47AF2F3D1CF54C980089C1D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		47B591B31CAD1F020011E366 /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		47B591B71CAD279A0011E366 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		47EC9BB71CA35D5B00356BBD /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +77,7 @@
 		A418A6121C5D719300FCFB40 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A418A6141C5D719F00FCFB40 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A418A6171C5D724900FCFB40 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
-		A418A6191C5D836000FCFB40 /* NetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetManager.swift; sourceTree = "<group>"; };
+		A418A6191C5D836000FCFB40 /* NetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A4AC5C6D1C5ABC4900FEF25E /* ProjectSquad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectSquad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4AC5C701C5ABC4900FEF25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4AC5C721C5ABC4900FEF25E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				A418A6191C5D836000FCFB40 /* NetManager.swift */,
 				A4AC5C7A1C5ABC4900FEF25E /* Assets.xcassets */,
 				470F71A11C5D76C700112448 /* ProjectSquad-Bridging-Header.h */,
+				47AF2F3D1CF54C980089C1D8 /* GoogleService-Info.plist */,
 				A4AC5C7F1C5ABC4900FEF25E /* Info.plist */,
 				A4AC5C771C5ABC4900FEF25E /* ProjectSquad.xcdatamodeld */,
 			);
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4AC5C7E1C5ABC4900FEF25E /* LaunchScreen.storyboard in Resources */,
+				47AF2F3E1CF54C980089C1D8 /* GoogleService-Info.plist in Resources */,
 				A4AC5C7B1C5ABC4900FEF25E /* Assets.xcassets in Resources */,
 				A4AC5C761C5ABC4900FEF25E /* Main.storyboard in Resources */,
 			);
