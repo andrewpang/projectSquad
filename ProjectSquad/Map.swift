@@ -173,8 +173,8 @@ class Map: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         NetManager.sharedManager.updateCurrentLocation(locationObj)
         
         //Defer background updates
-        let distance: CLLocationDistance = 5
-        let time: NSTimeInterval = 15
+        let distance: CLLocationDistance = 10
+        let time: NSTimeInterval = 30
         locationManager.allowDeferredLocationUpdatesUntilTraveled(distance, timeout:time)
     }
     

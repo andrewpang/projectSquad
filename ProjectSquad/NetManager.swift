@@ -145,49 +145,6 @@ class NetManager {
             }
         })
     }
-    
-    
-    //MARK: - Location
-    func listenForLocationUpdates(userId: String, block: (location: CLLocation) -> Void) {
-        let ref = rootRef.child("locations").child(userId)
-//        let geoFire = GeoFire(firebaseRef: ref)
-//        
-//        ref.observeEventType(.ChildAdded, withBlock: { snapshot in
-//            self.processChildAddedAndChanged(geoFire, block: block)
-//        })
-//        
-//        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
-//            self.processChildAddedAndChanged(geoFire, block: block)
-//        })
-    }
-    
-//    func processChildAddedAndChanged(geoFire: GeoFire, block: (location: CLLocation) -> Void) {
-//        geoFire.getLocationForKey("location", withCallback: { (location, error) in
-//            if (error != nil) {
-//                //print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
-//            } else if (location != nil) {
-//                block(location: location)
-////                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
-//            } else {
-//                //print("GeoFire does not contain a location for \"firebase-hq\"")
-//            }
-//        })
-//    }
-    
-    func updateCurrentLocation(currentLocation: CLLocation) {
-//        if let ref = self.getCurrentUserLocationRef() {
-//            let geofire = GeoFire(firebaseRef: ref)
-//            geofire.setLocation(currentLocation, forKey: "location") { (error: NSError?) -> Void in
-//                if (error != nil) {
-//                    //print("An error occured: \(error)")
-//                } else {
-////                    print("Saved location successfully!")
-//                }
-//            }
-//        } else {
-//            //print("Could NOT update location. User not authenticated.")
-//        }
-    }
 
     func checkUsername(username: String, block: (bool: Bool) -> Void){
         let ref = self.rootRef.child("usernames").child(username)
@@ -406,43 +363,86 @@ class NetManager {
                 print("No OneSignal Id")
             }
         })
-        
-
     }
-//    
-//    //MARK: - Helpers
-//    private func getFirebaseRef() -> Firebase {
-//        return Firebase(url: self.firebaseRefURL)
-//    }
-//    
-//    private func getFirebaseLocationsRef() -> Firebase {
-//        return Firebase(url: self.firebaseRefURL).child("locations")
-//    }
-//    
-//    private func getCurrentUserRef() -> Firebase {
-////        if let currentUserUID = currentUserUID {
-//            return Firebase(url: self.firebaseRefURL).child(currentUserData!.uid)
-////        }
-//        
-////        return nil
-//    }
-//    
-//    private func getCurrentUserLocationRef() -> Firebase? {
-////        if let currentUserUID = currentUserUID {
-//            return Firebase(url: self.firebaseRefURL).child("locations").child(currentUserData!.uid)
-////        }
-//        
-////        return nil
-//    }
-//    
-//    private func getUserLocationRef(uid: String) -> Firebase {
-//        return Firebase(url: self.firebaseRefURL).child("locations").child(uid)
-//    }
-//    
-//    private func getFirebaseMessagesRef() -> Firebase {
-//        return Firebase(url: self.firebaseRefURL).child("messages")
-//    }
-//    
+    
+    //MARK: - Location
+    func listenForLocationUpdates(userId: String, block: (location: CLLocation) -> Void) {
+        let locationRef = rootRef.child("locations").child(userId)
+        let coordinateRef = locationRef.child("location").child("l")
+        
+        coordinateRef.observeEventType(.ChildAdded, withBlock: {
+            snapshot in
+            self.processChildAddedAndChanged(coordinateRef, block: block)
+        })
+        
+        coordinateRef.observeEventType(.ChildChanged, withBlock: {
+            snapshot in
+            self.processChildAddedAndChanged(coordinateRef, block: block)
+        })
+        
+        //        let geoFire = GeoFire(firebaseRef: ref)
+        //
+        //        ref.observeEventType(.ChildAdded, withBlock: { snapshot in
+        //            self.processChildAddedAndChanged(geoFire, block: block)
+        //        })
+        //
+        //        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
+        //            self.processChildAddedAndChanged(geoFire, block: block)
+        //        })
+    }
+    
+    func processChildAddedAndChanged(ref: FIRDatabaseReference, block: (location: CLLocation) -> Void) {
+        ref.observeEventType(.Value, withBlock: {
+            snapshot in
+            let children = snapshot.children
+            let lat = snapshot.value!.objectAtIndex(0) as! Double
+            let long = snapshot.value!.objectAtIndex(1) as! Double
+            let location = CLLocation(latitude: lat, longitude: long)
+            block(location: location)
+        })
+        
+    //        geoFire.getLocationForKey("location", withCallback: { (location, error) in
+    //            if (error != nil) {
+    //                //print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+    //            } else if (location != nil) {
+    //                block(location: location)
+    ////                print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+    //            } else {
+    //                //print("GeoFire does not contain a location for \"firebase-hq\"")
+    //            }
+    //        })
+        }
+    
+    func updateCurrentLocation(currentLocation: CLLocation) {
+        let locationRef = rootRef.child("locations").child(self.currentUserData!.uid)
+        let coordinateRef = locationRef.child("location").child("l")
+        let latRef = coordinateRef.child("0")
+        let longRef = coordinateRef.child("1")
+        let latitude = currentLocation.coordinate.latitude
+        let longitude = currentLocation.coordinate.longitude
+        
+        latRef.setValue(latitude, withCompletionBlock: {
+            (error, ref) in
+            if let error = error{
+                print("Error")
+            }else{
+                longRef.setValue(longitude)
+            }
+        })
+//                if let ref = self.getCurrentUserLocationRef() {
+//                    let geofire = GeoFire(firebaseRef: ref)
+//                    geofire.setLocation(currentLocation, forKey: "location") { (error: NSError?) -> Void in
+//                        if (error != nil) {
+//                            //print("An error occured: \(error)")
+//                        } else {
+//        //                    print("Saved location successfully!")
+//                        }
+//                    }
+//                } else {
+//                    //print("Could NOT update location. User not authenticated.")
+//                }
+    }
+
 
     
     
